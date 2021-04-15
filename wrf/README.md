@@ -13,12 +13,12 @@ module load openmpi
 module load wrf
 
 # Create a WRF test case
-export CASE_DIR=/path/to/wrf-case
+export CASE_DIR=${HOME}/benchmark
 mkdir $CASE_DIR
 
 # Copy input decks
 #  >  Input decks must include namelist.input, wrfdby_d01, and wrfinput_d01
-cp /path/to/input-decks/* ${CASE_DIR}/
+cp /opt/share/conus-2.5km/* ${CASE_DIR}/
 
 # Symbolic link in WRF executable
 ln -s $(spack external find -i wrf)/run/* ${CASE_DIR}/
@@ -27,3 +27,4 @@ ln -s $(spack external find -i wrf)/run/* ${CASE_DIR}/
 mpirun -np ${SLURM_NTASKS} --bind-to core --map-by core ./wrf.exe
 
 ```
+This example shows how to run the CONUS 2.5km benchmark in your `${HOME}/benchmark` directory. Note that the CONUS 2.5km input decks are included with this VM image.
