@@ -17,7 +17,7 @@ export CASE_DIR=/path/to/wrf-case
 mkdir $CASE_DIR
 
 # Copy input decks
-#  >  Input decks must include namelist.input, wrfdby_d01
+#  >  Input decks must include namelist.input, wrfdby_d01, and wrfinput_d01
 cp /path/to/input-decks/* ${CASE_DIR}/
 
 # Symbolic link in WRF executable
