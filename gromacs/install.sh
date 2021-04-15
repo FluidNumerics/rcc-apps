@@ -8,8 +8,8 @@
 # Set any package variables here
 INSTALL_ROOT="/opt"
 SPACK_VERSION="releases/latest"
-#GCC_VERSION="9.2.0"
-#OPENMPI_VERSION="4.0.5"
+GCC_VERSION="9.2.0"
+OPENMPI_VERSION="4.0.5"
 ###
 
 
@@ -36,8 +36,6 @@ spack_setup() {
   echo "module unuse /usr/share/modulefiles" >> /etc/profile.d/setup_spack.sh
   echo "module unuse /etc/modulefiles" >> /etc/profile.d/setup_spack.sh
   echo "module use ${INSTALL_ROOT}/spack/share/spack/lmod/linux-centos7-x86_64/Core" >> /etc/profile.d/setup_spack.sh
-  
-  
 }
 
 lmod_setup() {
@@ -70,11 +68,15 @@ EOL
 
 spack_setup()
 
-## Package Installation Instructions ##
+# Install GCC compiler (newer version than system compiler)
+spack install gcc@${GCC_VERSION}
+spack load gcc@${GCC_VERSION}
+spack compiler find
 
-#spack install gcc@${GCC_VERSION}
-#spack load gcc@${GCC_VERSION}
-#spack compiler find
-#
+# Add locally installed packages that are already available
+spack external find cuda --scope=site
+spack external find slurm --scope=site 
+
+spack install gromacs+blas+cuda+lapack ^openmpi@${OPENMPI_VERSION}%gcc@${GCC_VERSION}~atomics+cuda+cxx+cxx_exceptions+gpfs~java+legacylaunchers~lustre+memchecker+pmi~singularity~sqlite3+static~thread_multiple+vt+wrapper-rpath fabrics=auto schedulers=slurm
 
 lmod_setup()

@@ -1,0 +1,36 @@
+{
+  "variables": {
+    "project_id": "",
+    "zone": "us-central1-a",
+    "subnet": "default",
+    "source_image":"schedmd-slurm-20-11-4-hpc-centos-7-2021-03-12-215000",
+    "source_image_project":"schedmd-slurm-public",
+    "image_name":"wrf-gcp-centos7-latest",
+    "image_family":"wrf-gcp-centos7"
+  },
+  "builders": [{
+    "type": "googlecompute",
+    "project_id": "{{user `project_id`}}",
+    "source_image": "{{user `source_image`}}",
+    "source_image_project_id": "{{user `source_image_project`}}",
+    "machine_type": "n1-standard-16",
+    "disk_size": 50,
+    "zone": "{{user `zone`}}",
+    "subnetwork" :"{{user `subnet`}}",
+    "image_family": "{{user `image_family`}}",
+    "image_name": "{{user `image_name`}}",
+    "instance_name":"{{user `image_name`}}-image-node-{{timestamp}}",
+    "tags":["cloudbuild"],
+    "scopes":["https://www.googleapis.com/auth/cloud-platform"],
+    "ssh_username": "packer"
+  }],
+  "provisioners": [
+    {
+      "type": "shell",
+      "environment_vars":"{{user `project_id`}}",
+      "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
+      "script": "install.sh"
+    }
+  ]  
+}
+

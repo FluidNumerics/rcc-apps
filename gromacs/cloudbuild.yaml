@@ -21,7 +21,7 @@ substitutions:
     _SUBNETWORK: 'default'
     _SOURCE_IMAGE: 'schedmd-slurm-20-11-4-hpc-centos-7-2021-03-12-215000'
     _SOURCE_IMAGE_PROJECT: 'schedmd-slurm-public'
-    _IMAGE_NAME: 'wrf-gcp-centos7-latest'
-    _IMAGE_FAMILY: 'wrf-gcp-centos7'
+    _IMAGE_NAME: 'gromacs-centos7-latest'
+    _IMAGE_FAMILY: 'gromacs-centos7'
 
 timeout : 28800s

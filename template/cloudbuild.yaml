@@ -17,11 +17,11 @@ steps:
 
 
 substitutions:
-    _ZONE: 'us-central1-c' # default value
+    _ZONE: 'us-central1-c'
     _SUBNETWORK: 'default'
-    _SOURCE_IMAGE: "schedmd-slurm-20-11-4-hpc-centos-7-2021-03-12-215000",
-    _SOURCE_IMAGE_PROJECT: "schedmd-slurm-public",
-    _IMAGE_NAME: "APP_NAME-centos7-latest",
-    _IMAGE_FAMILY: "APP_NAME-centos7"
+    _SOURCE_IMAGE: 'schedmd-slurm-20-11-4-hpc-centos-7-2021-03-12-215000'
+    _SOURCE_IMAGE_PROJECT: 'schedmd-slurm-public'
+    _IMAGE_NAME: 'APP_NAME-centos7-latest'
+    _IMAGE_FAMILY: 'APP_NAME-centos7'
 
 timeout : 28800s
