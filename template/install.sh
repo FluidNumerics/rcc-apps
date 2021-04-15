@@ -68,13 +68,17 @@ EOL
 }
 ######################################################################################################################
 
-spack_setup()
+spack_setup
 
-## Package Installation Instructions ##
+## Find any external packages (e.g. slurm, cuda)
+#spack external find PKG --scope=site
 
+## Set up your compilers
 #spack install gcc@${GCC_VERSION}
 #spack load gcc@${GCC_VERSION}
 #spack compiler find
-#
 
-lmod_setup()
+## Package Installation Instructions ##
+
+
+lmod_setup

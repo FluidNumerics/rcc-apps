@@ -60,7 +60,8 @@ EOL
 }
 ######################################################################################################################
 
-spack_setup()
+spack_setup
+
 # Switch to newer compiler
 spack install gcc@${GCC_VERSION}
 spack load gcc@${GCC_VERSION}
@@ -76,4 +77,4 @@ spack install -y wrf@${WRF_VERSION} % gcc@${GCC_VERSION} ^openmpi@${OPENMPI_VERS
 mkdir -p ${INSTALL_ROOT}/share/conus-2.5km
 gsutil -u ${PROJECT_ID} cp gs://wrf-gcp-benchmark-data/benchmark/conus-2.5km/* ${INSTALL_ROOT}/share/conus-2.5km/
 
-lmod_setup()
+lmod_setup

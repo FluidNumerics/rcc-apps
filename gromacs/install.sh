@@ -66,7 +66,7 @@ EOL
 }
 ######################################################################################################################
 
-spack_setup()
+spack_setup
 
 # Install GCC compiler (newer version than system compiler)
 spack install gcc@${GCC_VERSION}
@@ -79,4 +79,4 @@ spack external find slurm --scope=site
 
 spack install gromacs+blas+cuda+lapack ^openmpi@${OPENMPI_VERSION}%gcc@${GCC_VERSION}~atomics+cuda+cxx+cxx_exceptions+gpfs~java+legacylaunchers~lustre+memchecker+pmi~singularity~sqlite3+static~thread_multiple+vt+wrapper-rpath fabrics=auto schedulers=slurm
 
-lmod_setup()
+lmod_setup
