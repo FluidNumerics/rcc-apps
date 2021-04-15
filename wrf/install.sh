@@ -66,6 +66,9 @@ spack install gcc@${GCC_VERSION}
 spack load gcc@${GCC_VERSION}
 spack compiler find
 
+# Find external packages if available
+spack external find slurm --scope=site
+
 # Install WRF
 spack install -y wrf@${WRF_VERSION} % gcc@${GCC_VERSION} ^openmpi@${OPENMPI_VERSION}~atomics+cuda+cxx+cxx_exceptions+gpfs~java+legacylaunchers~lustre+memchecker+pmi~singularity~sqlite3+static~thread_multiple+vt+wrapper-rpath fabrics=auto schedulers=slurm
 
