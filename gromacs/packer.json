@@ -27,7 +27,7 @@
   "provisioners": [
     {
       "type": "shell",
-      "environment_vars":"{{user `project_id`}}",
+      "environment_vars":["PROJECT_ID={{user `project_id`}}"],
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
       "script": "install.sh"
     }
