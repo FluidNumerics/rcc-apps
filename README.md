@@ -31,7 +31,7 @@ Each `cloudbuild.yaml` has the following variables
 
 * `_ZONE` -  The GCP Zone where the imaging node is deployed
 * `_SUBNETWORK` - The GCP Subnet used to deploy the imaging node
-* `_SOURCE_IMAGE` - The name of the VM image on GCP to start the build from
+* `_SOURCE_IMAGE_FAMILY` - The name of the VM image family on GCP to start the build from. Using the image family pulls the latest image in that family
 * `_SOURCE_IMAGE_PROJECT` - The GCP project hosting the VM image
 * `_IMAGE_NAME` - The name of the resulting VM image
 * `_IMAGE_FAMILY` - The name of the VM image family to sort the resulting image
@@ -42,3 +42,20 @@ gcloud builds submit . --async --project=PROJECT-ID --substitutions=_SOURCE_IMAG
 ```
 
 
+### Common Base Images
+
+**Base Operating System Images**
+* CentOS 7 - `_SOURCE_IMAGE_FAMILY=centos-7, _SOURCE_IMAGE_PROJECT=centos-cloud`
+* Debian 10 - `_SOURCE_IMAGE_FAMILY=debian-10, _SOURCE_IMAGE_PROJECT=debian-cloud`
+* Ubuntu 20.04 - `_SOURCE_IMAGE_FAMILY=ubuntu-2004-lts, _SOURCE_IMAGE_PROJECT=ubuntu-os-cloud`
+* CentOS 7 HPC VM Image - `_SOURCE_IMAGE_FAMILY=hpc-centos-7, _SOURCE_IMAGE_PROJECT=click-to-deploy-images`
+
+**Slurm-GCP Compatible Base Images**
+* CentOS 7, HPC SchedMD Slurm-GCP - `_SOURCE_IMAGE_FAMILY=schedmd-slurm-20-11-4-hpc-centos-7, _SOURCE_IMAGE_PROJECT=schedmd-slurm-public`
+* CentOS 7, SchedMD Slurm-GCP CentOS - `_SOURCE_IMAGE_FAMILY=schedmd-slurm-20-11-4-centos-7, _SOURCE_IMAGE_PROJECT=schedmd-slurm-public`
+* Debian 10, SchedMD Slurm-GCP - `_SOURCE_IMAGE_FAMILY=schedmd-slurm-20-11-4-debian-10, _SOURCE_IMAGE_PROJECT=schedmd-slurm-public`
+
+
+**Fluid-Slurm-GCP Compatible Base Images**
+* CentOS 7, Fluid-Slurm-GCP - `_SOURCE_IMAGE_FAMILY=fluid-slurm-gcp-compute-centos, _SOURCE_IMAGE_PROJECT=fluid-cluster-ops`
+* Ubuntu 20.04, Fluid-Slurm-GCP - `_SOURCE_IMAGE_FAMILY=fluid-slurm-gcp-compute-ubuntu, _SOURCE_IMAGE_PROJECT=fluid-cluster-ops`
