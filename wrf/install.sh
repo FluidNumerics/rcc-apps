@@ -20,7 +20,6 @@ spack_setup() {
   # Install lmod for module managament
   spack install lmod
   source $(spack location -i lmod)/lmod/lmod/init/bash
-  source /apps/spack/share/spack/setup-env.sh
   echo "source $(spack location -i lmod)/lmod/lmod/init/bash" >> /etc/profile.d/spack.sh
   echo "source \${SPACK_ROOT}/share/spack/setup-env.sh" >> /etc/profile.d/spack.sh
   echo "export LMOD_AUTO_SWAP=yes" >> /etc/profile.d/spack.sh
@@ -67,11 +66,8 @@ spack install gcc@${GCC_VERSION}
 spack load gcc@${GCC_VERSION}
 spack compiler find
 
-# Find external packages if available
-spack external find --scope site slurm
-
 # Install WRF
-spack install -y wrf@${WRF_VERSION} % gcc@${GCC_VERSION} ^openmpi@${OPENMPI_VERSION}~atomics+cuda+cxx+cxx_exceptions+gpfs~java+legacylaunchers~lustre+memchecker+pmi~singularity~sqlite3+static~thread_multiple+vt+wrapper-rpath fabrics=auto schedulers=slurm
+spack install -y wrf@${WRF_VERSION} % gcc@${GCC_VERSION} ^openmpi@${OPENMPI_VERSION}
 
 # Install benchmark data
 mkdir -p ${INSTALL_ROOT}/share/conus-2.5km
