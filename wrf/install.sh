@@ -78,3 +78,25 @@ mkdir -p ${INSTALL_ROOT}/share/conus-2.5km
 gsutil -u ${PROJECT_ID} cp gs://wrf-gcp-benchmark-data/benchmark/conus-2.5km/* ${INSTALL_ROOT}/share/conus-2.5km/
 
 lmod_setup
+
+# Update MOTD
+cat > /etc/motd << EOL
+  WRF-GCP VM Image
+
+  Copyright 2021 Fluid Numerics LLC
+
+  https://github.com/FluidNumerics/hpc-apps-gcp
+
+  To get started,
+  
+    module load gcc && module load openmpi
+    module load hdf5 netcdf-c netcdf-fortran wrf
+
+    mkdir benchmark && cd benchmark
+    cp /opt/share/conus-2.5km/* ./
+    ln -s $(spack location -i wrf)/run/* ./
+
+    mpirun -np 60 ./wrf.exe
+
+
+EOL
