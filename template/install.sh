@@ -71,7 +71,7 @@ EOL
 spack_setup
 
 ## Find any external packages (e.g. slurm, cuda)
-#spack external find PKG --scope=site
+#spack external find PKG --scope site
 
 ## Set up your compilers
 #spack install gcc@${GCC_VERSION}
