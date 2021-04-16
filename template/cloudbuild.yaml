@@ -7,7 +7,7 @@ steps:
         "-force",
         "-var","project_id=$PROJECT_ID",
         "-var","zone=$_ZONE",
-        "-var","source_image=${_SOURCE_IMAGE_FAMILY}",
+        "-var","source_image_family=${_SOURCE_IMAGE_FAMILY}",
         "-var","source_image_project=${_SOURCE_IMAGE_PROJECT}",
         "-var","subnet=${_SUBNETWORK}",
         "-var","image_name=${_IMAGE_NAME}",

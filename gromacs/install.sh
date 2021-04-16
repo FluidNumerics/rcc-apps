@@ -78,6 +78,6 @@ spack install gcc@${GCC_VERSION}
 spack load gcc@${GCC_VERSION}
 spack compiler find
 
-spack install gromacs+cuda ^openmpi@${OPENMPI_VERSION}%gcc@${GCC_VERSION}+cuda
+spack install gromacs+cuda~mpi ^fftw~mpi
 
 lmod_setup

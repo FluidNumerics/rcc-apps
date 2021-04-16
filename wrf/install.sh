@@ -6,6 +6,7 @@ SPACK_VERSION="releases/latest"
 GCC_VERSION="9.2.0"
 OPENMPI_VERSION="4.0.5"
 WRF_VERSION="4.2"
+ARCH="cascadelake"
 
 ######################################################################################################################
 spack_setup() {
@@ -67,7 +68,7 @@ spack load gcc@${GCC_VERSION}
 spack compiler find
 
 # Install WRF
-spack install -y wrf@${WRF_VERSION} % gcc@${GCC_VERSION} ^openmpi@${OPENMPI_VERSION}
+spack install -y wrf@${WRF_VERSION} % gcc@${GCC_VERSION} ^openmpi@${OPENMPI_VERSION} target=${ARCH}
 
 # Install benchmark data
 mkdir -p ${INSTALL_ROOT}/share/conus-2.5km
