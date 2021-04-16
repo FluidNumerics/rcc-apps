@@ -26,7 +26,7 @@ spack_setup() {
   # Install lmod for module managament
   spack install lmod
   source $(spack location -i lmod)/lmod/lmod/init/bash
-  source /apps/spack/share/spack/setup-env.sh
+  source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
   echo "source $(spack location -i lmod)/lmod/lmod/init/bash" >> /etc/profile.d/spack.sh
   echo "source \${SPACK_ROOT}/share/spack/setup-env.sh" >> /etc/profile.d/spack.sh
   echo "export LMOD_AUTO_SWAP=yes" >> /etc/profile.d/spack.sh
@@ -69,15 +69,15 @@ EOL
 spack_setup
 
 # Add locally installed packages that are already available
+export PATH=$PATH:/usr/local/cuda
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64
 spack external find --scope site cuda
-spack external find --scope site slurm
 
 # Install GCC compiler (newer version than system compiler)
 spack install gcc@${GCC_VERSION}
 spack load gcc@${GCC_VERSION}
 spack compiler find
 
-
-spack install gromacs+cuda ^openmpi@${OPENMPI_VERSION}%gcc@${GCC_VERSION}~atomics+cuda+cxx+cxx_exceptions+gpfs~java+legacylaunchers~lustre+memchecker+pmi~singularity~sqlite3+static~thread_multiple+vt+wrapper-rpath fabrics=auto schedulers=slurm
+spack install gromacs+cuda ^openmpi@${OPENMPI_VERSION}%gcc@${GCC_VERSION}+cuda
 
 lmod_setup
