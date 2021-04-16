@@ -18,7 +18,7 @@ spack_setup() {
   yum install -y gcc gcc-c++ gcc-gfortran
   ## Install spack
   git clone https://github.com/spack/spack.git --branch ${SPACK_VERSION} ${INSTALL_ROOT}/spack
-  echo "export SPACK_ROOT=/apps/spack" > /etc/profile.d/spack.sh
+  echo "export SPACK_ROOT=${INSTALL_ROOT}/spack" > /etc/profile.d/spack.sh
   echo ". \${SPACK_ROOT}/share/spack/setup-env.sh" >> /etc/profile.d/spack.sh
   source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
   spack compiler find --scope site
@@ -71,7 +71,7 @@ EOL
 spack_setup
 
 ## Find any external packages (e.g. slurm, cuda)
-#spack external find PKG --scope site
+#spack external find --scope site PKG
 
 ## Set up your compilers
 #spack install gcc@${GCC_VERSION}

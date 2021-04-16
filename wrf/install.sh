@@ -12,7 +12,7 @@ spack_setup() {
   yum install -y gcc gcc-c++ gcc-gfortran
   ## Install spack
   git clone https://github.com/spack/spack.git --branch ${SPACK_VERSION} ${INSTALL_ROOT}/spack
-  echo "export SPACK_ROOT=/apps/spack" > /etc/profile.d/spack.sh
+  echo "export SPACK_ROOT=${INSTALL_ROOT}/spack" > /etc/profile.d/spack.sh
   echo ". \${SPACK_ROOT}/share/spack/setup-env.sh" >> /etc/profile.d/spack.sh
   source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
   spack compiler find --scope site
@@ -68,7 +68,7 @@ spack load gcc@${GCC_VERSION}
 spack compiler find
 
 # Find external packages if available
-spack external find slurm --scope site
+spack external find --scope site slurm
 
 # Install WRF
 spack install -y wrf@${WRF_VERSION} % gcc@${GCC_VERSION} ^openmpi@${OPENMPI_VERSION}~atomics+cuda+cxx+cxx_exceptions+gpfs~java+legacylaunchers~lustre+memchecker+pmi~singularity~sqlite3+static~thread_multiple+vt+wrapper-rpath fabrics=auto schedulers=slurm

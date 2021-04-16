@@ -18,7 +18,7 @@ spack_setup() {
   yum install -y gcc gcc-c++ gcc-gfortran
   ## Install spack
   git clone https://github.com/spack/spack.git --branch ${SPACK_VERSION} ${INSTALL_ROOT}/spack
-  echo "export SPACK_ROOT=/apps/spack" > /etc/profile.d/spack.sh
+  echo "export SPACK_ROOT=${INSTALL_ROOT}/spack" > /etc/profile.d/spack.sh
   echo ". \${SPACK_ROOT}/share/spack/setup-env.sh" >> /etc/profile.d/spack.sh
   source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
   spack compiler find --scope site
@@ -68,15 +68,16 @@ EOL
 
 spack_setup
 
+# Add locally installed packages that are already available
+spack external find --scope site cuda
+spack external find --scope site slurm
+
 # Install GCC compiler (newer version than system compiler)
 spack install gcc@${GCC_VERSION}
 spack load gcc@${GCC_VERSION}
 spack compiler find
 
-# Add locally installed packages that are already available
-spack external find cuda --scope=site
-spack external find slurm --scope=site 
 
-spack install gromacs+blas+cuda+lapack ^openmpi@${OPENMPI_VERSION}%gcc@${GCC_VERSION}~atomics+cuda+cxx+cxx_exceptions+gpfs~java+legacylaunchers~lustre+memchecker+pmi~singularity~sqlite3+static~thread_multiple+vt+wrapper-rpath fabrics=auto schedulers=slurm
+spack install gromacs+cuda ^openmpi@${OPENMPI_VERSION}%gcc@${GCC_VERSION}~atomics+cuda+cxx+cxx_exceptions+gpfs~java+legacylaunchers~lustre+memchecker+pmi~singularity~sqlite3+static~thread_multiple+vt+wrapper-rpath fabrics=auto schedulers=slurm
 
 lmod_setup
