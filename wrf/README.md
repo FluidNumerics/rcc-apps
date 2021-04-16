@@ -10,7 +10,7 @@ This image installs WRF via spack into the `/opt` directory by default. lmod mod
 # Load WRF into your path
 module load gcc
 module load openmpi
-module load wrf
+module load hdf5 netcdf-c netcdf-fortran wrf
 
 # Create a WRF test case
 export CASE_DIR=${HOME}/benchmark
