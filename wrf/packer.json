@@ -30,7 +30,7 @@
       "type": "shell",
       "environment_vars":["PROJECT_ID={{user `project_id`}}","INSTALL_ROOT={{user `install_root`}}"],
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
-      "script": "install.sh"
+      "script": "wrf/install.sh"
     }
   ]  
 }
