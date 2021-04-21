@@ -12,7 +12,7 @@ steps:
         "-var","subnet=${_SUBNETWORK}",
         "-var","image_name=${_IMAGE_NAME}",
         "-var","image_family=${_IMAGE_FAMILY}",
-        "-var","install_root=${_INSTALL_ROOT}"
+        "-var","install_root=${_INSTALL_ROOT}",
         'packer.json']
   waitFor: ["-"]
 
