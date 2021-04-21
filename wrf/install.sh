@@ -1,7 +1,6 @@
 #!/bin/bash
 #
 
-INSTALL_ROOT="/opt"
 SPACK_VERSION="releases/latest"
 GCC_VERSION="9.2.0"
 OPENMPI_VERSION="4.0.5"
@@ -76,6 +75,7 @@ gsutil -u ${PROJECT_ID} cp gs://wrf-gcp-benchmark-data/benchmark/conus-2.5km/* $
 
 lmod_setup
 
+
 # Update MOTD
 cat > /etc/motd << EOL
   WRF-GCP VM Image
@@ -97,3 +97,36 @@ cat > /etc/motd << EOL
 
 
 EOL
+
+# Add sample batch file to ${INSTALL_ROOT}/share
+mkdir -p ${INSTALL_ROOT}/share
+cat > ${INSTALL_ROOT}/share/wrf-conus.sh << EOL
+#!/bin/bash
+#SBATCH --partition=wrf
+#SBATCH --ntasks=480
+#SBATCH --ntasks-per-node=60
+#SBATCH --mem-per-cpu=2g
+#SBATCH --cpus-per-task=1
+#SBATCH --exclusive
+#SBATCH --account=default
+#
+# /////////////////////////////////////////////// #
+
+WORK_PATH=\${HOME}/wrf-benchmark/
+MPI_FLAGS="--bind-to hwthread --map-by core --report-bindings --np \$SLURM_NTASKS" 
+
+. /apps/share/spack.sh
+module load gcc/9.2.0
+module load openmpi
+module load hdf5 netcdf-c netcdf-fortran wrf
+
+mkdir -p \${WORK_PATH}
+cd \${WORK_PATH}
+cp ${INSTALL_ROOT}/share/conus-2.5km/* .
+ln -s $(spack location -i wrf)/run/* .
+
+mpirun $MPI_FLAGS ./wrf.exe
+EOL
+
+# Copy profile.d/spack.sh to /apps (assuming /apps is always NFS mounted)
+cp /etc/profile.d/spack.sh /apps/share/spack.sh
