@@ -31,6 +31,7 @@ Each `cloudbuild.yaml` has the following variables
 * `_SOURCE_IMAGE_PROJECT` - The GCP project hosting the VM image
 * `_IMAGE_NAME` - The name of the resulting VM image
 * `_IMAGE_FAMILY` - The name of the VM image family to sort the resulting image
+* `_INSTALL_ROOT` - The location within the VM image where Spack and the HPC packages are installed
 
 The value of these variables can be changed when executing a build using `--substitutions=`, e.g.
 ```
