@@ -12,6 +12,7 @@ steps:
         "-var","subnet=${_SUBNETWORK}",
         "-var","image_name=${_IMAGE_NAME}",
         "-var","image_family=${_IMAGE_FAMILY}",
+        "-var","install_root=${_INSTALL_ROOT}",
         'packer.json']
   waitFor: ["-"]
 
@@ -23,5 +24,6 @@ substitutions:
     _SOURCE_IMAGE_PROJECT: 'schedmd-slurm-public'
     _IMAGE_NAME: 'gromacs-centos7-latest'
     _IMAGE_FAMILY: 'gromacs-centos7'
+    _INSTALL_ROOT: '/apps'
 
 timeout : 28800s

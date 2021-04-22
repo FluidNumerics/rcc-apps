@@ -6,7 +6,8 @@
     "source_image_family":"schedmd-slurm-20-11-4-hpc-centos-7",
     "source_image_project":"schedmd-slurm-public",
     "image_name":"wrf-gcp-centos7-latest",
-    "image_family":"wrf-gcp-centos7"
+    "image_family":"wrf-gcp-centos7",
+    "install_root":"/apps"
   },
   "builders": [{
     "type": "googlecompute",
@@ -27,9 +28,9 @@
   "provisioners": [
     {
       "type": "shell",
-      "environment_vars":["PROJECT_ID={{user `project_id`}}"],
+      "environment_vars":["PROJECT_ID={{user `project_id`}}","INSTALL_ROOT={{user `install_root`}}"],
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
-      "script": "install.sh"
+      "script": "gromacs/install.sh"
     }
   ]  
 }
