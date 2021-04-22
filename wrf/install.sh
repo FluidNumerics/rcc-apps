@@ -66,6 +66,7 @@ spack install gcc@${GCC_VERSION}
 spack load gcc@${GCC_VERSION}
 spack compiler find
 
+spack external find --scope site autoconf
 # Install WRF
 spack install -y wrf@${WRF_VERSION} % gcc@${GCC_VERSION} ^openmpi@${OPENMPI_VERSION} target=${ARCH}
 
