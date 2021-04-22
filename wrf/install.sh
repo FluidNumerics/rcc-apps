@@ -66,15 +66,8 @@ spack install gcc@${GCC_VERSION}
 spack load gcc@${GCC_VERSION}
 spack compiler find --scope site
 
-spack external find --scope site autoconf
-spack external find --scope site automake
-spack external find --scope site ncurses
-spack external find --scope site tar
-spack external find --scope site perl
-spack external find --scope site bzip2
-
 # Install WRF
-spack install -y wrf@${WRF_VERSION} % gcc@${GCC_VERSION} ^openmpi@${OPENMPI_VERSION} target=${ARCH}
+spack install -y wrf@${WRF_VERSION} % gcc@${GCC_VERSION} ^openmpi@${OPENMPI_VERSION} ^ncurses % gcc@4.8.5 target=${ARCH}
 
 # Install benchmark data
 mkdir -p ${INSTALL_ROOT}/share/conus-2.5km
