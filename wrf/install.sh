@@ -64,9 +64,15 @@ spack_setup
 # Switch to newer compiler
 spack install gcc@${GCC_VERSION}
 spack load gcc@${GCC_VERSION}
-spack compiler find
+spack compiler find --scope site
 
 spack external find --scope site autoconf
+spack external find --scope site automake
+spack external find --scope site ncurses
+spack external find --scope site tar
+spack external find --scope site perl
+spack external find --scope site bzip2
+
 # Install WRF
 spack install -y wrf@${WRF_VERSION} % gcc@${GCC_VERSION} ^openmpi@${OPENMPI_VERSION} target=${ARCH}
 
