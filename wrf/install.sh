@@ -5,7 +5,7 @@ SPACK_VERSION="v0.16.0"
 GCC_VERSION="9.2.0"
 OPENMPI_VERSION="4.0.5"
 WRF_VERSION="4.2"
-ARCH="cascadelake"
+ARCH="x86_64"
 
 ######################################################################################################################
 spack_setup() {
@@ -66,8 +66,10 @@ spack install gcc@${GCC_VERSION}
 spack load gcc@${GCC_VERSION}
 spack compiler find --scope site
 
+spack external find --scope site 
+
 # Install WRF
-spack install -y wrf@${WRF_VERSION} % gcc@${GCC_VERSION} ^openmpi@${OPENMPI_VERSION} ^ncurses % gcc@4.8.5 target=${ARCH}
+spack install --fail-fast -y wrf@${WRF_VERSION} % gcc@${GCC_VERSION} ^openmpi@${OPENMPI_VERSION} ^cmake % gcc@4.8.5 target=${ARCH}
 
 # Install benchmark data
 mkdir -p ${INSTALL_ROOT}/share/conus-2.5km
@@ -125,6 +127,7 @@ cd \${WORK_PATH}
 cp ${INSTALL_ROOT}/share/conus-2.5km/* .
 ln -s $(spack location -i wrf)/run/* .
 
+mpirun $MPI_FLAGS ./real.exe
 mpirun $MPI_FLAGS ./wrf.exe
 EOL
 

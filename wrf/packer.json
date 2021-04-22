@@ -14,7 +14,7 @@
     "project_id": "{{user `project_id`}}",
     "source_image_family": "{{user `source_image_family`}}",
     "source_image_project_id": "{{user `source_image_project`}}",
-    "machine_type": "n1-standard-16",
+    "machine_type": "n1-standard-32",
     "disk_size": 50,
     "zone": "{{user `zone`}}",
     "subnetwork" :"{{user `subnet`}}",

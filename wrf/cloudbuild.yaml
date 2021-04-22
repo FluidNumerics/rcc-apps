@@ -27,6 +27,3 @@ substitutions:
     _INSTALL_ROOT: '/apps'
 
 timeout : 28800s
-
-options:
-        machineType: 'E2_HIGHCPU_8'
