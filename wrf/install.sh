@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 
-SPACK_VERSION="v0.16.0"
+SPACK_VERSION="releases/latest"
 GCC_VERSION="9.2.0"
 OPENMPI_VERSION="4.0.5"
 WRF_VERSION="4.2"
@@ -125,10 +125,10 @@ module load hdf5 netcdf-c netcdf-fortran wrf
 mkdir -p \${WORK_PATH}
 cd \${WORK_PATH}
 cp ${INSTALL_ROOT}/share/conus-2.5km/* .
-ln -s $(spack location -i wrf)/run/* .
+ln -s \$(spack location -i wrf)/run/* .
 
-mpirun $MPI_FLAGS ./real.exe
-mpirun $MPI_FLAGS ./wrf.exe
+mpirun \$MPI_FLAGS ./real.exe
+mpirun \$MPI_FLAGS ./wrf.exe
 EOL
 
 # Copy profile.d/spack.sh to /apps (assuming /apps is always NFS mounted)
