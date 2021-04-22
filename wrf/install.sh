@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 
-SPACK_VERSION="releases/latest"
+SPACK_VERSION="v0.16.0"
 GCC_VERSION="9.2.0"
 OPENMPI_VERSION="4.0.5"
 WRF_VERSION="4.2"
