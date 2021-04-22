@@ -16,14 +16,10 @@ Each package, by default, builds on top of the [Slurm-GCP](https://console.cloud
 * Active GCP project
 
 ### Building a package
-To build one of the packages navigate to the package subdirectory, e.g.
-```
-cd wrf/
-```
-Submit the build to cloud build
+To build one of the packages, submit the build to cloud build using one of the application's provided cloudbuild.yaml file, e.g.
 
 ```
-gcloud builds submit . --async --project=PROJECT-ID
+gcloud builds submit . --async --project=PROJECT-ID --config=wrf/cloudbuild.yaml
 ```
 
 ### Understanding the Cloud Build files
