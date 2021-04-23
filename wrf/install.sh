@@ -104,7 +104,7 @@ EOL
 mkdir -p ${INSTALL_ROOT}/share
 cat > ${INSTALL_ROOT}/share/wrf-conus.sh << EOL
 #!/bin/bash
-#SBATCH --partition=wrf
+#SBATCH --partition=c2-60
 #SBATCH --ntasks=480
 #SBATCH --ntasks-per-node=60
 #SBATCH --mem-per-cpu=2g
@@ -127,7 +127,6 @@ cd \${WORK_PATH}
 cp ${INSTALL_ROOT}/share/conus-2.5km/* .
 ln -s \$(spack location -i wrf)/run/* .
 
-mpirun \$MPI_FLAGS ./real.exe
 mpirun \$MPI_FLAGS ./wrf.exe
 EOL
 
