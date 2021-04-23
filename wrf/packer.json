@@ -3,10 +3,10 @@
     "project_id": "",
     "zone": "us-central1-a",
     "subnet": "default",
-    "source_image_family":"schedmd-slurm-20-11-4-hpc-centos-7",
+    "source_image_family":"schedmd-slurm-20-11-4-centos-7",
     "source_image_project":"schedmd-slurm-public",
-    "image_name":"wrf-gcp-centos7-latest",
-    "image_family":"wrf-gcp-centos7",
+    "image_name":"wrf-gcp-slurm-gcp-centos7-latest",
+    "image_family":"wrf-gcp-slurm-gcp-centos7",
     "install_root":"/apps"
   },
   "builders": [{
@@ -26,6 +26,17 @@
     "ssh_username": "packer"
   }],
   "provisioners": [
+    {
+      "type": "file",
+      "source": "wrf/etc",
+      "destination": "/tmp/"
+    },
+    {
+      "type": "shell",
+      "inline":[ "sudo mv /tmp/etc/sysctl.conf /etc/sysctl.conf",
+	         "sudo mv /tmp/etc/security/limits.d/* /etc/security/limits.d/",
+                 "sudo sysctl -p"] 
+    },
     {
       "type": "shell",
       "environment_vars":["PROJECT_ID={{user `project_id`}}","INSTALL_ROOT={{user `install_root`}}"],

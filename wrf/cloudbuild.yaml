@@ -20,10 +20,10 @@ steps:
 substitutions:
     _ZONE: 'us-central1-c'
     _SUBNETWORK: 'default'
-    _SOURCE_IMAGE_FAMILY: 'schedmd-slurm-20-11-4-hpc-centos-7'
+    _SOURCE_IMAGE_FAMILY: 'schedmd-slurm-20-11-4-centos-7'
     _SOURCE_IMAGE_PROJECT: 'schedmd-slurm-public'
-    _IMAGE_NAME: 'wrf-gcp-centos7-latest'
-    _IMAGE_FAMILY: 'wrf-gcp-centos7'
+    _IMAGE_NAME: 'wrf-gcp-slurm-gcp-centos7-latest'
+    _IMAGE_FAMILY: 'wrf-gcp-slurm-gcp-centos7'
     _INSTALL_ROOT: '/apps'
 
 timeout : 28800s
