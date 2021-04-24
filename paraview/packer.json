@@ -5,8 +5,8 @@
     "subnet": "default",
     "source_image_family":"schedmd-slurm-20-11-4-centos-7",
     "source_image_project":"schedmd-slurm-public",
-    "image_name":"openfoam-slurm-gcp-centos7-latest",
-    "image_family":"openfoam-slurm-gcp-centos7",
+    "image_name":"paraview-slurm-gcp-centos7-latest",
+    "image_family":"paraview-slurm-gcp-centos7",
     "install_root":"/apps",
     "slurm_root":"/usr/local"
   },
@@ -29,12 +29,12 @@
   "provisioners": [
     {
       "type": "file",
-      "source": "openfoam/etc",
+      "source": "paraview/etc",
       "destination": "/tmp/"
     },
     {
       "type": "file",
-      "source": "openfoam/share",
+      "source": "paraview/share",
       "destination": "/tmp/"
     },
     {
@@ -50,7 +50,7 @@
 	                  "INSTALL_ROOT={{user `install_root`}}",
 			  "SLURM_ROOT={{user `slurm_root`}}"],
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
-      "script": "openfoam/install.sh"
+      "script": "paraview/install.sh"
     }
   ]  
 }

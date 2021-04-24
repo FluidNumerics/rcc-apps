@@ -1,0 +1,31 @@
+steps:
+
+
+- id: &BUILD Build Image
+  name: 'hashicorp/packer:latest'
+  args: ["build",
+        "-force",
+        "-var","project_id=$PROJECT_ID",
+        "-var","zone=$_ZONE",
+        "-var","source_image_family=${_SOURCE_IMAGE_FAMILY}",
+        "-var","source_image_project=${_SOURCE_IMAGE_PROJECT}",
+        "-var","subnet=${_SUBNETWORK}",
+        "-var","image_name=${_IMAGE_NAME}",
+        "-var","image_family=${_IMAGE_FAMILY}",
+        "-var","install_root=${_INSTALL_ROOT}",
+        "-var","slurm_root=${_SLURM_ROOT}",
+        'wrf/packer.json']
+  waitFor: ["-"]
+
+
+substitutions:
+    _ZONE: 'us-central1-c'
+    _SUBNETWORK: 'default'
+    _SOURCE_IMAGE_FAMILY: 'schedmd-slurm-20-11-4-centos-7'
+    _SOURCE_IMAGE_PROJECT: 'schedmd-slurm-public'
+    _IMAGE_NAME: 'wrf-gcp-slurm-gcp-centos7-latest'
+    _IMAGE_FAMILY: 'wrf-gcp-slurm-gcp-centos7'
+    _INSTALL_ROOT: '/apps'
+    _SLURM_ROOT: '/usr/local'
+
+timeout : 28800s
