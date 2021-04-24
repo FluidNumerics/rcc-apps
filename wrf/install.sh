@@ -73,11 +73,11 @@ spack external find --scope site
   echo "  slurm:"
   echo "    externals:"
   echo "    - spec: slurm@20-11"
-  echo "      prefix: ${_SLURM_ROOT}"
+  echo "      prefix: ${SLURM_ROOT}"
 } >> ${INSTALL_ROOT}/spack/etc/spack/packages.yaml
 
 # Install WRF
-spack install --fail-fast -y wrf@${WRF_VERSION} % gcc@${GCC_VERSION} ^openmpi@${OPENMPI_VERSION}~atomics~cuda+cxx+cxx_exceptions~gpfs~java+legacylaunchers+lustre+memchecker+pmi~singularity~sqlite3+static~thread_multiple+vt+wrapper-rpath fabrics=auto schedulers=slurm ^cmake % gcc@4.8.5 target=${ARCH}
+spack install --fail-fast -y wrf@${WRF_VERSION} % gcc@${GCC_VERSION} ^openmpi@${OPENMPI_VERSION}~atomics~cuda+cxx+cxx_exceptions~gpfs~java+legacylaunchers~lustre+memchecker+pmi~singularity~sqlite3+static~thread_multiple+vt+wrapper-rpath fabrics=auto schedulers=slurm ^cmake % gcc@4.8.5 target=${ARCH}
 
 # Install benchmark data
 mkdir -p ${INSTALL_ROOT}/share/conus-2.5km
@@ -117,13 +117,12 @@ cat > ${INSTALL_ROOT}/share/wrf-conus.sh << EOL
 #SBATCH --ntasks-per-node=60
 #SBATCH --mem-per-cpu=2g
 #SBATCH --cpus-per-task=1
-#SBATCH --exclusive
 #SBATCH --account=default
 #
 # /////////////////////////////////////////////// #
 
 WORK_PATH=\${HOME}/wrf-benchmark/
-MPI_FLAGS="--bind-to hwthread --map-by core --report-bindings --np \$SLURM_NTASKS" 
+SRUN_FLAGS="-n \$SLURM_NTASKS --cpu-bind=threads" 
 
 . /apps/share/spack.sh
 module load gcc/9.2.0
@@ -135,7 +134,7 @@ cd \${WORK_PATH}
 cp ${INSTALL_ROOT}/share/conus-2.5km/* .
 ln -s \$(spack location -i wrf)/run/* .
 
-mpirun \$MPI_FLAGS ./wrf.exe
+srun \$MPI_FLAGS ./wrf.exe
 EOL
 
 # Copy profile.d/spack.sh to /apps (assuming /apps is always NFS mounted)

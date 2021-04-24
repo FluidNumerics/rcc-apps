@@ -7,7 +7,8 @@
     "source_image_project":"schedmd-slurm-public",
     "image_name":"wrf-gcp-slurm-gcp-centos7-latest",
     "image_family":"wrf-gcp-slurm-gcp-centos7",
-    "install_root":"/apps"
+    "install_root":"/apps",
+    "slurm_root":"/usr/local"
   },
   "builders": [{
     "type": "googlecompute",

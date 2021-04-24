@@ -13,7 +13,7 @@ steps:
         "-var","image_name=${_IMAGE_NAME}",
         "-var","image_family=${_IMAGE_FAMILY}",
         "-var","install_root=${_INSTALL_ROOT}",
-        "-var","slurm_root=${_SLURM_ROOT}"
+        "-var","slurm_root=${_SLURM_ROOT}",
         'wrf/packer.json']
   waitFor: ["-"]
 
@@ -26,6 +26,6 @@ substitutions:
     _IMAGE_NAME: 'wrf-gcp-slurm-gcp-centos7-latest'
     _IMAGE_FAMILY: 'wrf-gcp-slurm-gcp-centos7'
     _INSTALL_ROOT: '/apps'
-    _SLURM_ROOT: '/usr/local
+    _SLURM_ROOT: '/usr/local'
 
 timeout : 28800s
