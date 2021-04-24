@@ -5,9 +5,10 @@
     "subnet": "default",
     "source_image_family":"schedmd-slurm-20-11-4-centos-7",
     "source_image_project":"schedmd-slurm-public",
-    "image_name":"wrf-gcp-slurm-gcp-centos7-latest",
-    "image_family":"wrf-gcp-slurm-gcp-centos7",
-    "install_root":"/apps"
+    "image_name":"openfoam-slurm-gcp-centos7-latest",
+    "image_family":"openfoam-slurm-gcp-centos7",
+    "install_root":"/apps",
+    "slurm_root":"/usr/local"
   },
   "builders": [{
     "type": "googlecompute",

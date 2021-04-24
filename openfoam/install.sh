@@ -4,7 +4,8 @@
 SPACK_VERSION="releases/latest"
 GCC_VERSION="9.2.0"
 OPENMPI_VERSION="4.0.5"
-WRF_VERSION="4.2"
+OPENFOAM_VERSION="8"
+PARAVIEW_VERSION="5.9.0"
 ARCH="x86_64"
 
 ######################################################################################################################
@@ -73,69 +74,36 @@ spack external find --scope site
   echo "  slurm:"
   echo "    externals:"
   echo "    - spec: slurm@20-11"
-  echo "      prefix: ${_SLURM_ROOT}"
+  echo "      prefix: ${SLURM_ROOT}"
 } >> ${INSTALL_ROOT}/spack/etc/spack/packages.yaml
 
-# Install WRF
-spack install --fail-fast -y wrf@${WRF_VERSION} % gcc@${GCC_VERSION} ^openmpi@${OPENMPI_VERSION}~atomics~cuda+cxx+cxx_exceptions~gpfs~java+legacylaunchers+lustre+memchecker+pmi~singularity~sqlite3+static~thread_multiple+vt+wrapper-rpath fabrics=auto schedulers=slurm ^cmake % gcc@4.8.5 target=${ARCH}
+# Install OpenFOAM
+spack install --fail-fast -y openfoam@${OPENFOAM_VERSION} % gcc@${GCC_VERSION} ^openmpi@${OPENMPI_VERSION}~atomics~cuda+cxx+cxx_exceptions~gpfs~java+legacylaunchers+lustre+memchecker+pmi~singularity~sqlite3+static~thread_multiple+vt+wrapper-rpath fabrics=auto schedulers=slurm ^cmake % gcc@4.8.5 target=${ARCH}
 
-# Install benchmark data
-mkdir -p ${INSTALL_ROOT}/share/conus-2.5km
-gsutil -u ${PROJECT_ID} cp gs://wrf-gcp-benchmark-data/benchmark/conus-2.5km/* ${INSTALL_ROOT}/share/conus-2.5km/
+# Install Paraview
+spack install --fail-fast -y paraview@${PARAVIEW_VERSION} % gcc@${GCC_VERSION} ^openmpi@${OPENMPI_VERSION}~atomics~cuda+cxx+cxx_exceptions~gpfs~java+legacylaunchers+lustre+memchecker+pmi~singularity~sqlite3+static~thread_multiple+vt+wrapper-rpath fabrics=auto schedulers=slurm ^cmake % gcc@4.8.5 target=${ARCH}
+
 
 lmod_setup
 
 
 # Update MOTD
 cat > /etc/motd << EOL
-  WRF-GCP VM Image
+  OpenFOAM VM Image
 
   Copyright 2021 Fluid Numerics LLC
 
   https://github.com/FluidNumerics/hpc-apps-gcp
 
+  This offering is not approved or endorsed by OpenCFD Ltd,
+  producer and distributor of the OpenFOAM software via www.openfoam.com,
+  and owner of the OPENFOAM trademark.
+
   To get started,
   
     module load gcc && module load openmpi
-    module load hdf5 netcdf-c netcdf-fortran wrf
+    module load openfoam paraview
 
-    mkdir benchmark && cd benchmark
-    cp /opt/share/conus-2.5km/* ./
-    ln -s $(spack location -i wrf)/run/* ./
-
-    mpirun -np 60 ./wrf.exe
-
-
-EOL
-
-# Add sample batch file to ${INSTALL_ROOT}/share
-mkdir -p ${INSTALL_ROOT}/share
-cat > ${INSTALL_ROOT}/share/wrf-conus.sh << EOL
-#!/bin/bash
-#SBATCH --partition=c2-60
-#SBATCH --ntasks=480
-#SBATCH --ntasks-per-node=60
-#SBATCH --mem-per-cpu=2g
-#SBATCH --cpus-per-task=1
-#SBATCH --exclusive
-#SBATCH --account=default
-#
-# /////////////////////////////////////////////// #
-
-WORK_PATH=\${HOME}/wrf-benchmark/
-MPI_FLAGS="--bind-to hwthread --map-by core --report-bindings --np \$SLURM_NTASKS" 
-
-. /apps/share/spack.sh
-module load gcc/9.2.0
-module load openmpi
-module load hdf5 netcdf-c netcdf-fortran wrf
-
-mkdir -p \${WORK_PATH}
-cd \${WORK_PATH}
-cp ${INSTALL_ROOT}/share/conus-2.5km/* .
-ln -s \$(spack location -i wrf)/run/* .
-
-mpirun \$MPI_FLAGS ./wrf.exe
 EOL
 
 # Copy profile.d/spack.sh to /apps (assuming /apps is always NFS mounted)
