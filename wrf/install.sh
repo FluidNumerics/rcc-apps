@@ -82,6 +82,8 @@ spack install --fail-fast -y wrf@${WRF_VERSION} % gcc@${GCC_VERSION} ^openmpi@${
 # Install benchmark data
 mkdir -p ${INSTALL_ROOT}/share/conus-2.5km
 gsutil -u ${PROJECT_ID} cp gs://wrf-gcp-benchmark-data/benchmark/conus-2.5km/* ${INSTALL_ROOT}/share/conus-2.5km/
+mkdir -p ${INSTALL_ROOT}/share/conus-12km
+gsutil -u ${PROJECT_ID} cp gs://wrf-gcp-benchmark-data/benchmark/conus-12km/* ${INSTALL_ROOT}/share/conus-12km/
 
 lmod_setup
 
@@ -110,7 +112,7 @@ EOL
 
 # Add sample batch file to ${INSTALL_ROOT}/share
 mkdir -p ${INSTALL_ROOT}/share
-cat > ${INSTALL_ROOT}/share/wrf-conus.sh << EOL
+cat > ${INSTALL_ROOT}/share/wrf-conus2p5.sh << EOL
 #!/bin/bash
 #SBATCH --partition=c2-60
 #SBATCH --ntasks=480
@@ -132,6 +134,34 @@ module load hdf5 netcdf-c netcdf-fortran wrf
 mkdir -p \${WORK_PATH}
 cd \${WORK_PATH}
 cp ${INSTALL_ROOT}/share/conus-2.5km/* .
+ln -s \$(spack location -i wrf)/run/* .
+
+srun \$MPI_FLAGS ./wrf.exe
+EOL
+
+mkdir -p ${INSTALL_ROOT}/share
+cat > ${INSTALL_ROOT}/share/wrf-conus12.sh << EOL
+#!/bin/bash
+#SBATCH --partition=c2-60
+#SBATCH --ntasks=120
+#SBATCH --ntasks-per-node=60
+#SBATCH --mem-per-cpu=2g
+#SBATCH --cpus-per-task=1
+#SBATCH --account=default
+#
+# /////////////////////////////////////////////// #
+
+WORK_PATH=\${HOME}/wrf-benchmark/
+SRUN_FLAGS="-n \$SLURM_NTASKS --cpu-bind=threads" 
+
+. /apps/share/spack.sh
+module load gcc/9.2.0
+module load openmpi
+module load hdf5 netcdf-c netcdf-fortran wrf
+
+mkdir -p \${WORK_PATH}
+cd \${WORK_PATH}
+cp ${INSTALL_ROOT}/share/conus-12km/* .
 ln -s \$(spack location -i wrf)/run/* .
 
 srun \$MPI_FLAGS ./wrf.exe
