@@ -76,8 +76,18 @@ spack external find --scope site
   echo "      prefix: ${SLURM_ROOT}"
 } >> ${INSTALL_ROOT}/spack/etc/spack/packages.yaml
 
+{
+  echo "config:"
+  echo "  install_tree: ${INSTALL_ROOT}/software"
+} >> ${INSTALL_ROOT}/spack/etc/spack/config.yaml
+
 # Install WRF
-spack install --fail-fast -y wrf@${WRF_VERSION} % gcc@${GCC_VERSION} ^openmpi@${OPENMPI_VERSION}~atomics~cuda+cxx+cxx_exceptions~gpfs~java+legacylaunchers~lustre+memchecker+pmi~singularity~sqlite3+static~thread_multiple+vt+wrapper-rpath fabrics=auto schedulers=slurm ^cmake % gcc@4.8.5 target=${ARCH}
+spack install --source --fail-fast -y wrf@${WRF_VERSION} % gcc@${GCC_VERSION} target=${ARCH} \
+	                      ^openmpi@${OPENMPI_VERSION}+cxx+cxx_exceptions+legacylaunchers+memchecker+pmi+static+vt+wrapper-rpath fabrics=auto schedulers=slurm target=${ARCH} \
+			      ^cmake % gcc@4.8.5 target=${ARCH}
+
+# Garbage collect
+spack gc -y
 
 # Install benchmark data
 mkdir -p ${INSTALL_ROOT}/share/conus-2.5km
@@ -90,23 +100,33 @@ lmod_setup
 
 # Update MOTD
 cat > /etc/motd << EOL
+=======================================================================  
   WRF-GCP VM Image
-
   Copyright 2021 Fluid Numerics LLC
 
-  https://github.com/FluidNumerics/hpc-apps-gcp
+=======================================================================  
 
-  To get started,
-  
-    module load gcc && module load openmpi
-    module load hdf5 netcdf-c netcdf-fortran wrf
+  Open source implementations of this solution can be found at
 
-    mkdir benchmark && cd benchmark
-    cp /opt/share/conus-2.5km/* ./
-    ln -s $(spack location -i wrf)/run/* ./
+    https://github.com/FluidNumerics/hpc-apps-gcp/wrf
 
-    mpirun -np 60 ./wrf.exe
+  This solution contains free and open-source software 
+  All applications installed can be listed using 
 
+  spack find
+
+  You can obtain the source code and licenses for any 
+  installed application using the following command :
+
+  ls \$(spack location -i pkg)/share/pkg/src
+
+  replacing "pkg" with the name of the package.
+
+=======================================================================  
+
+  To get started, check out the included docs
+
+    cat ${INSTALL_ROOT}/share/doc
 
 EOL
 
@@ -126,7 +146,7 @@ cat > ${INSTALL_ROOT}/share/wrf-conus2p5.sh << EOL
 WORK_PATH=\${HOME}/wrf-benchmark/
 SRUN_FLAGS="-n \$SLURM_NTASKS --cpu-bind=threads" 
 
-. /apps/share/spack.sh
+. ${INSTALL_ROOT}/share/spack.sh
 module load gcc/9.2.0
 module load openmpi
 module load hdf5 netcdf-c netcdf-fortran wrf
@@ -154,7 +174,7 @@ cat > ${INSTALL_ROOT}/share/wrf-conus12.sh << EOL
 WORK_PATH=\${HOME}/wrf-benchmark/
 SRUN_FLAGS="-n \$SLURM_NTASKS --cpu-bind=threads" 
 
-. /apps/share/spack.sh
+. ${INSTALL_ROOT}/share/spack.sh
 module load gcc/9.2.0
 module load openmpi
 module load hdf5 netcdf-c netcdf-fortran wrf
@@ -168,4 +188,34 @@ srun \$MPI_FLAGS ./wrf.exe
 EOL
 
 # Copy profile.d/spack.sh to /apps (assuming /apps is always NFS mounted)
-cp /etc/profile.d/spack.sh /apps/share/spack.sh
+cp /etc/profile.d/spack.sh ${INSTALL_ROOT}/share/spack.sh
+
+cat > /apps/share/doc << EOL
+
+# Notices
+
+* The WRF software is based in part on the work of the Independent JPEG Group.
+
+# Getting Started
+
+This short tutorial will show you how to run WRF on a single VM without a job scheduler.
+
+1. Load the necessary modules into your path
+    module load gcc && module load openmpi
+    module load hdf5 netcdf-c netcdf-fortran wrf
+
+2. Create a directory for the CONUS 12km benchmark
+    mkdir benchmark && cd benchmark
+
+3. Link the CONUS 12km benchmark input decks to your new directory
+    ln -s /opt/share/conus-12km/* ./
+    ln -s \$(spack location -i wrf)/run/* ./
+
+4. Run the job with 16 ranks (assuming you have an instance with at least 16 vCPU.
+    mpirun -np 16 ./wrf.exe
+
+To run on multiple virtual machines, you can :
+* [Use a hostfile.](https://www.open-mpi.org/faq/?category=running#mpirun-hostfile)
+* Provide an NFS or Lustre File System that hosts a common work directory across virtual machines. 
+
+EOL
