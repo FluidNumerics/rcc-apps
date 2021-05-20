@@ -87,7 +87,7 @@ spack install --source --fail-fast -y wrf@${WRF_VERSION} % gcc@${GCC_VERSION} ta
 			      ^cmake % gcc@4.8.5 target=${ARCH}
 
 # Garbage collect
-spack gc -y
+#spack gc -y
 
 # Install benchmark data
 mkdir -p ${INSTALL_ROOT}/share/conus-2.5km
