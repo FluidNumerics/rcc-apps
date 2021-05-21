@@ -16,6 +16,7 @@ spack_setup() {
   echo ". \${SPACK_ROOT}/share/spack/setup-env.sh" >> /etc/profile.d/spack.sh
   source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
   spack compiler find --scope site
+  spack external find --scope site 
   
   # Install lmod for module managament
   spack install lmod
@@ -66,8 +67,6 @@ spack install gcc@${GCC_VERSION}
 spack load gcc@${GCC_VERSION}
 spack compiler find --scope site
 
-spack external find --scope site 
-
 # Spack is often unable to find slurm
 {
   echo "  slurm:"
@@ -87,7 +86,7 @@ spack install --source --fail-fast -y wrf@${WRF_VERSION} % gcc@${GCC_VERSION} ta
 			      ^cmake % gcc@4.8.5 target=${ARCH}
 
 # Garbage collect
-#spack gc -y
+spack gc -y
 
 # Install benchmark data
 mkdir -p ${INSTALL_ROOT}/share/conus-2.5km
