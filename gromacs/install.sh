@@ -81,3 +81,19 @@ spack compiler find
 spack install gromacs+cuda~mpi ^fftw~mpi
 
 lmod_setup
+
+# Install benchmarks
+mkdir -p /apps/share/gromacs
+wget https://www.mpibpc.mpg.de/15101317/benchMEM.zip -P /tmp
+wget https://www.mpibpc.mpg.de/15615646/benchPEP.zip -P /tmp
+wget https://www.mpibpc.mpg.de/17600708/benchPEP-h.zip -P /tmp
+wget https://www.mpibpc.mpg.de/15101328/benchRIB.zip -P /tmp
+wget https://www.mpibpc.mpg.de/15101343/dobenchs.zip -P /tmp
+wget https://www.mpibpc.mpg.de/15101354/extract.zip -P /tmp
+
+unzip /tmp/benchMEM.zip -d /apps/share/gromacs
+unzip /tmp/benchPEP.zip -d /apps/share/gromacs
+unzip /tmp/benchPEP-h.zip -d /apps/share/gromacs
+unzip /tmp/benchRIB.zip -d /apps/share/gromacs
+unzip /tmp/dobenchs.zip -d /apps/share/gromacs
+unzip /tmp/extract.zip -d /apps/share/gromacs
