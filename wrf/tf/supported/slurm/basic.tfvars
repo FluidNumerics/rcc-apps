@@ -1,18 +1,18 @@
-cluster_name = "<cluster name>"
-project = "<project>"
-zone = "<zone>"
+cluster_name = "wrf-demo"
+project = "hpc-apps"
+zone = "us-west1-b"
 
-controller_image = "projects/hpc-apps/global/images/wrf-gcp-slurm-gcp-centos7-latest"
-login_image = "projects/hpc-apps/global/images/wrf-gcp-slurm-gcp-centos7-latest"
+controller_image = "projects/hpc-apps/global/images/wrf-gcp-v1"
+login_image = "projects/hpc-apps/global/images/wrf-gcp-v1"
 
 partitions = [
   { name                 = "wrf"
-    machine_type         = "<machine_type>"
-    image                = "projects/hpc-apps/global/images/wrf-gcp-slurm-gcp-centos7-latest"
+    machine_type         = "c2-standard-8"
+    image                = "projects/hpc-apps/global/images/wrf-gcp-v1"
     image_hyperthreads   = true
     static_node_count    = 0
-    max_node_count       = <max_node>
-    zone                 = "<zone>"
+    max_node_count       = 3
+    zone                 = "us-west1-b"
     compute_disk_type    = "pd-standard"
     compute_disk_size_gb = 50
     compute_labels       = {}
