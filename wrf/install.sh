@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 
-SPACK_VERSION="releases/latest"
+SPACK_VERSION="v0.16.1"
 GCC_VERSION="9.2.0"
 OPENMPI_VERSION="4.0.5"
 WRF_VERSION="4.2"
@@ -16,10 +16,10 @@ spack_setup() {
   echo ". \${SPACK_ROOT}/share/spack/setup-env.sh" >> /etc/profile.d/spack.sh
   source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
   spack compiler find --scope site
-  spack external find --scope site 
   
   # Install lmod for module managament
-  spack install lmod
+  spack install lmod arch=$ARCH
+
   source $(spack location -i lmod)/lmod/lmod/init/bash
   echo "source $(spack location -i lmod)/lmod/lmod/init/bash" >> /etc/profile.d/spack.sh
   echo "source \${SPACK_ROOT}/share/spack/setup-env.sh" >> /etc/profile.d/spack.sh
@@ -66,6 +66,7 @@ spack_setup
 spack install gcc@${GCC_VERSION}
 spack load gcc@${GCC_VERSION}
 spack compiler find --scope site
+spack external find --scope site 
 
 # Spack is often unable to find slurm
 {
