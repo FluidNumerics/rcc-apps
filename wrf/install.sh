@@ -15,6 +15,12 @@ spack_setup() {
   echo "export SPACK_ROOT=${INSTALL_ROOT}/spack" > /etc/profile.d/spack.sh
   echo ". \${SPACK_ROOT}/share/spack/setup-env.sh" >> /etc/profile.d/spack.sh
   source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
+
+{
+  echo "config:"
+  echo "  install_tree: ${INSTALL_ROOT}/software"
+} >> ${INSTALL_ROOT}/spack/etc/spack/config.yaml
+
   spack compiler find --scope site
   
   # Install lmod for module managament
@@ -63,10 +69,10 @@ EOL
 spack_setup
 
 # Switch to newer compiler
+spack external find --scope site 
 spack install gcc@${GCC_VERSION}
 spack load gcc@${GCC_VERSION}
 spack compiler find --scope site
-spack external find --scope site 
 
 # Spack is often unable to find slurm
 {
@@ -76,10 +82,6 @@ spack external find --scope site
   echo "      prefix: ${SLURM_ROOT}"
 } >> ${INSTALL_ROOT}/spack/etc/spack/packages.yaml
 
-{
-  echo "config:"
-  echo "  install_tree: ${INSTALL_ROOT}/software"
-} >> ${INSTALL_ROOT}/spack/etc/spack/config.yaml
 
 # Install WRF
 spack install --source --fail-fast -y wrf@${WRF_VERSION} % gcc@${GCC_VERSION} target=${ARCH} \
