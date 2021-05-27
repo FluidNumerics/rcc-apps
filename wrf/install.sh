@@ -161,7 +161,6 @@ ln -s \$(spack location -i wrf)/run/* .
 srun \$MPI_FLAGS ./wrf.exe
 EOL
 
-mkdir -p ${INSTALL_ROOT}/share
 cat > ${INSTALL_ROOT}/share/wrf-conus12.sh << EOL
 #!/bin/bash
 #SBATCH --partition=wrf
@@ -187,6 +186,35 @@ cp ${INSTALL_ROOT}/share/conus-12km/* .
 ln -s \$(spack location -i wrf)/run/* .
 
 srun \$MPI_FLAGS ./wrf.exe
+EOL
+
+cat > ${INSTALL_ROOT}/share/wrf-conus12-gce.sh << EOL
+#!/bin/bash
+#
+# This script runs the CONUS 12km benchmark for WRF v4
+#
+# By default, the number of MPI ranks is 16 and the path
+# where the model output is stored in ~/wrf-benchmark
+#
+# Additionally, MPI ranks are bound to hardware threads.
+#
+# ////////////////////////////////////////////////////// #
+
+: \${N_MPI_RANKS:=16}
+: \${WORK_PATH:="\${HOME}/wrf-benchmark"}
+
+MPI_FLAGS="-np \${N_MPI_RANKS} --map-by core --bind-to hwthread"
+
+module load gcc/9.2.0
+module load openmpi
+module load hdf5 netcdf-c netcdf-fortran wrf
+
+mkdir -p \${WORK_PATH}
+cd \${WORK_PATH}
+ln -s \${INSTALL_ROOT}/share/conus-12km/* .
+ln -s \$(spack location -i wrf)/run/* .
+
+mpirun \$MPI_FLAGS ./wrf.exe
 EOL
 
 # Copy profile.d/spack.sh to /apps (assuming /apps is always NFS mounted)
