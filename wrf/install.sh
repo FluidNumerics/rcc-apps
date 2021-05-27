@@ -211,7 +211,7 @@ module load hdf5 netcdf-c netcdf-fortran wrf
 
 mkdir -p \${WORK_PATH}
 cd \${WORK_PATH}
-ln -s \${INSTALL_ROOT}/share/conus-12km/* .
+ln -s ${INSTALL_ROOT}/share/conus-12km/* .
 ln -s \$(spack location -i wrf)/run/* .
 
 mpirun \$MPI_FLAGS ./wrf.exe
