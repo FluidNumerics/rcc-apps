@@ -3,6 +3,7 @@ WRF_PROJECT ?= ""
 WRF_ZONE ?= "us-west1-b"
 WRF_MACHINE_TYPE ?= "c2-standard-8"
 WRF_MAX_NODE ?= 3
+WRF_IMAGE ?= "projects/hpc-apps/global/images/wrf-gcp-v1"
 
 .PHONY: plan apply destroy
 
@@ -13,6 +14,7 @@ basic.tfvars: basic.tfvars.tmpl
 	sed -i "s/<zone>/${WRF_ZONE}/g" basic.tfvars
 	sed -i "s/<machine_type>/${WRF_MACHINE_TYPE}/g" basic.tfvars
 	sed -i "s/<max_node>/${WRF_MAX_NODE}/g" basic.tfvars
+	sed -i "s/<wrf_image>/${WRF_IMAGE}/g" basic.tfvars
 
 plan: basic.tfvars
 	terraform plan -var-file=basic.tfvars -out terraform.tfplan
