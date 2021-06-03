@@ -14,9 +14,12 @@ basic.tfvars: basic.tfvars.tmpl
 	sed -i "s/<zone>/${WRF_ZONE}/g" basic.tfvars
 	sed -i "s/<machine_type>/${WRF_MACHINE_TYPE}/g" basic.tfvars
 	sed -i "s/<max_node>/${WRF_MAX_NODE}/g" basic.tfvars
-	sed -i "s/<wrf_image>/${WRF_IMAGE}/g" basic.tfvars
+	sed -i "s#<wrf_image>#${WRF_IMAGE}#g" basic.tfvars
 
-plan: basic.tfvars
+.terraform: 
+	terraform init
+
+plan: basic.tfvars .terraform
 	terraform plan -var-file=basic.tfvars -out terraform.tfplan
 
 apply: plan
