@@ -3,6 +3,8 @@ Copyright 2021 Fluid Numerics LLC
 
 This repository contains code for creating VM images compatible with [Slurm-GCP](https://github.com/schedmd/slurm-gcp) that have common HPC applications pre-installed.
 
+If you're interested in using the GCP Spack cache, see https://gcp-spack-cache.fluidnumerics.com/index.html
+
 ## Getting Started
 Each subdirectory in this repository contains
 * `packer.json` - [Packer](https://packer.io) build script
