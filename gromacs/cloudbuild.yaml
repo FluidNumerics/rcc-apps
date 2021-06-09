@@ -13,6 +13,7 @@ steps:
         "-var","image_name=${_IMAGE_NAME}",
         "-var","image_family=${_IMAGE_FAMILY}",
         "-var","install_root=${_INSTALL_ROOT}",
+        "-var","slurm_root=${_SLURM_ROOT}",
         'gromacs/packer.json']
   waitFor: ["-"]
 
@@ -22,8 +23,9 @@ substitutions:
     _SUBNETWORK: 'default'
     _SOURCE_IMAGE_FAMILY: 'schedmd-slurm-20-11-4-centos-7'
     _SOURCE_IMAGE_PROJECT: 'schedmd-slurm-public'
-    _IMAGE_NAME: 'gromacs-gcp-latest'
+    _IMAGE_NAME: 'gromacs-gcp-dev'
     _IMAGE_FAMILY: 'gromacs-gcp'
     _INSTALL_ROOT: '/apps'
+    _SLURM_ROOT: '/usr/local'
 
 timeout : 28800s

@@ -5,9 +5,10 @@
     "subnet": "default",
     "source_image_family":"schedmd-slurm-20-11-4-centos-7",
     "source_image_project":"schedmd-slurm-public",
-    "image_name":"wrf-gcp-centos7-latest",
-    "image_family":"wrf-gcp-centos7",
-    "install_root":"/apps"
+    "image_name":"gromacs-gcp-latest",
+    "image_family":"gromacs-gcp",
+    "install_root":"/apps",
+    "slurm_root":"/usr/local"
   },
   "builders": [{
     "type": "googlecompute",
@@ -27,8 +28,28 @@
   }],
   "provisioners": [
     {
+      "type": "file",
+      "source": "gromacs/etc",
+      "destination": "/tmp/"
+    },
+    {
+      "type": "file",
+      "source": "gromacs/benchmarks",
+      "destination": "/tmp/"
+    },
+    {
       "type": "shell",
-      "environment_vars":["PROJECT_ID={{user `project_id`}}","INSTALL_ROOT={{user `install_root`}}"],
+      "inline":[ "sudo mv /tmp/etc/sysctl.conf /etc/sysctl.conf",
+	         "sudo mv /tmp/etc/security/limits.d/* /etc/security/limits.d/",
+                 "sudo sysctl -p",
+                 "sudo mkdir -p /apps/share",
+                 "sudo mv /tmp/benchmarks /apps/share/"] 
+    },
+    {
+      "type": "shell",
+      "environment_vars":["PROJECT_ID={{user `project_id`}}",
+	                  "INSTALL_ROOT={{user `install_root`}}",
+			  "SLURM_ROOT={{user `slurm_root`}}"],
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
       "script": "gromacs/install.sh"
     }
