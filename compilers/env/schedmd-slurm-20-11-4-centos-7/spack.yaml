@@ -1,0 +1,37 @@
+spack:
+  specs:
+  - lmod@8.3 arch=x86_64
+  - intel-oneapi-compilers@2021.2.0 arch=x86_64
+  - gcc@10.2.0 arch=x86_64
+  concretization: together
+  config:
+    install_tree: /apps/software
+  packages:
+    cuda:
+      externals:
+      - spec: cuda@11.2.152
+        prefix: /usr/local/cuda
+    slurm:
+      externals:
+      - spec: slurm@20-11
+        prefix: /usr/local") > /apps/spack-environment/spack.yaml
+  modules:
+    enable::
+      - lmod
+    lmod:
+      core_compilers:
+        - 'gcc@4.8.5'
+      hierarchy:
+        - mpi
+      whitelist:
+        - gcc
+      blacklist:
+        - '%gcc@4.8.5'
+      hash_length: 0
+      all:
+        environment:
+          set:
+            '{name}_ROOT': '{prefix}'
+      projections:
+        all:          '{name}/{version}'
+

@@ -1,0 +1,61 @@
+{
+  "variables": {
+    "project_id": "",
+    "zone": "us-central1-a",
+    "subnet": "default",
+    "source_image_family":"schedmd-slurm-20-11-4-centos-7",
+    "source_image_project":"schedmd-slurm-public",
+    "image_name":"hpc-apps-gcp-latest",
+    "image_family":"hpc-apps-gcp",
+    "install_root":"/apps",
+    "slurm_root":"/usr/local",
+    "spack_cache_bucket": "gs://gcp-spack-cache.fluidnumerics.com"
+  },
+  "builders": [{
+    "type": "googlecompute",
+    "project_id": "{{user `project_id`}}",
+    "source_image_family": "{{user `source_image_family`}}",
+    "source_image_project_id": "{{user `source_image_project`}}",
+    "machine_type": "n1-standard-16",
+    "disk_size": 50,
+    "zone": "{{user `zone`}}",
+    "subnetwork" :"{{user `subnet`}}",
+    "image_family": "{{user `image_family`}}",
+    "image_name": "{{user `image_name`}}",
+    "instance_name":"{{user `image_name`}}-image-node-{{timestamp}}",
+    "tags":["cloudbuild"],
+    "scopes":["https://www.googleapis.com/auth/cloud-platform"],
+    "ssh_username": "packer"
+  }],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "compilers/etc",
+      "destination": "/tmp/"
+    },
+    {
+      "type": "file",
+      "source": "compilers/env/{{user `source_image_family`}}/spack.yaml",
+      "destination": "/tmp/"
+    },
+    {
+      "type": "shell",
+      "inline":[ "sudo mv /tmp/etc/sysctl.conf /etc/sysctl.conf",
+	         "sudo mv /tmp/etc/security/limits.d/* /etc/security/limits.d/",
+                 "sudo sysctl -p",
+		 "sudo mkdir /apps/spack-env",
+                 "sudo mv /tmp/spack.yaml /apps/spack-env/spack.yaml"]
+    },
+    {
+      "type": "shell",
+      "environment_vars":["PROJECT_ID={{user `project_id`}}",
+	                  "INSTALL_ROOT={{user `install_root`}}",
+			  "SLURM_ROOT={{user `slurm_root`}}",
+                          "IMAGE_NAME={{user `source_image_family`}}",
+                          "BUCKET={{user `spack_cache_bucket`}}"],
+      "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
+      "script": "compilers/install.sh"
+    }
+  ]  
+}
+
