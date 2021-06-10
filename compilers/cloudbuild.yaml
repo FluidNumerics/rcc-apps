@@ -15,6 +15,7 @@ steps:
         "-var","install_root=${_INSTALL_ROOT}",
         "-var","slurm_root=${_SLURM_ROOT}",
         "-var","spack_cache_bucket=${_SPACK_CACHE_BUCKET}",
+        "-var","gpg_email=${_GPG_EMAIL}",
         'compilers/packer.json']
   waitFor: ["-"]
 
@@ -24,10 +25,11 @@ substitutions:
     _SUBNETWORK: 'default'
     _SOURCE_IMAGE_FAMILY: 'schedmd-slurm-20-11-4-centos-7'
     _SOURCE_IMAGE_PROJECT: 'schedmd-slurm-public'
-    _IMAGE_NAME: 'hpc-apps-gcp-dev'
-    _IMAGE_FAMILY: 'hpc-apps-gcp'
+    _IMAGE_NAME: 'slurm-gcp-spack-compilers-dev'
+    _IMAGE_FAMILY: 'slurm-gcp-spack-compilers'
     _INSTALL_ROOT: '/apps'
     _SLURM_ROOT: '/usr/local'
     _SPACK_CACHE_BUCKET: "gs://gcp-spack-cache.fluidnumerics.com"
+    _GPG_EMAIL: "support@fluidnumerics.com"
 
-timeout : 28800s
+timeout : 86400s

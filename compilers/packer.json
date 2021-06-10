@@ -9,7 +9,8 @@
     "image_family":"hpc-apps-gcp",
     "install_root":"/apps",
     "slurm_root":"/usr/local",
-    "spack_cache_bucket": "gs://gcp-spack-cache.fluidnumerics.com"
+    "spack_cache_bucket": "gs://gcp-spack-cache.fluidnumerics.com",
+    "gpg_email":"support@fluidnumerics.com"
   },
   "builders": [{
     "type": "googlecompute",
@@ -52,10 +53,12 @@
 	                  "INSTALL_ROOT={{user `install_root`}}",
 			  "SLURM_ROOT={{user `slurm_root`}}",
                           "IMAGE_NAME={{user `source_image_family`}}",
-                          "BUCKET={{user `spack_cache_bucket`}}"],
+                          "SPACK_CACHE_BUCKET={{user `spack_cache_bucket`}}",
+                          "GPG_EMAIL={{user `gpg_email`}}"],
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
       "script": "compilers/install.sh"
     }
   ]  
 }
+
 

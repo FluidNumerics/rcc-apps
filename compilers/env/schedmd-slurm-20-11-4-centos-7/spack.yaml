@@ -1,9 +1,7 @@
 spack:
   specs:
   - lmod@8.3 arch=x86_64
-  - intel-oneapi-compilers@2021.2.0 arch=x86_64
-  - gcc@10.2.0 arch=x86_64
-  concretization: together
+  concretization: separately
   config:
     install_tree: /apps/software
   packages:
