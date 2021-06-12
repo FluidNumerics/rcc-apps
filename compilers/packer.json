@@ -35,17 +35,35 @@
       "destination": "/tmp/"
     },
     {
+      "type": "shell",
+      "inline":[ "sudo mv /tmp/etc/sysctl.conf /etc/sysctl.conf",
+	         "sudo mv /tmp/etc/security/limits.d/* /etc/security/limits.d/",
+                 "sudo sysctl -p"
+               ]
+    },
+    {
+      "type": "shell",
+      "environment_vars":["PROJECT_ID={{user `project_id`}}",
+	                  "INSTALL_ROOT={{user `install_root`}}",
+			  "SLURM_ROOT={{user `slurm_root`}}",
+                          "IMAGE_NAME={{user `source_image_family`}}",
+                          "SPACK_CACHE_BUCKET={{user `spack_cache_bucket`}}",
+                          "GPG_EMAIL={{user `gpg_email`}}"],
+      "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
+      "script": "compilers/spack-setup.sh"
+    },
+    {
       "type": "file",
-      "source": "compilers/env/{{user `source_image_family`}}/spack.yaml",
+      "source": "compilers/env/{{user `source_image_family`}}",
       "destination": "/tmp/"
     },
     {
       "type": "shell",
-      "inline":[ "sudo mv /tmp/etc/sysctl.conf /etc/sysctl.conf",
-	         "sudo mv /tmp/etc/security/limits.d/* /etc/security/limits.d/",
-                 "sudo sysctl -p",
-		 "sudo mkdir /apps/spack-env",
-                 "sudo mv /tmp/spack.yaml /apps/spack-env/spack.yaml"]
+      "inline":[ "sudo mkdir /apps/spack-env",
+                 "sudo mv /tmp/{{user `source_image_family`}}/spack.yaml {{user `install_root`}}/spack-env/spack.yaml",
+                 "sudo mv /tmp/{{user `source_image_family`}}/modules.yaml {{user `install_root`}}/spack/etc/spack/modules.yaml",
+                 "sudo mv /tmp/{{user `source_image_family`}}/packages.yaml {{user `install_root`}}/spack/etc/spack/packages.yaml"
+               ]
     },
     {
       "type": "shell",

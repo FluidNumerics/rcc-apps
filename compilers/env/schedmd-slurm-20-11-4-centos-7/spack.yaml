@@ -1,35 +1,40 @@
 spack:
-  specs:
-  - lmod@8.3 arch=x86_64
+  view: false
+
   concretization: separately
-  config:
-    install_tree: /apps/software
+
+  specs:
+   
   packages:
+    all:
+      compiler:
+      - gcc@9.3.0
+      - intel
+
+      providers:
+        mpi:
+          - openmpi
+
+      target:
+      - x86_64
+
     cuda:
       externals:
       - spec: cuda@11.2.152
         prefix: /usr/local/cuda
+
+    openmpi:
+      buildable: true
+      version: 
+      - 4.0.5
+      variants: +cxx +cxx_exceptions +legacylaunchers +memchecker +pmi +static+vt +wrapper-rpath fabrics=auto schedulers=slurm
+
     slurm:
+      buildable: false
+      version: [20-11]
       externals:
       - spec: slurm@20-11
-        prefix: /usr/local") > /apps/spack-environment/spack.yaml
-  modules:
-    enable::
-      - lmod
-    lmod:
-      core_compilers:
-        - 'gcc@4.8.5'
-      hierarchy:
-        - mpi
-      whitelist:
-        - gcc
-      blacklist:
-        - '%gcc@4.8.5'
-      hash_length: 0
-      all:
-        environment:
-          set:
-            '{name}_ROOT': '{prefix}'
-      projections:
-        all:          '{name}/{version}'
+        prefix: /usr/local
 
+
+  
