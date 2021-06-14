@@ -28,7 +28,6 @@ DLB="no"
 TPRDIR="/apps/share/gromacs"
 TPRMEM="benchMEM.tpr"
 STEPSMEM=5000   # Total steps to perform for each benchmark
-RESETMEM=5000   # Reset mdrun time step counters after this time step number
 
 #==============================================================================
 # Do or do not restrict mdrun to use only certain GPUs:
@@ -130,5 +129,5 @@ func.testquit $?
 cd MEM
 func.testquit $?
 export GMX_NSTLIST=40
-$MDRUN -ntmpi $NRANKS -ntomp $NTOMP -npme 0 -s "$TPRDIR/$TPRMEM" -cpt 1440 -nsteps $STEPSMEM -resetstep $RESETMEM -v -noconfout -nb gpu -dlb $DLB -gpu_id $GPUSTR
+$MDRUN -ntmpi $NRANKS -ntomp $NTOMP -npme 0 -s "$TPRDIR/$TPRMEM" -cpt 1440 -nsteps $STEPSMEM -v -noconfout -nb gpu -dlb $DLB -gpu_id $GPUSTR
 func.testquit $?

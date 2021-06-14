@@ -88,11 +88,12 @@ spack external find --scope site cuda
 } >> ${INSTALL_ROOT}/spack/etc/spack/packages.yaml
 
 # Install GCC compiler (newer version than system compiler)
-spack install gcc@${GCC_VERSION}
-spack load gcc@${GCC_VERSION}
+spack install gcc@${GCC_VERSION} target=${ARCH}
+spack load gcc@${GCC_VERSION} target=${ARCH}
 spack compiler find --scope site
 
 spack install --source --fail-fast gromacs@${GMX_VERSION}+cuda+mpi ^fftw+mpi ^openmpi@${OPENMPI_VERSION}+cuda+cxx+cxx_exceptions+legacylaunchers+memchecker+pmi+static+vt+wrapper-rpath fabrics=auto schedulers=slurm target=${ARCH}
+#spack install --source --fail-fast gromacs@${GMX_VERSION}+cuda~mpi ^fftw~mpi
 
 spack gc -y
 
