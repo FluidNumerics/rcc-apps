@@ -1,0 +1,8 @@
+spack:
+  specs:
+  - intel-oneapi-compilers@2021.2.0
+  - gcc@10.2.0
+  concretization: together
+  config:
+    install_tree: /apps/software
+  view: /apps/view
