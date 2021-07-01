@@ -23,8 +23,8 @@ substitutions:
     _SUBNETWORK: 'default'
     _SOURCE_IMAGE_FAMILY: 'schedmd-slurm-20-11-4-centos-7'
     _SOURCE_IMAGE_PROJECT: 'schedmd-slurm-public'
-    _IMAGE_NAME: 'gromacs-gcp-dev-mpi'
-    _IMAGE_FAMILY: 'gromacs-gcp'
+    _IMAGE_NAME: 'gromacs-gcp-foss-latest'
+    _IMAGE_FAMILY: 'gromacs-gcp-foss'
     _INSTALL_ROOT: '/apps'
     _SLURM_ROOT: '/usr/local'
 
