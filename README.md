@@ -3,7 +3,7 @@ Copyright 2021 Fluid Numerics LLC
 
 This repository contains code for creating VM images compatible with [Slurm-GCP](https://github.com/schedmd/slurm-gcp) that have common HPC applications pre-installed.
 
-If you're interested in using the GCP Spack cache, see https://gcp-spack-cache.fluidnumerics.com/index.html
+Fluid Numerics provides support and consulting services to help you get up and running on Google Cloud. [Reach out to Fluid Numerics for Support](https://help.fluidnumerics.com/support)
 
 ## Getting Started
 Each subdirectory in this repository contains
