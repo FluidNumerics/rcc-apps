@@ -92,8 +92,8 @@ spack install gcc@${GCC_VERSION} target=${ARCH}
 spack load gcc@${GCC_VERSION} target=${ARCH}
 spack compiler find --scope site
 
-spack install --source --fail-fast gromacs@${GMX_VERSION}+cuda+mpi ^fftw+mpi ^openmpi@${OPENMPI_VERSION}+cuda+cxx+cxx_exceptions+legacylaunchers+memchecker+pmi+static+vt+wrapper-rpath fabrics=auto schedulers=slurm target=${ARCH}
-#spack install --source --fail-fast gromacs@${GMX_VERSION}+cuda~mpi ^fftw~mpi
+#spack install --source --fail-fast gromacs@${GMX_VERSION}+cuda+mpi ^fftw+mpi ^openmpi@${OPENMPI_VERSION}+cuda+cxx+cxx_exceptions+legacylaunchers+memchecker+pmi+static+vt+wrapper-rpath fabrics=auto schedulers=slurm target=${ARCH}
+spack install --source --fail-fast gromacs@${GMX_VERSION}+cuda~mpi ^fftw~mpi
 
 spack gc -y
 
@@ -146,3 +146,6 @@ unzip /tmp/benchPEP-h.zip -d /apps/share/gromacs
 unzip /tmp/benchRIB.zip -d /apps/share/gromacs
 unzip /tmp/dobenchs.zip -d /apps/share/gromacs
 unzip /tmp/extract.zip -d /apps/share/gromacs
+
+# Ensure that input deck permissions are readable by all
+chmod 644 -R /apps/share/gromacs
