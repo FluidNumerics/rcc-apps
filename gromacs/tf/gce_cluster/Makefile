@@ -3,7 +3,7 @@ GMX_PROJECT ?= ""
 GMX_ZONE ?= "us-west1-b"
 GMX_MACHINE_TYPE ?= "n1-standard-8"
 GMX_NODE_COUNT ?= 1
-GMX_IMAGE ?= "projects/hpc-apps/global/images/gromacs-gcp-dev"
+GMX_IMAGE ?= "projects/hpc-apps/global/images/gromacs-gcp-foss-latest"
 GMX_GPU_TYPE ?= "nvidia-tesla-v100"
 GMX_GPU_COUNT ?= 1
 
