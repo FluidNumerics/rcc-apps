@@ -15,7 +15,10 @@ spack env activate ${INSTALL_ROOT}/spack-env/
 spack install --fail-fast --source
 spack gc -y
 spack env deactivate
-spack env activate --sh -d . >> /etc/profile.d/z10_spack_environment.sh 
+spack env activate --sh -d ${INSTALL_ROOT}/spack-env/ >> /etc/profile.d/z10_spack_environment.sh 
+
+mkdir /workspace
+chmod ugo=rwx -R /workspace
 
 
 # Update MOTD

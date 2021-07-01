@@ -25,8 +25,8 @@ substitutions:
     _SUBNETWORK: 'default'
     _SOURCE_IMAGE_FAMILY: 'schedmd-slurm-20-11-4-centos-7'
     _SOURCE_IMAGE_PROJECT: 'schedmd-slurm-public'
-    _IMAGE_NAME: 'singularity-gcp-dev'
-    _IMAGE_FAMILY: 'singularity-gcp'
+    _IMAGE_NAME: 'singularity-fluid-gcp-latest'
+    _IMAGE_FAMILY: 'singularity-fluid-gcp'
     _INSTALL_ROOT: '/apps'
     _SLURM_ROOT: '/usr/local'
     _SPACK_CACHE_BUCKET: "gs://gcp-spack-cache.fluidnumerics.com"
