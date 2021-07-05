@@ -1,7 +1,7 @@
 spack:
-  view: @INSTALL_ROOT@/view
+  view: /apps/view
   config:
-    install_tree: @INSTALL_ROOT@/software
+    install_tree: /apps/software
 
   concretization: separately
 
@@ -13,7 +13,7 @@ spack:
   packages:
     all:
       compiler:
-      - @COMPILER@
+      - gcc@4.8.5
 
       providers:
         mpi:

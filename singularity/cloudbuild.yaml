@@ -14,8 +14,8 @@ steps:
         "-var","image_family=${_IMAGE_FAMILY}",
         "-var","install_root=${_INSTALL_ROOT}",
         "-var","slurm_root=${_SLURM_ROOT}",
-        "-var","spack_cache_bucket=${_SPACK_CACHE_BUCKET}",
-        "-var","gpg_email=${_GPG_EMAIL}",
+        "-var","compiler=${_COMPILER}",
+        "-var","pkg_path=${_PKG_PATH}",
         'singularity/packer.json']
   waitFor: ["-"]
 
@@ -29,7 +29,7 @@ substitutions:
     _IMAGE_FAMILY: 'singularity-gcp'
     _INSTALL_ROOT: '/apps'
     _SLURM_ROOT: '/usr/local'
-    _SPACK_CACHE_BUCKET: "gs://gcp-spack-cache.fluidnumerics.com"
-    _GPG_EMAIL: "support@fluidnumerics.com"
+    _COMPILER: 'gcc@10.2.0'
+    _PKG_PATH: "singularity"
 
 timeout : 86400s
