@@ -58,7 +58,7 @@
     },
     {
       "type": "shell",
-      "inline":[ "sudo mkdir /apps/spack-pkg-env",
+      "inline":[ "sudo mkdir {{user `install_root`}}/spack-pkg-env",
                  "sudo mv /tmp/spack.yaml {{user `install_root`}}/spack-pkg-env/spack.yaml"
                ]
     },
