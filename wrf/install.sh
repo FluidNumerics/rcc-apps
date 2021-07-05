@@ -70,9 +70,18 @@ spack_setup
 
 # Switch to newer compiler
 spack external find --scope site 
+
+# Install GCC compilers
 spack install gcc@${GCC_VERSION}
 spack load gcc@${GCC_VERSION}
 spack compiler find --scope site
+spack unload gcc
+
+# Install Intel Compilers
+spack install intel-oneapi-compilers@2021.2.0
+spack load intel-oneapi-compilers
+spack compiler find --scope site
+spack unload intel-oneapi-compilers
 
 # Spack is often unable to find slurm
 {
@@ -83,8 +92,13 @@ spack compiler find --scope site
 } >> ${INSTALL_ROOT}/spack/etc/spack/packages.yaml
 
 
-# Install WRF
+# Install WRF w/ GCC
 spack install --source --fail-fast -y wrf@${WRF_VERSION} % gcc@${GCC_VERSION} target=${ARCH} \
+	                      ^openmpi@${OPENMPI_VERSION}+cxx+cxx_exceptions+legacylaunchers+memchecker+pmi+static+vt+wrapper-rpath fabrics=auto schedulers=slurm target=${ARCH} \
+			      ^cmake % gcc@4.8.5 target=${ARCH}
+
+# Install WRF w/ Intel Compilers
+spack install --source --fail-fast -y wrf@${WRF_VERSION} % intel-oneapi-compilers@2021.2.0 target=${ARCH} \
 	                      ^openmpi@${OPENMPI_VERSION}+cxx+cxx_exceptions+legacylaunchers+memchecker+pmi+static+vt+wrapper-rpath fabrics=auto schedulers=slurm target=${ARCH} \
 			      ^cmake % gcc@4.8.5 target=${ARCH}
 

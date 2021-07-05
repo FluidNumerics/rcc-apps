@@ -1,5 +1,6 @@
 {
   "variables": {
+    "compiler": "gcc@10.2.0",
     "project_id": "",
     "zone": "us-central1-a",
     "subnet": "default",
@@ -9,8 +10,7 @@
     "image_family":"hpc-apps-gcp",
     "install_root":"/apps",
     "slurm_root":"/usr/local",
-    "spack_cache_bucket": "gs://gcp-spack-cache.fluidnumerics.com",
-    "gpg_email":"support@fluidnumerics.com"
+    "pkg_path": "singularity"
   },
   "builders": [{
     "type": "googlecompute",
@@ -31,7 +31,7 @@
   "provisioners": [
     {
       "type": "file",
-      "source": "singularity/etc",
+      "source": "{{user `pkg_path`}}/etc",
       "destination": "/tmp/"
     },
     {
@@ -47,22 +47,19 @@
 	                  "INSTALL_ROOT={{user `install_root`}}",
 			  "SLURM_ROOT={{user `slurm_root`}}",
                           "IMAGE_NAME={{user `source_image_family`}}",
-                          "SPACK_CACHE_BUCKET={{user `spack_cache_bucket`}}",
-                          "GPG_EMAIL={{user `gpg_email`}}"],
+			  "COMPILER={{user `compiler`}}"],
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
-      "script": "singularity/spack-setup.sh"
+      "script": "{{user `pkg_path`}}/spack-setup.sh"
     },
     {
       "type": "file",
-      "source": "singularity/env/{{user `source_image_family`}}",
+      "source": "{{user `pkg_path`}}/env/{{user `source_image_family`}}",
       "destination": "/tmp/"
     },
     {
       "type": "shell",
-      "inline":[ "sudo mkdir /apps/spack-env",
-                 "sudo mv /tmp/{{user `source_image_family`}}/spack.yaml {{user `install_root`}}/spack-env/spack.yaml",
-                 "sudo mv /tmp/{{user `source_image_family`}}/modules.yaml {{user `install_root`}}/spack/etc/spack/modules.yaml",
-                 "sudo mv /tmp/{{user `source_image_family`}}/packages.yaml {{user `install_root`}}/spack/etc/spack/packages.yaml"
+      "inline":[ "sudo mkdir /apps/spack-pkg-env",
+                 "sudo mv /tmp/{{user `source_image_family`}}/spack.yaml {{user `install_root`}}/spack-pkg-env/spack.yaml"
                ]
     },
     {
@@ -71,10 +68,9 @@
 	                  "INSTALL_ROOT={{user `install_root`}}",
 			  "SLURM_ROOT={{user `slurm_root`}}",
                           "IMAGE_NAME={{user `source_image_family`}}",
-                          "SPACK_CACHE_BUCKET={{user `spack_cache_bucket`}}",
-                          "GPG_EMAIL={{user `gpg_email`}}"],
+			  "COMPILER={{user `compiler`}}"],
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
-      "script": "singularity/install.sh"
+      "script": "{{user `pkg_path`}}/install.sh"
     }
   ]  
 }

@@ -5,6 +5,26 @@ This repository contains code for creating VM images compatible with [Slurm-GCP]
 
 Fluid Numerics provides support and consulting services to help you get up and running on Google Cloud. [Reach out to Fluid Numerics for Support](https://help.fluidnumerics.com/support)
 
+## HPC Applications in the Cloud
+Fluid Numerics intends to provide you with many options for getting started with HPC and Research Computing applications in the cloud.
+
+### Free and Open Source Solutions (FOSS; This repository)
+Fluid Numerics develops and maintains this repository to help you get started with VM image baking and Terraform infrastructure-as-code
+
+### Fluid Numerics' HPC Apps VM Image Library
+Fluid Numerics builds all of the applications in this repository, provides useful base images with a variety of compiler stacks, and actively supports adding upgrades and updates to our managed VM library. Access to this VM image library also comes with support from Fluid Numerics to help you use these images. This can save you time in cloud design and engineering and provide you access to tested VM images ready for launch on GCP.
+
+
+We currently offer the following images through a VM Image Library subscription with Fluid Numerics
+* **Singularity** - (Singularity + GCC 10.2.0 + OpenMPI 4.0.2) `projects/hpc-apps/global/images/family/fluid-hpc-singularity-gcc-10-ompi-4`
+* **WRF v4.2** - `projects/hpc-apps/global/images/wrf-gcp-v1`
+* **Gromacs** - `projects/hpc-apps/global/images/gromacs-gcp-v1`
+
+Images currently in development
+* **OpenFOAM**
+* **Paraview**
+* **SELF-Fluids**
+
 ## Getting Started
 Each subdirectory in this repository contains
 * `packer.json` - [Packer](https://packer.io) build script
@@ -42,6 +62,15 @@ gcloud builds submit . --async --project=PROJECT-ID --substitutions=_SOURCE_IMAG
 
 
 ### Common Base Images
+
+**Fluid HPC Apps VM Image Library Base Images**
+*VM Image Library access available via subscription*
+
+* CentOS 7 + Slurm + GCC@10.2.0 - `_SOURCE_IMAGE_FAMILY=fluid-hpc-centos-7-gcc-10-2-0, _SOURCE_IMAGE_PROJECT=hpc-apps`
+* CentOS 7 + Slurm + Intel@2021 - `_SOURCE_IMAGE_FAMILY=fluid-hpc-centos-7-intel-oneapi-compilers, _SOURCE_IMAGE_PROJECT=hpc-apps`
+
+*To use the Fluid HPC Apps VM Image Library Base Images, you must set the `_INSTALL_ROOT=/opt`*
+
 
 **Base Operating System Images**
 * CentOS 7 - `_SOURCE_IMAGE_FAMILY=centos-7, _SOURCE_IMAGE_PROJECT=centos-cloud`
