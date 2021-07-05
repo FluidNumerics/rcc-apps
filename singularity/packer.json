@@ -53,13 +53,13 @@
     },
     {
       "type": "file",
-      "source": "{{user `pkg_path`}}/env/{{user `source_image_family`}}",
+      "source": "{{user `pkg_path`}}/env/{{user `source_image_family`}}/spack.yaml",
       "destination": "/tmp/"
     },
     {
       "type": "shell",
       "inline":[ "sudo mkdir /apps/spack-pkg-env",
-                 "sudo mv /tmp/{{user `source_image_family`}}/spack.yaml {{user `install_root`}}/spack-pkg-env/spack.yaml"
+                 "sudo mv /tmp/spack.yaml {{user `install_root`}}/spack-pkg-env/spack.yaml"
                ]
     },
     {
