@@ -71,6 +71,10 @@
 			  "COMPILER={{user `compiler`}}"],
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
       "script": "{{user `pkg_path`}}/install.sh"
+    },
+    {
+      "type": "shell",
+      "inline":[ "sudo sed -i 's/\#GatewayPorts no/GatewayPorts yes/g' /etc/ssh/sshd_config"]
     }
   ]  
 }
