@@ -1,0 +1,48 @@
+spack:
+  view: @INSTALL_ROOT@/view
+  config:
+    install_tree: @INSTALL_ROOT@/software
+
+  concretization: separately
+
+  specs:
+  - openfoam-org@8
+   
+  packages:
+    all:
+      compiler:
+      - gcc@10.2.0
+
+      providers:
+        mpi:
+          - openmpi@4.0.2
+
+      target:
+      - x86_64
+
+    cuda:
+      buildable: false
+      externals:
+      - spec: cuda@11.2.152
+        prefix: /usr/local/cuda
+
+    openmpi:
+      buildable: true
+      version: 
+      - 4.0.5
+      variants: +cxx +cxx_exceptions +legacylaunchers +memchecker +pmi +static+vt +wrapper-rpath fabrics=auto schedulers=slurm
+
+    singularity: 
+      buildable: true
+      version: 
+      - 3.7.4
+
+    slurm:
+      buildable: false
+      version: [20-11]
+      externals:
+      - spec: slurm@20-11
+        prefix: /usr/local
+
+
+  
