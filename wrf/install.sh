@@ -1,118 +1,33 @@
 #!/bin/bash
 #
-
-SPACK_VERSION="v0.16.1"
-GCC_VERSION="9.2.0"
-OPENMPI_VERSION="4.0.5"
-WRF_VERSION="4.2"
-ARCH="x86_64"
-
-######################################################################################################################
-spack_setup() {
-  yum install -y gcc gcc-c++ gcc-gfortran
-  ## Install spack
-  git clone https://github.com/spack/spack.git --branch ${SPACK_VERSION} ${INSTALL_ROOT}/spack
-  echo "export SPACK_ROOT=${INSTALL_ROOT}/spack" > /etc/profile.d/spack.sh
-  echo ". \${SPACK_ROOT}/share/spack/setup-env.sh" >> /etc/profile.d/spack.sh
-  source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
-
-{
-  echo "config:"
-  echo "  install_tree: ${INSTALL_ROOT}/software"
-} >> ${INSTALL_ROOT}/spack/etc/spack/config.yaml
-
-  spack compiler find --scope site
-  
-  # Install lmod for module managament
-  spack install lmod arch=$ARCH
-
-  source $(spack location -i lmod)/lmod/lmod/init/bash
-  echo "source $(spack location -i lmod)/lmod/lmod/init/bash" >> /etc/profile.d/spack.sh
-  echo "source \${SPACK_ROOT}/share/spack/setup-env.sh" >> /etc/profile.d/spack.sh
-  echo "export LMOD_AUTO_SWAP=yes" >> /etc/profile.d/spack.sh
-  echo "module unuse ${INSTALL_ROOT}/spack/share/spack/modules/linux-centos7-x86_64" >> /etc/profile.d/spack.sh
-  echo "module unuse ${INSTALL_ROOT}/spack/share/spack/modules/linux-centos7-haswell" >> /etc/profile.d/spack.sh
-  echo "module unuse ${INSTALL_ROOT}/spack/share/spack/modules/linux-centos7-broadwell" >> /etc/profile.d/spack.sh
-  echo "module unuse /usr/share/modulefiles" >> /etc/profile.d/spack.sh
-  echo "module unuse /etc/modulefiles" >> /etc/profile.d/spack.sh
-  echo "module use ${INSTALL_ROOT}/spack/share/spack/lmod/linux-centos7-x86_64/Core" >> /etc/profile.d/spack.sh
-}
-
-lmod_setup() {
-# Set up modules.yaml
-cat > ${INSTALL_ROOT}/spack/etc/spack/modules.yaml << EOL
-modules:
-  enable::
-    - lmod
-  lmod:
-    core_compilers:
-      - 'gcc@4.8.5'
-    hierarchy:
-      - mpi
-    whitelist:
-      - gcc
-    blacklist:
-      - '%gcc@4.8.5'
-    hash_length: 0
-    all:
-      environment:
-        set:
-          '{name}_ROOT': '{prefix}'
-    projections:
-      all:          '{name}/{version}'
-
-EOL
-  spack module lmod refresh --delete-tree -y
-}
-######################################################################################################################
-
-spack_setup
-
-# Switch to newer compiler
-spack external find --scope site 
-
-# Install GCC compilers
-spack install gcc@${GCC_VERSION}
-spack load gcc@${GCC_VERSION}
-spack compiler find --scope site
-spack unload gcc
-
-# Install Intel Compilers
-spack install intel-oneapi-compilers@2021.2.0
-spack load intel-oneapi-compilers
-spack compiler find --scope site
-spack unload intel-oneapi-compilers
-
-# Spack is often unable to find slurm
-{
-  echo "  slurm:"
-  echo "    externals:"
-  echo "    - spec: slurm@20-11"
-  echo "      prefix: ${SLURM_ROOT}"
-} >> ${INSTALL_ROOT}/spack/etc/spack/packages.yaml
+#
+# Maintainers : @schoonovernumerics
+#
+# //////////////////////////////////////////////////////////////// #
 
 
-# Install WRF w/ GCC
-spack install --source --fail-fast -y wrf@${WRF_VERSION} % gcc@${GCC_VERSION} target=${ARCH} \
-	                      ^openmpi@${OPENMPI_VERSION}+cxx+cxx_exceptions+legacylaunchers+memchecker+pmi+static+vt+wrapper-rpath fabrics=auto schedulers=slurm target=${ARCH} \
-			      ^cmake % gcc@4.8.5 target=${ARCH}
+sed -i 's/@INSTALL_ROOT@/${INSTALL_ROOT}/g' ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
+sed -i 's/@COMPILER@/${COMPILER}/g' ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
 
-# Install WRF w/ Intel Compilers
-spack install --source --fail-fast -y wrf@${WRF_VERSION} % intel-oneapi-compilers@2021.2.0 target=${ARCH} \
-	                      ^openmpi@${OPENMPI_VERSION}+cxx+cxx_exceptions+legacylaunchers+memchecker+pmi+static+vt+wrapper-rpath fabrics=auto schedulers=slurm target=${ARCH} \
-			      ^cmake % gcc@4.8.5 target=${ARCH}
+source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
 
-# Garbage collect
+if [[ "$IMAGE_NAME" != *"fluid-hpc"* ]]; then
+   spack install ${COMPILER}
+   spack load ${COMPILER}
+   spack compiler find --scope site
+fi
+
+spack env activate ${INSTALL_ROOT}/spack-pkg-env/
+spack install --fail-fast --source
 spack gc -y
+spack env deactivate
+spack env activate --sh -d ${INSTALL_ROOT}/spack-pkg-env/ >> /etc/profile.d/z10_spack_environment.sh 
 
 # Install benchmark data
 mkdir -p ${INSTALL_ROOT}/share/conus-2.5km
 gsutil -u ${PROJECT_ID} cp gs://wrf-gcp-benchmark-data/benchmark/conus-2.5km/* ${INSTALL_ROOT}/share/conus-2.5km/
 mkdir -p ${INSTALL_ROOT}/share/conus-12km
 gsutil -u ${PROJECT_ID} cp gs://wrf-gcp-benchmark-data/benchmark/conus-12km/* ${INSTALL_ROOT}/share/conus-12km/
-
-lmod_setup
-
 
 # Update MOTD
 cat > /etc/motd << EOL
@@ -124,7 +39,7 @@ cat > /etc/motd << EOL
 
   Open source implementations of this solution can be found at
 
-    https://github.com/FluidNumerics/hpc-apps-gcp/wrf
+    https://github.com/FluidNumerics/hpc-apps-gcp
 
   This solution contains free and open-source software 
   All applications installed can be listed using 
@@ -231,7 +146,6 @@ ln -s \$(spack location -i wrf)/run/* .
 mpirun \$MPI_FLAGS ./wrf.exe
 EOL
 
-# Copy profile.d/spack.sh to /apps (assuming /apps is always NFS mounted)
 cp /etc/profile.d/spack.sh ${INSTALL_ROOT}/share/spack.sh
 
 cat > /apps/share/doc << EOL

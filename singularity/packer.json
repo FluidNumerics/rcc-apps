@@ -10,7 +10,8 @@
     "image_family":"hpc-apps-gcp",
     "install_root":"/apps",
     "slurm_root":"/usr/local",
-    "pkg_path": "singularity"
+    "pkg_path": "singularity",
+    "common_path": "common"
   },
   "builders": [{
     "type": "googlecompute",
@@ -31,7 +32,7 @@
   "provisioners": [
     {
       "type": "file",
-      "source": "{{user `pkg_path`}}/etc",
+      "source": "{{user `common_path`}}/etc",
       "destination": "/tmp/"
     },
     {
@@ -49,7 +50,7 @@
                           "IMAGE_NAME={{user `source_image_family`}}",
 			  "COMPILER={{user `compiler`}}"],
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
-      "script": "{{user `pkg_path`}}/spack-setup.sh"
+      "script": "{{user `common_path`}}/spack-setup.sh"
     },
     {
       "type": "file",

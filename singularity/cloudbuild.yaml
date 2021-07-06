@@ -16,6 +16,7 @@ steps:
         "-var","slurm_root=${_SLURM_ROOT}",
         "-var","compiler=${_COMPILER}",
         "-var","pkg_path=${_PKG_PATH}",
+        "-var","common_path=${_COMMON_PATH}",
         'singularity/packer.json']
   waitFor: ["-"]
 
@@ -31,5 +32,6 @@ substitutions:
     _SLURM_ROOT: '/usr/local'
     _COMPILER: 'gcc@10.2.0'
     _PKG_PATH: "singularity"
+    _COMMON_PATH: "common"
 
 timeout : 86400s
