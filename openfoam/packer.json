@@ -75,6 +75,15 @@
     {
       "type": "shell",
       "inline":[ "sudo sed -i 's/\#GatewayPorts no/GatewayPorts yes/g' /etc/ssh/sshd_config"]
+    },
+    {
+      "type": "file",
+      "source": "{{user `pkg_path`}}/share",
+      "destination": "/tmp/"
+    },
+    {
+      "type": "shell",
+      "inline":[ "sudo mv /tmp/share {{user `install_root`}}/"]
     }
   ]  
 }
