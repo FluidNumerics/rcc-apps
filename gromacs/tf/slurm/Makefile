@@ -1,24 +1,33 @@
-WRF_NAME ?= "wrf-demo"
-WRF_PROJECT ?= ""
-WRF_ZONE ?= "us-west1-b"
-WRF_MACHINE_TYPE ?= "c2-standard-8"
-WRF_MAX_NODE ?= 3
+GMX_NAME ?= "gromacs"
+GMX_PROJECT ?= ""
+GMX_ZONE ?= "us-west1-b"
+GMX_MACHINE_TYPE ?= "n1-standard-8"
+GMX_NODE_COUNT ?= 1
+GMX_IMAGE ?= "projects/hpc-apps/global/images/gromacs-gcp-foss-latest"
+GMX_GPU_TYPE ?= "nvidia-tesla-v100"
+GMX_GPU_COUNT ?= 1
 
 .PHONY: plan apply destroy
 
-basic.tfvars: basic.tfvars.tmpl
-	cp basic.tfvars.tmpl basic.tfvars
-	sed -i "s/<cluster name>/${WRF_NAME}/g" basic.tfvars
-	sed -i "s/<project>/${WRF_PROJECT}/g" basic.tfvars
-	sed -i "s/<zone>/${WRF_ZONE}/g" basic.tfvars
-	sed -i "s/<machine_type>/${WRF_MACHINE_TYPE}/g" basic.tfvars
-	sed -i "s/<max_node>/${WRF_MAX_NODE}/g" basic.tfvars
+fluid.tfvars: fluid.tfvars.tmpl
+	cp fluid.tfvars.tmpl fluid.tfvars
+	sed -i "s/<name>/${GMX_NAME}/g" fluid.tfvars
+	sed -i "s/<project>/${GMX_PROJECT}/g" fluid.tfvars
+	sed -i "s/<zone>/${GMX_ZONE}/g" fluid.tfvars
+	sed -i "s/<machine_type>/${GMX_MACHINE_TYPE}/g" fluid.tfvars
+	sed -i "s/<node_count>/${GMX_NODE_COUNT}/g" fluid.tfvars
+	sed -i "s#<image>#${GMX_IMAGE}#g" fluid.tfvars
+	sed -i "s/<gpu_type>/${GMX_GPU_TYPE}/g" fluid.tfvars
+	sed -i "s/<gpu_count>/${GMX_GPU_COUNT}/g" fluid.tfvars
 
-plan: basic.tfvars
-	terraform plan -var-file=basic.tfvars -out terraform.tfplan
+.terraform: 
+	terraform init
+
+plan: fluid.tfvars .terraform
+	terraform plan -var-file=fluid.tfvars -out terraform.tfplan
 
 apply: plan
-	terraform apply -var-file=basic.tfvars -auto-approve
+	terraform apply -var-file=fluid.tfvars -auto-approve
 
 destroy:
-	terraform destroy -var-file=basic.tfvars -auto-approve
+	terraform destroy -var-file=fluid.tfvars -auto-approve
