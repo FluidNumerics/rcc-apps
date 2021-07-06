@@ -71,6 +71,17 @@
 			  "COMPILER={{user `compiler`}}"],
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
       "script": "{{user `pkg_path`}}/install.sh"
+    },
+    {
+      "type": "file",
+      "source": "{{user `pkg_path`}}/benchmarks/gromacs_bench.sh",
+      "destination": "/tmp/"
+    },
+    {
+      "type": "shell",
+      "inline":[ "sudo mkdir -p {{user `install_root`}}/share/",
+                 "sudo mv /tmp/gromacs_bench.sh {{user `install_root`}/share/"
+               ]
     }
   ]  
 }
