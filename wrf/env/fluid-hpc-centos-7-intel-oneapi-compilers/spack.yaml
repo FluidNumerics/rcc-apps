@@ -20,6 +20,26 @@ spack:
       target:
       - x86_64
 
+    autoconf:
+      buildable: true
+      compiler:
+      - gcc@4.8.5
+
+    automake:
+      buildable: true
+      compiler:
+      - gcc@4.8.5
+
+    libsigsegv:
+      buildable: true
+      compiler:
+      - gcc@4.8.5
+
+    m4:
+      buildable: true
+      compiler:
+      - gcc@4.8.5
+
     cuda:
       buildable: false
       externals:
@@ -30,7 +50,7 @@ spack:
       buildable: true
       version: 
       - 4.0.5
-      variants: +singularity +cxx +cxx_exceptions +legacylaunchers +memchecker +pmi +static+vt +wrapper-rpath fabrics=auto schedulers=slurm
+      variants: +cxx +cxx_exceptions +legacylaunchers +memchecker +pmi +static+vt +wrapper-rpath fabrics=auto schedulers=slurm
 
     singularity: 
       buildable: true
