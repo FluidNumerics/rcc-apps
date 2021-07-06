@@ -14,7 +14,10 @@ steps:
         "-var","image_family=${_IMAGE_FAMILY}",
         "-var","install_root=${_INSTALL_ROOT}",
         "-var","slurm_root=${_SLURM_ROOT}",
-        'wrf/packer.json']
+        "-var","compiler=${_COMPILER}",
+        "-var","pkg_path=${_PKG_PATH}",
+        "-var","common_path=${_COMMON_PATH}",
+        '${_PKG_PATH}/packer.json']
   waitFor: ["-"]
 
 
@@ -23,9 +26,12 @@ substitutions:
     _SUBNETWORK: 'default'
     _SOURCE_IMAGE_FAMILY: 'schedmd-slurm-20-11-4-centos-7'
     _SOURCE_IMAGE_PROJECT: 'schedmd-slurm-public'
-    _IMAGE_NAME: 'openfoam-slurm-gcp-centos7-latest'
-    _IMAGE_FAMILY: 'openfoam-slurm-gcp-centos7'
+    _IMAGE_NAME: 'openfoam-fluid-gcp-latest'
+    _IMAGE_FAMILY: 'openfoam-fluid-gcp'
     _INSTALL_ROOT: '/apps'
     _SLURM_ROOT: '/usr/local'
+    _COMPILER: 'gcc@10.2.0'
+    _PKG_PATH: "openfoam"
+    _COMMON_PATH: "common"
 
 timeout : 28800s
