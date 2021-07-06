@@ -19,9 +19,8 @@
 : ${NRANKS:=1}
 : ${NGPU_PER_HOST:=1}
 : ${TPRMEM:="benchPEP.tpr"}
-
-
 CORES=$SLURM_CPUS_ON_NODE
+
 DLB="yes"
 
 #==============================================================================

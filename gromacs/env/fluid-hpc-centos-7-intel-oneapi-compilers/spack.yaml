@@ -1,0 +1,69 @@
+spack:
+  view: /apps/view
+  config:
+    install_tree: /apps/software
+
+  concretization: separately
+
+  specs:
+  - gromacs
+   
+  packages:
+    all:
+      compiler:
+      - intel@2021.2.0
+      - gcc@4.8.5
+
+      providers:
+        mpi:
+          - openmpi
+
+      target:
+      - x86_64
+
+    autoconf:
+      buildable: true
+      compiler:
+      - gcc@4.8.5
+
+    automake:
+      buildable: true
+      compiler:
+      - gcc@4.8.5
+
+    libsigsegv:
+      buildable: true
+      compiler:
+      - gcc@4.8.5
+
+    m4:
+      buildable: true
+      compiler:
+      - gcc@4.8.5
+
+    cuda:
+      buildable: false
+      externals:
+      - spec: cuda@11.2.152
+        prefix: /usr/local/cuda
+
+    openmpi:
+      buildable: true
+      version: 
+      - 4.0.5
+      variants: +cxx +cxx_exceptions +legacylaunchers +memchecker +pmi +static+vt +wrapper-rpath fabrics=auto schedulers=slurm
+
+    singularity: 
+      buildable: true
+      version: 
+      - 3.7.4
+
+    slurm:
+      buildable: false
+      version: [20-11]
+      externals:
+      - spec: slurm@20-11
+        prefix: /usr/local
+
+
+  
