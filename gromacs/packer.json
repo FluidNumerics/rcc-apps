@@ -74,14 +74,12 @@
     },
     {
       "type": "file",
-      "source": "{{user `pkg_path`}}/benchmarks/gromacs_bench.sh",
+      "source": "{{user `pkg_path`}}/share",
       "destination": "/tmp/"
     },
     {
       "type": "shell",
-      "inline":[ "sudo mkdir -p {{user `install_root`}}/share/",
-                 "sudo mv /tmp/gromacs_bench.sh {{user `install_root`}}/share/"
-               ]
+      "inline":[ "sudo mv /tmp/share {{user `install_root`}}/"]
     }
   ]  
 }
