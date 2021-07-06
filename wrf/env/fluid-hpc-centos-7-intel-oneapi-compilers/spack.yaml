@@ -6,12 +6,14 @@ spack:
   concretization: separately
 
   specs:
-  - wrf@4.2
+  - wrf@4.2 ^m4 % gcc@4.8.5
+
    
   packages:
     all:
       compiler:
-      - intel@2021.2.0
+      - intel@2021.2.0 
+      - gcc@4.8.5
 
       providers:
         mpi:

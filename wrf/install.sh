@@ -132,9 +132,8 @@ ln -s \$(spack location -i wrf)/run/* .
 mpirun \$MPI_FLAGS ./wrf.exe
 EOL
 
-cp /etc/profile.d/spack.sh ${INSTALL_ROOT}/share/spack.sh
-
-cat > /apps/share/doc << EOL
+mkdir -p ${INSTALL_ROOT}/share/
+cat > ${INSTALL_ROOT}/share/doc << EOL
 
 # Notices
 
