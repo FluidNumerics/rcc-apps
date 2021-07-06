@@ -11,7 +11,7 @@ spack:
   packages:
     all:
       compiler:
-      - gcc@4.8.5
+      - intel@2021.2.0
 
       providers:
         mpi:
