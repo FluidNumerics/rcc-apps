@@ -1,7 +1,7 @@
 spack:
-  view: /apps/view
+  view: @INSTALL_ROOT@/view
   config:
-    install_tree: /apps/software
+    install_tree: @INSTALL_ROOT@/software
 
   concretization: separately
 
