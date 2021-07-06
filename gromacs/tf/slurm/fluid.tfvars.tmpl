@@ -1,4 +1,4 @@
-cluster_name = "<cluster name>"
+cluster_name = "<name>"
 project = "<project>"
 zone = "<zone>"
 
@@ -11,14 +11,14 @@ partitions = [
     image                = "<image>"
     image_hyperthreads   = true
     static_node_count    = 0
-    max_node_count       = <max_node>
+    max_node_count       = <node_count>
     zone                 = "<zone>"
     compute_disk_type    = "pd-standard"
     compute_disk_size_gb = 50
     compute_labels       = {}
     cpu_platform         = null
     gpu_count            = <gpu_count>
-    gpu_type             = <gpu_type>
+    gpu_type             = "<gpu_type>"
     network_storage      = []
     preemptible_bursting = false
     vpc_subnet           = null
