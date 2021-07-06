@@ -6,7 +6,7 @@ spack:
   concretization: separately
 
   specs:
-  - wrf@4.2 ^m4 % gcc@4.8.5
+  - wrf@4.2
 
    
   packages:
