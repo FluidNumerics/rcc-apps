@@ -14,8 +14,6 @@
 #
 # ////////////////////////////////////////// #
 
-module load openfoam
-
 gcc --version
 
 # Copy the compressible flow over NACA0012 aerofoil demo

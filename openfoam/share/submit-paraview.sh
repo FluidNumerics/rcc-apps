@@ -20,8 +20,6 @@ cat >$TEMP_FILE << EOL
 #SBATCH -o paraview-$JOB.log                               
 #SBATCH -e paraview-$JOB.log                               
                                                                
-module load paraview                                           
- 
 mpirun -np \${SLURM_NTASKS} pvserver -rc -ch=$LOGIN --server-port=$1 --force-offscreen-rendering 
 EOL
  
