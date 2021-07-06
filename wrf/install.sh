@@ -77,11 +77,6 @@ cat > ${INSTALL_ROOT}/share/wrf-conus2p5.sh << EOL
 WORK_PATH=\${HOME}/wrf-benchmark/
 SRUN_FLAGS="-n \$SLURM_NTASKS --cpu-bind=threads" 
 
-. ${INSTALL_ROOT}/share/spack.sh
-module load gcc/9.2.0
-module load openmpi
-module load hdf5 netcdf-c netcdf-fortran wrf
-
 mkdir -p \${WORK_PATH}
 cd \${WORK_PATH}
 cp ${INSTALL_ROOT}/share/conus-2.5km/* .
@@ -103,11 +98,6 @@ cat > ${INSTALL_ROOT}/share/wrf-conus12.sh << EOL
 
 WORK_PATH=\${HOME}/wrf-benchmark/
 SRUN_FLAGS="-n \$SLURM_NTASKS --cpu-bind=threads" 
-
-. ${INSTALL_ROOT}/share/spack.sh
-module load gcc/9.2.0
-module load openmpi
-module load hdf5 netcdf-c netcdf-fortran wrf
 
 mkdir -p \${WORK_PATH}
 cd \${WORK_PATH}
@@ -134,10 +124,6 @@ cat > ${INSTALL_ROOT}/share/wrf-conus12-gce.sh << EOL
 
 MPI_FLAGS="-np \${N_MPI_RANKS} --map-by core --bind-to hwthread"
 
-module load gcc/9.2.0
-module load openmpi
-module load hdf5 netcdf-c netcdf-fortran wrf
-
 mkdir -p \${WORK_PATH}
 cd \${WORK_PATH}
 ln -s ${INSTALL_ROOT}/share/conus-12km/* .
@@ -158,18 +144,14 @@ cat > /apps/share/doc << EOL
 
 This short tutorial will show you how to run WRF on a single VM without a job scheduler.
 
-1. Load the necessary modules into your path
-    module load gcc && module load openmpi
-    module load hdf5 netcdf-c netcdf-fortran wrf
-
-2. Create a directory for the CONUS 12km benchmark
+1. Create a directory for the CONUS 12km benchmark
     mkdir benchmark && cd benchmark
 
-3. Link the CONUS 12km benchmark input decks to your new directory
+2. Link the CONUS 12km benchmark input decks to your new directory
     ln -s /opt/share/conus-12km/* ./
     ln -s \$(spack location -i wrf)/run/* ./
 
-4. Run the job with 16 ranks (assuming you have an instance with at least 16 vCPU.
+3. Run the job with 16 ranks (assuming you have an instance with at least 16 vCPU.
     mpirun -np 16 ./wrf.exe
 
 To run on multiple virtual machines, you can :
