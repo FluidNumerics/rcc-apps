@@ -1,7 +1,0 @@
-
-  - intel-oneapi-compilers@2021.2.0 arch=x86_64
-  - gcc@10.2.0 arch=x86_64
-  - gcc@9.3.0 arch=x86_64
-  - gcc@8.4.0 arch=x86_64
-  - gcc@7.5.0 arch=x86_64
-  - gcc@6.5.0 arch=x86_64
