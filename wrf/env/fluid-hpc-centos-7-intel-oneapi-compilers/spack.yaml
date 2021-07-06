@@ -13,7 +13,6 @@ spack:
     all:
       compiler:
       - intel@2021.2.0 
-      - gcc@4.8.5
 
       providers:
         mpi:
@@ -22,31 +21,17 @@ spack:
       target:
       - x86_64
 
-
-    wrf:
-      buildable: true
-      compiler:
-      - intel@2021.2.0
-
     autoconf:
-      buildable: true
-      compiler:
-      - gcc@4.8.5
+      buildable: false
+      externals:
+      - spec: autoconf@2.69
+        prefix: /usr
 
     automake:
-      buildable: true
-      compiler:
-      - gcc@4.8.5
-
-    libsigsegv:
-      buildable: true
-      compiler:
-      - gcc@4.8.5
-
-    m4:
-      buildable: true
-      compiler:
-      - gcc@4.8.5
+      buildable: false
+      externals:
+      - spec: automake@1.13.4
+        prefix: /usr
 
     cuda:
       buildable: false
