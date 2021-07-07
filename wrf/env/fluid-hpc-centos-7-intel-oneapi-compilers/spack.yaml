@@ -20,6 +20,11 @@ spack:
       target:
       - x86_64
 
+    boost: 
+      buildable: true
+      version: 
+      - 1.68.0
+
     m4: 
       buildable: true
       version: 
