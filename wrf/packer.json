@@ -24,7 +24,7 @@
     "subnetwork" :"{{user `subnet`}}",
     "image_family": "{{user `image_family`}}",
     "image_name": "{{user `image_name`}}",
-    "instance_name":"{{user `image_name`}}-image-node-{{timestamp}}",
+    "instance_name":"{{user `image_name`}}{{timestamp}}",
     "tags":["cloudbuild"],
     "scopes":["https://www.googleapis.com/auth/cloud-platform"],
     "ssh_username": "packer"
