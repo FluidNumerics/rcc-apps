@@ -12,13 +12,18 @@ spack:
   packages:
     all:
       compiler:
-      - intel@2021.2.0 ^m4@1.4.17
+      - intel@2021.2.0
       providers:
         mpi:
           - openmpi
 
       target:
       - x86_64
+
+    m4: 
+      buildable: true
+      version: 
+      - 1.4.17
 
     autoconf:
       buildable: false
