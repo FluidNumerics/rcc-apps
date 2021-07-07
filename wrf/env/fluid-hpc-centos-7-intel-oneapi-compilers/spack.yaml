@@ -20,6 +20,12 @@ spack:
       target:
       - x86_64
 
+    valgrind:
+      buildable: false
+      externals:
+      - spec: valgrind@3.15.0
+        prefix: /usr
+
     boost: 
       buildable: true
       version: 
