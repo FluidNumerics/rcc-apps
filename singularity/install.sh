@@ -6,8 +6,8 @@
 # //////////////////////////////////////////////////////////////// #
 
 
-sed -i 's/@INSTALL_ROOT@/${INSTALL_ROOT}/g' ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
-sed -i 's/@COMPILER@/${COMPILER}/g' ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
+sed -i 's#@INSTALL_ROOT@#'"${INSTALL_ROOT}"'#g' ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
+sed -i 's/@COMPILER@/'"${COMPILER}"'/g' ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
 
 source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
 
