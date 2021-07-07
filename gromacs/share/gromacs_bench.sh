@@ -18,7 +18,10 @@
 
 : ${NRANKS:=1}
 : ${NGPU_PER_HOST:=1}
-: ${TPRMEM:="benchPEP.tpr"}
+: ${TPRMEM:="benchRIB.tpr"}
+: ${TPRDIR:="/apps/share/gromacs"}
+: ${STEPSMEM:=5000}   # Total steps to perform for each benchmark
+
 CORES=$SLURM_CPUS_ON_NODE
 
 DLB="yes"
@@ -28,13 +31,6 @@ DLB="yes"
 #==============================================================================
 source $(spack location -i gromacs)/bin/GMXRC
 export MDRUN="gmx mdrun"
-
-
-#==============================================================================
-# Where is the benchmark MD system
-#==============================================================================
-TPRDIR="/apps/share/gromacs"
-STEPSMEM=5000   # Total steps to perform for each benchmark
 
 #==============================================================================
 # Do or do not restrict mdrun to use only certain GPUs:
@@ -124,14 +120,13 @@ func.getGpuString ( )
 DIR=$( pwd )
 NTOMP=$( echo "$CORES / $NRANKS" | bc )
 GPUSTR=$( func.getGpuString $NGPU_PER_HOST $NRANKS $USEGPUIDS )
-RUN=01_ntmpi${NRANKS}_ntomp${NTOMP}_dlb${DLB}
 
-mkdir "$DIR"/run$RUN
+mkdir -p "$DIR"/run
 func.testquit $?
 
-cd "$DIR"/run$RUN
+cd "$DIR"/run
 func.testquit $?
-mkdir MEM
+mkdir -p MEM
 func.testquit $?
 cd MEM
 func.testquit $?
@@ -140,7 +135,7 @@ export GMX_NSTLIST=40
 if [[ $NGPU_PER_HOST == "0" ]]; then
   $MDRUN -ntmpi $NRANKS -ntomp $NTOMP -s "$TPRDIR/$TPRMEM" -cpt 1440 -nsteps $STEPSMEM -v -noconfout -dlb $DLB
 else
-  $MDRUN -ntmpi $NRANKS -ntomp $NTOMP -s "$TPRDIR/$TPRMEM" -cpt 1440 -nsteps $STEPSMEM -v -noconfout -nb gpu -pme gpu -bonded gpu -dlb $DLB -gpu_id $GPUSTR
+  $MDRUN -ntmpi $NRANKS -ntomp $NTOMP -s "$TPRDIR/$TPRMEM" -cpt 1440 -nsteps $STEPSMEM -v -noconfout -nb gpu -pme gpu -bonded gpu -dlb $DLB -gpu_id $GPUSTR -pin on
 fi
 
 func.testquit $?
