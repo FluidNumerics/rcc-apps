@@ -137,10 +137,10 @@ cd MEM
 func.testquit $?
 export GMX_NSTLIST=40
 
-if [[ $NGPU_PER_HOST =="0" ]]; then
-  $MDRUN -ntmpi $NRANKS -ntomp $NTOMP -npme 0 -s "$TPRDIR/$TPRMEM" -cpt 1440 -nsteps $STEPSMEM -v -noconfout -nb cpu -dlb $DLB
+if [[ $NGPU_PER_HOST == "0" ]]; then
+  $MDRUN -ntmpi $NRANKS -ntomp $NTOMP -s "$TPRDIR/$TPRMEM" -cpt 1440 -nsteps $STEPSMEM -v -noconfout -dlb $DLB
 else
-  $MDRUN -ntmpi $NRANKS -ntomp $NTOMP -npme 0 -s "$TPRDIR/$TPRMEM" -cpt 1440 -nsteps $STEPSMEM -v -noconfout -nb gpu -dlb $DLB -gpu_id $GPUSTR
+  $MDRUN -ntmpi $NRANKS -ntomp $NTOMP -s "$TPRDIR/$TPRMEM" -cpt 1440 -nsteps $STEPSMEM -v -noconfout -nb gpu -pme gpu -bonded gpu -dlb $DLB -gpu_id $GPUSTR
 fi
 
 func.testquit $?
