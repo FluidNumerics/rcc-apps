@@ -25,7 +25,8 @@ Fluid Numerics builds all of the applications in this repository, provides usefu
 
 We currently offer the following images through a VM Image Library subscription with Fluid Numerics
 * **Singularity** - (Singularity + GCC 10.2.0 + OpenMPI 4.0.2) `_SOURCE_IMAGE_FAMILY=fluid-hpc-singularity-gcc-10-ompi-4, _SOURCE_IMAGE_PROJECT=hpc-apps`
-* **WRF v4.2** - `_SOURCE_IMAGE_FAMILY=fluid-hpc-wrf-gcc-9-ompi-4, _SOURCE_IMAGE_PROJECT=hpc-apps`
+* **WRF v4.2 (GCC)** - `_SOURCE_IMAGE_FAMILY=fluid-hpc-wrf-gcc-9-ompi-4, _SOURCE_IMAGE_PROJECT=hpc-apps`
+* **WRF v4.2 (Intel)** - `_SOURCE_IMAGE_FAMILY=fluid-hpc-wrf-intel-oneapi-compilers-ompi-4, _SOURCE_IMAGE_PROJECT=hpc-apps`
 * **Gromacs 2021.2** - `_SOURCE_IMAGE_FAMILY=fluid-hpc-gromacs-gcc-10, _SOURCE_IMAGE_PROJECT=hpc-apps`
 * **CentOS 7 + Slurm + GCC@10.2.0** - `_SOURCE_IMAGE_FAMILY=fluid-hpc-centos-7-gcc-10-2-0, _SOURCE_IMAGE_PROJECT=hpc-apps`
 * **CentOS 7 + Slurm + GCC@9.4.0** - `_SOURCE_IMAGE_FAMILY=fluid-hpc-centos-7-gcc-9-4-0, _SOURCE_IMAGE_PROJECT=hpc-apps`
