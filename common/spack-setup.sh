@@ -28,3 +28,8 @@ if [[ "$IMAGE_NAME" != *"fluid-hpc"* ]]; then
    # Find system compilers
    spack compiler find --scope site
 fi
+
+## For ensuring that Slurm paths are in default path ##
+if [[ -f "/etc/profile.d/slurm.sh" ]]; then
+	mv /etc/profile.d/slurm.sh /etc/profile.d/z11_slurm.sh
+fi
