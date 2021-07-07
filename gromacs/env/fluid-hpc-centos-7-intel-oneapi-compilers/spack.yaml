@@ -6,13 +6,12 @@ spack:
   concretization: separately
 
   specs:
-  - gromacs
+  - gromacs@2021.2+cuda~mpi ^fftw~mpi
    
   packages:
     all:
       compiler:
       - intel@2021.2.0
-      - gcc@4.8.5
 
       providers:
         mpi:
