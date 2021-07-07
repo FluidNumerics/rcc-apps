@@ -58,11 +58,6 @@ spack:
       version: 
       - 4.0.5
       variants: +cxx +cxx_exceptions +legacylaunchers +memchecker +pmi +static+vt +wrapper-rpath fabrics=auto schedulers=slurm
-    openssh:
-      buildable: false
-      externals:
-      - spec: openssh@7.4p1
-        prefix: /usr
     singularity: 
       buildable: true
       version: 
