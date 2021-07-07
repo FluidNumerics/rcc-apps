@@ -44,6 +44,11 @@ spack:
       externals:
       - spec: cuda@11.2.152
         prefix: /usr/local/cuda
+    libevent:
+      buildable: false
+      externals:
+      - spec: libevent@2.0.21
+        prefix: /usr
     m4: 
       buildable: true
       version: 
