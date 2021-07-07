@@ -65,7 +65,7 @@
       "type": "shell",
       "inline":[ "sudo mkdir {{user `install_root`}}/spack-pkg-env",
                  "sudo mv /tmp/spack.yaml {{user `install_root`}}/spack-pkg-env/spack.yaml",
-                 "sudo mv /tmp/share {{user `install_root`}}/"]
+                 "sudo mv /tmp/share {{user `install_root`}}/"
                ]
     },
     {
