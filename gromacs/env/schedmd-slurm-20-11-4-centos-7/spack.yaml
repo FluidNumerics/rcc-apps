@@ -6,7 +6,7 @@ spack:
   concretization: separately
 
   specs:
-  - gromacs
+  - gromacs@2021.2+cuda~mpi ^fftw~mpi
 
    
   packages:
