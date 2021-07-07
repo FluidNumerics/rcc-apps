@@ -24,6 +24,8 @@ Some VM images are sponsored by organizations to make them freely available to t
 Fluid Numerics builds all of the applications in this repository, provides useful base images with a variety of compiler stacks, and actively supports adding upgrades and updates to our managed VM library. Access to this VM image library also comes with support from Fluid Numerics to help you use these images. This can save you time in cloud design and engineering and provide you access to tested VM images ready for launch on GCP.
 
 We currently offer the following images through a VM Image Library subscription with Fluid Numerics
+
+* **Dev Platform** - (GCC 7.5.0, 8.5.0, 9.4.0, 10.2.0; Intel Compilers 2021, OpenMPI 4.0.2, Singularity, ROCm, lmod) `_SOURCE_IMAGE_FAMILY=fluid-hpc-devplatform, _SOURCE_IMAGE_PROJECT=hpc-apps`
 * **Singularity** - (Singularity + GCC 10.2.0 + OpenMPI 4.0.2) `_SOURCE_IMAGE_FAMILY=fluid-hpc-singularity-gcc-10-ompi-4, _SOURCE_IMAGE_PROJECT=hpc-apps`
 * **WRF v4.2 (GCC)** - `_SOURCE_IMAGE_FAMILY=fluid-hpc-wrf-gcc-9-ompi-4, _SOURCE_IMAGE_PROJECT=hpc-apps`
 * **WRF v4.2 (Intel)** - `_SOURCE_IMAGE_FAMILY=fluid-hpc-wrf-intel-oneapi-compilers-ompi-4, _SOURCE_IMAGE_PROJECT=hpc-apps`
@@ -37,6 +39,8 @@ We currently offer the following images through a VM Image Library subscription 
 Images currently in development
 * **OpenFOAM**
 * **Paraview**
+* **FEOTS**
+* **SELF-Fluids**
 
 ## Getting Started
 Each subdirectory in this repository contains
