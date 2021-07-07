@@ -20,57 +20,54 @@ spack:
       target:
       - x86_64
 
-    valgrind:
-      buildable: false
-      externals:
-      - spec: valgrind@3.15.0+boost~mpi+only64bit
-        prefix: /usr
-
-    boost: 
-      buildable: true
-      version: 
-      - 1.68.0
-
-    m4: 
-      buildable: true
-      version: 
-      - 1.4.17
-
     autoconf:
       buildable: false
       externals:
       - spec: autoconf@2.69
         prefix: /usr
-
     automake:
       buildable: false
       externals:
       - spec: automake@1.13.4
         prefix: /usr
-
+    bison:
+      buildable: false
+      externals:
+      - spec: bison@3.0.4
+        prefix: /usr
+    boost: 
+      buildable: true
+      version: 
+      - 1.68.0
     cuda:
       buildable: false
       externals:
       - spec: cuda@11.2.152
         prefix: /usr/local/cuda
-
+    m4: 
+      buildable: true
+      version: 
+      - 1.4.17
     openmpi:
       buildable: true
       version: 
       - 4.0.5
       variants: +cxx +cxx_exceptions +legacylaunchers +memchecker +pmi +static+vt +wrapper-rpath fabrics=auto schedulers=slurm
-
     singularity: 
       buildable: true
       version: 
       - 3.7.4
-
     slurm:
       buildable: false
       version: [20-11]
       externals:
       - spec: slurm@20-11
         prefix: /usr/local
+    valgrind:
+      buildable: false
+      externals:
+      - spec: valgrind@3.15.0+boost~mpi+only64bit
+        prefix: /usr
 
 
   
