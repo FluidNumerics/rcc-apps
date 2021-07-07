@@ -6,11 +6,11 @@
     "subnet": "default",
     "source_image_family":"schedmd-slurm-20-11-4-centos-7",
     "source_image_project":"schedmd-slurm-public",
-    "image_name":"wrf-gcp-slurm-gcp-centos7-latest",
-    "image_family":"wrf-gcp-slurm-gcp-centos7",
+    "image_name":"openfoam-gcp-slurm-gcp-centos7-latest",
+    "image_family":"openfoam-gcp-slurm-gcp-centos7",
     "install_root":"/apps",
     "slurm_root":"/usr/local",
-    "pkg_path": "wrf",
+    "pkg_path": "openfoam",
     "common_path": "common"
   },
   "builders": [{
@@ -71,10 +71,6 @@
 			  "COMPILER={{user `compiler`}}"],
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
       "script": "{{user `pkg_path`}}/install.sh"
-    },
-    {
-      "type": "shell",
-      "inline":[ "sudo sed -i 's/\#GatewayPorts no/GatewayPorts yes/g' /etc/ssh/sshd_config"]
     },
     {
       "type": "file",
