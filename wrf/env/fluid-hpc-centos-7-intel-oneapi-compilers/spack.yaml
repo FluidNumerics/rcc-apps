@@ -23,7 +23,7 @@ spack:
     valgrind:
       buildable: false
       externals:
-      - spec: valgrind@3.15.0+boost~mpi+only64bit+usban
+      - spec: valgrind@3.15.0+boost~mpi+only64bit
         prefix: /usr
 
     boost: 
