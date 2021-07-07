@@ -17,7 +17,7 @@ steps:
         "-var","compiler=${_COMPILER}",
         "-var","pkg_path=${_PKG_PATH}",
         "-var","common_path=${_COMMON_PATH}",
-        'gromacs/packer.json']
+        '${_PKG_PATH}/packer.json']
   waitFor: ["-"]
 
 
