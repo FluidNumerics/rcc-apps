@@ -57,9 +57,15 @@
       "destination": "/tmp/"
     },
     {
+      "type": "file",
+      "source": "{{user `pkg_path`}}/share",
+      "destination": "/tmp/"
+    },
+    {
       "type": "shell",
       "inline":[ "sudo mkdir {{user `install_root`}}/spack-pkg-env",
-                 "sudo mv /tmp/spack.yaml {{user `install_root`}}/spack-pkg-env/spack.yaml"
+                 "sudo mv /tmp/spack.yaml {{user `install_root`}}/spack-pkg-env/spack.yaml",
+                 "sudo mv /tmp/share {{user `install_root`}}/"]
                ]
     },
     {
@@ -71,15 +77,6 @@
 			  "COMPILER={{user `compiler`}}"],
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
       "script": "{{user `pkg_path`}}/install.sh"
-    },
-    {
-      "type": "file",
-      "source": "{{user `pkg_path`}}/share",
-      "destination": "/tmp/"
-    },
-    {
-      "type": "shell",
-      "inline":[ "sudo mv /tmp/share {{user `install_root`}}/"]
     }
   ]  
 }
