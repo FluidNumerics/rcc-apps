@@ -4,7 +4,12 @@
 yum install -y valgrind valgrind-devel
 
 sed -i 's#@INSTALL_ROOT@#'"${INSTALL_ROOT}"'#g' ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
-sed -i 's/@COMPILER@/'"${COMPILER}"'/g' ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
+
+if [[ "$COMPILER" == *"intel"* ]]; then
+  sed -i 's/@COMPILER@/intel/g' ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
+else
+  sed -i 's/@COMPILER@/'"${COMPILER}"'/g' ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
+fi
 
 source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
 
