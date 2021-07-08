@@ -25,16 +25,23 @@ Fluid Numerics builds all of the applications in this repository, provides usefu
 
 We currently offer the following images through a VM Image Library subscription with Fluid Numerics
 
-* **Dev Platform** - (GCC 7.5.0, 8.5.0, 9.4.0, 10.2.0; Intel Compilers 2021, OpenMPI 4.0.2, Singularity, ROCm, lmod) `_SOURCE_IMAGE_FAMILY=fluid-hpc-devplatform, _SOURCE_IMAGE_PROJECT=hpc-apps`
-* **Singularity** - (Singularity + GCC 10.2.0 + OpenMPI 4.0.2) `_SOURCE_IMAGE_FAMILY=fluid-hpc-singularity-gcc-10-ompi-4, _SOURCE_IMAGE_PROJECT=hpc-apps`
-* **WRF v4.2 (GCC)** - `_SOURCE_IMAGE_FAMILY=fluid-hpc-wrf-gcc-9-ompi-4, _SOURCE_IMAGE_PROJECT=hpc-apps`
-* **WRF v4.2 (Intel)** - `_SOURCE_IMAGE_FAMILY=fluid-hpc-wrf-intel-oneapi-compilers-ompi-4, _SOURCE_IMAGE_PROJECT=hpc-apps`
-* **Gromacs 2021.2** - `_SOURCE_IMAGE_FAMILY=fluid-hpc-gromacs-gcc-10, _SOURCE_IMAGE_PROJECT=hpc-apps`
-* **CentOS 7 + Slurm + GCC@10.2.0** - `_SOURCE_IMAGE_FAMILY=fluid-hpc-centos-7-gcc-10-2-0, _SOURCE_IMAGE_PROJECT=hpc-apps`
-* **CentOS 7 + Slurm + GCC@9.4.0** - `_SOURCE_IMAGE_FAMILY=fluid-hpc-centos-7-gcc-9-4-0, _SOURCE_IMAGE_PROJECT=hpc-apps`
-* **CentOS 7 + Slurm + GCC@8.5.0** - `_SOURCE_IMAGE_FAMILY=fluid-hpc-centos-7-gcc-8-5-0, _SOURCE_IMAGE_PROJECT=hpc-apps`
-* **CentOS 7 + Slurm + GCC@7.5.0** - `_SOURCE_IMAGE_FAMILY=fluid-hpc-centos-7-gcc-7-5-0, _SOURCE_IMAGE_PROJECT=hpc-apps`
-* **CentOS 7 + Slurm + Intel@2021** - `_SOURCE_IMAGE_FAMILY=fluid-hpc-centos-7-intel-oneapi-compilers, _SOURCE_IMAGE_PROJECT=hpc-apps`
+Image Contents | Image Family | Image Name
+-------------- | ------------ | ----------
+GCC 7.5.0, 8.5.0, 9.4.0, 10.2.0; Intel Compilers 2021, OpenMPI 4.0.2, Singularity, ROCm, lmod | fluid-hpc-centos-7-devplatform | fluid-hpc-centos-7-devplatform-5b938e8
+Singularity + GCC 10.2.0 + OpenMPI 4.0.2 | fluid-hpc-singularity-gcc-10-ompi-4 | fluid-hpc-singularity-gcc-10-ompi-4-
+WRF v4.2 (GCC 9.4.0 + OpenMPI 4.0.2) | fluid-hpc-wrf-gcc-9-ompi-4 | fluid-hpc-wrf-gcc-9-ompi-4-
+WRF v4.2 (Intel OneAPI Compilers + OpenMPI 4.0.2) | fluid-hpc-wrf-intel-oneapi-compilers-ompi-4 | fluid-hpc-wrf-intel-oneapi-compilers-ompi-4-
+Gromacs 2021.2 (GCC 10.2.0 + CUDA 11) | fluid-hpc-gromacs-gcc-10 | fluid-hpc-gromacs-gcc-10-
+GCC 10.2.0 | fluid-hpc-centos-7-gcc-10-2-0 | fluid-hpc-centos-7-gcc-10-2-0-
+GCC 9.4.0 | fluid-hpc-centos-7-gcc-9-4-0 | fluid-hpc-centos-7-gcc-9-4-0-
+GCC 8.5.0 | fluid-hpc-centos-7-gcc-8-5-0 | fluid-hpc-centos-7-gcc-8-5-0-
+GCC 7.5.0 | fluid-hpc-centos-7-gcc-7-5-0 | fluid-hpc-centos-7-gcc-7-5-0-
+Intel OneAPI Compilers 2021 | fluid-hpc-centos-7-intel-oneapi-compilers | fluid-hpc-centos-7-intel-oneapi-compilers-
+
+**Notes**
+* If you want to build images on top of these image, you need to set `_SOURCE_IMAGE_PROJECT=hpc-apps` and set `_SOURCE_IMAGE_FAMILY` to the value in the "Image Family" column from the table above.
+* When deploying one of these images with the terraform deployments in this repository, you need to set the VM image to `projects/hpc-apps/global/images/IMAGE-NAME`, replacing `IMAGE-NAME`  with a value in the "Image Name" column from the table above.
+
 
 Images currently in development
 * **OpenFOAM**
