@@ -13,7 +13,8 @@ spack:
   packages:
     all:
       compiler:
-      - intel@2021.2.0
+      - @COMPILER@
+
       providers:
         mpi:
           - openmpi
@@ -44,7 +45,10 @@ spack:
       buildable: false
       externals:
       - spec: cuda@11.2.152
-        prefix: /usr/local/cuda
+    flex:
+      buildable: true
+      externals:
+      - spec: 2.6.1
     libevent:
       buildable: false
       externals:
@@ -58,7 +62,7 @@ spack:
       buildable: true
       version: 
       - 4.0.5
-      variants: +cxx +cxx_exceptions +legacylaunchers +memchecker +pmi +static+vt +wrapper-rpath fabrics=auto schedulers=slurm
+      variants: +singularity +cxx +cxx_exceptions +legacylaunchers +memchecker +pmi +static+vt +wrapper-rpath fabrics=auto schedulers=slurm
     singularity: 
       buildable: true
       version: 
