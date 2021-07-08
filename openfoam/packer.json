@@ -53,7 +53,7 @@
     },
     {
       "type": "file",
-      "source": "{{user `pkg_path`}}/env/{{user `source_image_family`}}/spack.yaml",
+      "source": "{{user `pkg_path`}}/env/spack.yaml",
       "destination": "/tmp/"
     },
     {
