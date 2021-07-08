@@ -27,11 +27,11 @@ EOL
 cat $TEMP_FILE
 
 # submit the job
-/apps/slurm/current/bin/sbatch --get-user-env $TEMP_FILE
+sbatch --get-user-env $TEMP_FILE
 
 echo 'Waiting for Slurm job to begin..'
 while true; do
- export JOB_STATUS=$(/apps/slurm/current/bin/squeue -n paraview-$JOB --format="%.2t" | tail -n1 | xargs)
+ export JOB_STATUS=$(squeue -n paraview-$JOB --format="%.2t" | tail -n1 | xargs)
  echo "Job Status : $JOB_STATUS"
  if [ "$JOB_STATUS" == "R" ]; then
    echo "Job started!"

@@ -26,9 +26,9 @@ substitutions:
     _SUBNETWORK: 'default'
     _SOURCE_IMAGE_FAMILY: 'schedmd-slurm-20-11-4-centos-7'
     _SOURCE_IMAGE_PROJECT: 'schedmd-slurm-public'
-    _IMAGE_NAME: 'wrf-fluid-gcp-latest'
-    _IMAGE_FAMILY: 'wrf-fluid-gcp'
-    _INSTALL_ROOT: '/apps'
+    _IMAGE_NAME: 'wrf-gcp-foss-latest'
+    _IMAGE_FAMILY: 'wrf-gcp-foss'
+    _INSTALL_ROOT: '/opt'
     _SLURM_ROOT: '/usr/local'
     _COMPILER: 'gcc@9.2.0'
     _PKG_PATH: "wrf"

@@ -26,9 +26,9 @@ substitutions:
     _SUBNETWORK: 'default'
     _SOURCE_IMAGE_FAMILY: 'schedmd-slurm-20-11-4-centos-7'
     _SOURCE_IMAGE_PROJECT: 'schedmd-slurm-public'
-    _IMAGE_NAME: 'openfoam-fluid-gcp-latest'
-    _IMAGE_FAMILY: 'openfoam-fluid-gcp'
-    _INSTALL_ROOT: '/apps'
+    _IMAGE_NAME: 'openfoam-gcp-foss-latest'
+    _IMAGE_FAMILY: 'openfoam-gcp-foss'
+    _INSTALL_ROOT: '/opt'
     _SLURM_ROOT: '/usr/local'
     _COMPILER: 'gcc@10.2.0'
     _PKG_PATH: "openfoam"

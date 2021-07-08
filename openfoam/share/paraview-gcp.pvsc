@@ -18,7 +18,7 @@
          <String default=""/>
        </Option>
        <Option name="REMOTESCRIPT" label="The remote script that generates the job submission">
-         <String default="/apps/share/submit-paraview.sh"/>
+         <String default="/opt/share/submit-paraview.sh"/>
        </Option>
        <Option name="PV_SERVER_PORT" label="Server Port: ">
          <Range type="int" min="1" max="65535" step="1" default="11000"/>
