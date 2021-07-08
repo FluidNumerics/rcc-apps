@@ -6,7 +6,7 @@ spack:
   concretization: separately
 
   specs:
-  - openfoam-org@8 ^flex@2.6.4
+  - openfoam-org@8
   - paraview@5.9.0
 
    
@@ -47,8 +47,8 @@ spack:
       - spec: cuda@11.2.152
     flex:
       buildable: true
-      externals:
-      - spec: 2.6.4
+      version: 
+      - 2.6.4
     libevent:
       buildable: false
       externals:
