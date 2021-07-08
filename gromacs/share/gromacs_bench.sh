@@ -19,7 +19,7 @@
 : ${NRANKS:=1}
 : ${NGPU_PER_HOST:=1}
 : ${TPRMEM:="benchRIB.tpr"}
-: ${TPRDIR:="/apps/share/gromacs"}
+: ${TPRDIR:="/opt/share/gromacs"}
 : ${STEPSMEM:=5000}   # Total steps to perform for each benchmark
 
 CORES=$SLURM_CPUS_ON_NODE

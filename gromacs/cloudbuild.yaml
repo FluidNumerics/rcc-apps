@@ -28,7 +28,7 @@ substitutions:
     _SOURCE_IMAGE_PROJECT: 'schedmd-slurm-public'
     _IMAGE_NAME: 'gromacs-gcp-foss-latest'
     _IMAGE_FAMILY: 'gromacs-gcp-foss'
-    _INSTALL_ROOT: '/apps'
+    _INSTALL_ROOT: '/opt'
     _SLURM_ROOT: '/usr/local'
     _COMPILER: 'gcc@9.2.0'
     _PKG_PATH: "gromacs"
