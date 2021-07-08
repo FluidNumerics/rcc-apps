@@ -1,7 +1,7 @@
 steps:
 
 
-- id: &BUILD Build Image
+- id: Build Image
   name: 'hashicorp/packer:latest'
   args: ["build",
         "-force",
@@ -10,8 +10,7 @@ steps:
         "-var","source_image_family=${_SOURCE_IMAGE_FAMILY}",
         "-var","source_image_project=${_SOURCE_IMAGE_PROJECT}",
         "-var","subnet=${_SUBNETWORK}",
-        "-var","image_name=${_IMAGE_NAME}",
-        "-var","image_family=${_IMAGE_FAMILY}",
+        "-var","image_name=tmp-${_IMAGE_NAME}",
         "-var","install_root=${_INSTALL_ROOT}",
         "-var","slurm_root=${_SLURM_ROOT}",
         "-var","compiler=${_COMPILER}",
@@ -19,6 +18,24 @@ steps:
         "-var","common_path=${_COMMON_PATH}",
         '${_PKG_PATH}/packer.json']
   waitFor: ["-"]
+
+- id: Add GuestOS Features
+  name: "gcr.io/cloud-builders/gcloud"
+  args: ["compute",
+         "images",
+         "create",
+         "${_IMAGE_NAME}",
+         "--family=${_IMAGE_FAMILY}",
+         "--source-image=tmp-${_IMAGE_NAME}",
+         "--source-image-project=${PROJECT_ID}",
+         "--guest-os-features=GVNIC"]
+
+- id: Remove tmporary image
+  name: "gcr.io/cloud-builders/gcloud"
+  args: ["compute",
+         "images",
+         "delete",
+         "tmp-${_IMAGE_NAME}"]
 
 
 substitutions:

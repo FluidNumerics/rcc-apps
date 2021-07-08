@@ -7,7 +7,6 @@
     "source_image_family":"schedmd-slurm-20-11-4-centos-7",
     "source_image_project":"schedmd-slurm-public",
     "image_name":"openfoam-gcp-slurm-gcp-centos7-latest",
-    "image_family":"openfoam-gcp-slurm-gcp-centos7",
     "install_root":"/apps",
     "slurm_root":"/usr/local",
     "pkg_path": "openfoam",
@@ -22,7 +21,6 @@
     "disk_size": 50,
     "zone": "{{user `zone`}}",
     "subnetwork" :"{{user `subnet`}}",
-    "image_family": "{{user `image_family`}}",
     "image_name": "{{user `image_name`}}",
     "instance_name":"{{user `image_name`}}{{timestamp}}",
     "tags":["cloudbuild"],
@@ -40,6 +38,11 @@
       "inline":[ "sudo mv /tmp/etc/sysctl.conf /etc/sysctl.conf",
 	         "sudo mv /tmp/etc/security/limits.d/* /etc/security/limits.d/",
                  "sudo sysctl -p"] 
+    },
+    {
+      "type": "shell",
+      "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
+      "script": "{{user `common_path`}}/gvnic-setup.sh"
     },
     {
       "type": "shell",
