@@ -32,7 +32,7 @@ Singularity (GCC 10.2.0 + OpenMPI 4.0.2) | fluid-hpc-singularity-gcc-10-ompi-4 |
 OpenFOAM v8 + Paraview 5.9.0 (GCC 10.2.0 + OpenMPI 4.0.2) | fluid-hpc-openfoam-gcc-10-ompi-4 | fluid-hpc-openfoam-gcc-10-ompi-4-2f78318
 WRF v4.2 (GCC 9.4.0 + OpenMPI 4.0.2) | fluid-hpc-wrf-gcc-9-ompi-4 | fluid-hpc-wrf-gcc-9-ompi-4-99596c7
 WRF v4.2 (Intel OneAPI Compilers + OpenMPI 4.0.2) | fluid-hpc-wrf-intel-oneapi-compilers-ompi-4 | fluid-hpc-wrf-intel-oneapi-compilers-ompi-4-99596c7
-Gromacs 2021.2 (GCC 10.2.0 + CUDA 11) | fluid-hpc-gromacs-gcc-10 | fluid-hpc-gromacs-gcc-10-
+Gromacs 2021.2 (GCC 10.2.0 + CUDA 11) | fluid-hpc-gromacs-gcc-10 | fluid-hpc-gromacs-gcc-10-d7af66a
 GCC 10.2.0 | fluid-hpc-centos-7-gcc-10-2-0 | fluid-hpc-centos-7-gcc-10-2-0-e7a73f9
 GCC 9.4.0 | fluid-hpc-centos-7-gcc-9-4-0 | fluid-hpc-centos-7-gcc-9-4-0-b97e4d2
 GCC 8.5.0 | fluid-hpc-centos-7-gcc-8-5-0 | fluid-hpc-centos-7-gcc-8-5-0-b97e4d2
