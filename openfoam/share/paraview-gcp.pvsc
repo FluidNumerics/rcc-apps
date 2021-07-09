@@ -27,7 +27,7 @@
          <String default=""/>
        </Option>
        <Option name="SLURM_PARTITION" label="Slurm Partition" save="true">
-         <String default=""/>
+         <String default="paraview"/>
        </Option>
        <Option name="NUMPROC" label="Number Of Processes" save="true">
          <Range type="int" min="1" max="256" step="4" default="32"/>
