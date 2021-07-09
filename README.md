@@ -28,7 +28,7 @@ We currently offer the following images through a VM Image Library subscription 
 Image Contents | Image Family | Image Name
 -------------- | ------------ | ----------
 GCC 7.5.0, 8.5.0, 9.4.0, 10.2.0; Intel Compilers 2021, OpenMPI 4.0.2, Singularity, ROCm, lmod | fluid-hpc-centos-7-devplatform | fluid-hpc-centos-7-devplatform-1e35f2d
-Singularity (GCC 10.2.0 + OpenMPI 4.0.2) | fluid-hpc-singularity-gcc-10-ompi-4 | fluid-hpc-singularity-gcc-10-ompi-4-
+Singularity (GCC 10.2.0 + OpenMPI 4.0.2) | fluid-hpc-singularity-gcc-10-ompi-4 | fluid-hpc-singularity-gcc-10-ompi-4-99596c7
 OpenFOAM v8 + Paraview 5.9.0 (GCC 10.2.0 + OpenMPI 4.0.2) | fluid-hpc-openfoam-gcc-10-ompi-4 | fluid-hpc-openfoam-gcc-10-ompi-4-2f78318
 WRF v4.2 (GCC 9.4.0 + OpenMPI 4.0.2) | fluid-hpc-wrf-gcc-9-ompi-4 | fluid-hpc-wrf-gcc-9-ompi-4-99596c7
 WRF v4.2 (Intel OneAPI Compilers + OpenMPI 4.0.2) | fluid-hpc-wrf-intel-oneapi-compilers-ompi-4 | fluid-hpc-wrf-intel-oneapi-compilers-ompi-4-99596c7
