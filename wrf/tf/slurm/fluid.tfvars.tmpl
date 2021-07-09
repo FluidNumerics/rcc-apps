@@ -2,13 +2,13 @@ cluster_name = "<cluster name>"
 project = "<project>"
 zone = "<zone>"
 
-controller_image = "projects/hpc-apps/global/images/wrf-gcp-slurm-gcp-centos7-latest"
-login_image = "projects/hpc-apps/global/images/wrf-gcp-slurm-gcp-centos7-latest"
+controller_image = "<image>"
+login_image = "<image>"
 
 partitions = [
   { name                 = "wrf"
     machine_type         = "<machine_type>"
-    image                = "projects/hpc-apps/global/images/wrf-gcp-slurm-gcp-centos7-latest"
+    image                = "<image>"
     image_hyperthreads   = true
     static_node_count    = 0
     max_node_count       = <max_node>
