@@ -8,16 +8,14 @@ Fluid Numerics provides support and consulting services to help you get up and r
 ## HPC Applications in the Cloud
 Fluid Numerics intends to provide you with many options for getting started with HPC and Research Computing applications on Google Cloud.
 
-
-
 ### Free and Open Source Solutions
 Fluid Numerics develops and maintains this repository to help you get started with VM image baking and Terraform infrastructure-as-code. 
 
 Some VM images are sponsored by organizations to make them freely available to the community for use. These free images are licensed for use under the [Apache 2.0 License](./LICENSE)
 
 **Freely available images**
-* **Gromacs** - `selfLink: projects/hpc-apps/global/images/gromacs-gcp-foss-latest`
-* **WRF v4.2** - `selfLink: projects/hpc-apps/global/images/wrf-gcp-slurm-gcp-centos7-latest`
+* [**Gromacs**](./gromacs/tf/slurm) - `selfLink: projects/hpc-apps/global/images/gromacs-gcp-foss-latest`
+* [**WRF v4.2**](./wrf/tf/slurm) - `selfLink: projects/hpc-apps/global/images/wrf-gcp-slurm-gcp-centos7-latest`
 
 
 ### Fluid Numerics' HPC Apps VM Image Library
