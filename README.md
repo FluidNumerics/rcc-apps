@@ -6,7 +6,7 @@ This repository contains code for creating VM images compatible with [Slurm-GCP]
 Fluid Numerics provides support and consulting services to help you get up and running on Google Cloud. [Reach out to Fluid Numerics for Support](https://help.fluidnumerics.com/support)
 
 ## HPC Applications in the Cloud
-Fluid Numerics intends to provide you with many options for getting started with HPC and Research Computing applications in the cloud.
+Fluid Numerics intends to provide you with many options for getting started with HPC and Research Computing applications on Google Cloud.
 
 
 
@@ -27,16 +27,17 @@ We currently offer the following images through a VM Image Library subscription 
 
 Image Contents | Image Family | Image Name
 -------------- | ------------ | ----------
-GCC 7.5.0, 8.5.0, 9.4.0, 10.2.0; Intel Compilers 2021, OpenMPI 4.0.2, Singularity, ROCm, lmod | fluid-hpc-centos-7-devplatform | fluid-hpc-centos-7-devplatform-5b938e8
-Singularity + GCC 10.2.0 + OpenMPI 4.0.2 | fluid-hpc-singularity-gcc-10-ompi-4 | fluid-hpc-singularity-gcc-10-ompi-4-
-WRF v4.2 (GCC 9.4.0 + OpenMPI 4.0.2) | fluid-hpc-wrf-gcc-9-ompi-4 | fluid-hpc-wrf-gcc-9-ompi-4-
-WRF v4.2 (Intel OneAPI Compilers + OpenMPI 4.0.2) | fluid-hpc-wrf-intel-oneapi-compilers-ompi-4 | fluid-hpc-wrf-intel-oneapi-compilers-ompi-4-
+GCC 7.5.0, 8.5.0, 9.4.0, 10.2.0; Intel Compilers 2021, OpenMPI 4.0.2, Singularity, ROCm, lmod | fluid-hpc-centos-7-devplatform | fluid-hpc-centos-7-devplatform-1e35f2d
+Singularity (GCC 10.2.0 + OpenMPI 4.0.2) | fluid-hpc-singularity-gcc-10-ompi-4 | fluid-hpc-singularity-gcc-10-ompi-4-
+OpenFOAM v8 + Paraview 5.9.0 (GCC 10.2.0 + OpenMPI 4.0.2) | fluid-hpc-openfoam-gcc-10-ompi-4 | fluid-hpc-openfoam-gcc-10-ompi-4-2f78318
+WRF v4.2 (GCC 9.4.0 + OpenMPI 4.0.2) | fluid-hpc-wrf-gcc-9-ompi-4 | fluid-hpc-wrf-gcc-9-ompi-4-99596c7
+WRF v4.2 (Intel OneAPI Compilers + OpenMPI 4.0.2) | fluid-hpc-wrf-intel-oneapi-compilers-ompi-4 | fluid-hpc-wrf-intel-oneapi-compilers-ompi-4-99596c7
 Gromacs 2021.2 (GCC 10.2.0 + CUDA 11) | fluid-hpc-gromacs-gcc-10 | fluid-hpc-gromacs-gcc-10-
-GCC 10.2.0 | fluid-hpc-centos-7-gcc-10-2-0 | fluid-hpc-centos-7-gcc-10-2-0-
-GCC 9.4.0 | fluid-hpc-centos-7-gcc-9-4-0 | fluid-hpc-centos-7-gcc-9-4-0-
-GCC 8.5.0 | fluid-hpc-centos-7-gcc-8-5-0 | fluid-hpc-centos-7-gcc-8-5-0-
-GCC 7.5.0 | fluid-hpc-centos-7-gcc-7-5-0 | fluid-hpc-centos-7-gcc-7-5-0-
-Intel OneAPI Compilers 2021 | fluid-hpc-centos-7-intel-oneapi-compilers | fluid-hpc-centos-7-intel-oneapi-compilers-
+GCC 10.2.0 | fluid-hpc-centos-7-gcc-10-2-0 | fluid-hpc-centos-7-gcc-10-2-0-e7a73f9
+GCC 9.4.0 | fluid-hpc-centos-7-gcc-9-4-0 | fluid-hpc-centos-7-gcc-9-4-0-b97e4d2
+GCC 8.5.0 | fluid-hpc-centos-7-gcc-8-5-0 | fluid-hpc-centos-7-gcc-8-5-0-b97e4d2
+GCC 7.5.0 | fluid-hpc-centos-7-gcc-7-5-0 | fluid-hpc-centos-7-gcc-7-5-0-b97e4d2
+Intel OneAPI Compilers 2021 | fluid-hpc-centos-7-intel-oneapi-compilers | fluid-hpc-centos-7-intel-oneapi-compilers-e7a73f9
 
 **Notes**
 * If you want to build images on top of these image, you need to set `_SOURCE_IMAGE_PROJECT=hpc-apps` and set `_SOURCE_IMAGE_FAMILY` to the value in the "Image Family" column from the table above.
@@ -44,7 +45,6 @@ Intel OneAPI Compilers 2021 | fluid-hpc-centos-7-intel-oneapi-compilers | fluid-
 
 
 Images currently in development
-* **OpenFOAM**
 * **Paraview**
 * **FEOTS**
 * **SELF-Fluids**
