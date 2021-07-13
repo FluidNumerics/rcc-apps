@@ -5,3 +5,4 @@ terraform.tfplan
 terraform.tfstate.backup
 fluid.tfvars
 
+*.csv
