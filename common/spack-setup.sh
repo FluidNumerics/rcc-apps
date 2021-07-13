@@ -33,3 +33,8 @@ fi
 if [[ -f "/etc/profile.d/slurm.sh" ]]; then
 	mv /etc/profile.d/slurm.sh /etc/profile.d/z11_slurm.sh
 fi
+
+## For ensuring that CUDA paths are in default path ##
+if [[ -f "/etc/profile.d/cuda.sh" ]]; then
+	mv /etc/profile.d/cuda.sh /etc/profile.d/z12_cuda.sh
+fi
