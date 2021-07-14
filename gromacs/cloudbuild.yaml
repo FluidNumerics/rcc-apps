@@ -14,6 +14,7 @@ steps:
         "-var","image_family=${_IMAGE_FAMILY}",
         "-var","install_root=${_INSTALL_ROOT}",
         "-var","slurm_root=${_SLURM_ROOT}",
+        "-var","target_arch=${_ARCH}",
         "-var","compiler=${_COMPILER}",
         "-var","pkg_path=${_PKG_PATH}",
         "-var","common_path=${_COMMON_PATH}",
@@ -26,12 +27,13 @@ substitutions:
     _SUBNETWORK: 'default'
     _SOURCE_IMAGE_FAMILY: 'schedmd-slurm-20-11-4-centos-7'
     _SOURCE_IMAGE_PROJECT: 'schedmd-slurm-public'
-    _IMAGE_NAME: 'gromacs-gcp-foss-latest'
-    _IMAGE_FAMILY: 'gromacs-gcp-foss'
+    _IMAGE_NAME: 'gromacs-gcp-foss-c2-latest'
+    _IMAGE_FAMILY: 'gromacs-gcp-foss-c2'
     _INSTALL_ROOT: '/opt'
     _SLURM_ROOT: '/usr/local'
     _COMPILER: 'gcc@9.2.0'
     _PKG_PATH: "gromacs"
     _COMMON_PATH: "common"
+    _ARCH: "cascadelake"
 
 timeout : 28800s

@@ -12,6 +12,8 @@ else
   sed -i 's/@COMPILER@/'"${COMPILER}"'/g' ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
 fi
 
+sed -i 's/@ARCH@/'"${ARCH}"'/g' ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
+
 source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
 
 if [[ "$IMAGE_NAME" != *"fluid-hpc"* ]]; then
