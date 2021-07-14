@@ -10,6 +10,7 @@
     "image_family":"gromacs-gcp-slurm-gcp-centos7",
     "install_root":"/apps",
     "slurm_root":"/usr/local",
+    "target_arch":"cascadelake",
     "pkg_path": "gromacs",
     "common_path": "common"
   },
@@ -47,13 +48,14 @@
 	                  "INSTALL_ROOT={{user `install_root`}}",
 			  "SLURM_ROOT={{user `slurm_root`}}",
                           "IMAGE_NAME={{user `source_image_family`}}",
+                          "ARCH={{user `target_arch`}}",
 			  "COMPILER={{user `compiler`}}"],
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
       "script": "{{user `common_path`}}/spack-setup.sh"
     },
     {
       "type": "file",
-      "source": "{{user `pkg_path`}}/env/{{user `source_image_family`}}/spack.yaml",
+      "source": "{{user `pkg_path`}}/env/spack.yaml",
       "destination": "/tmp/"
     },
     {
@@ -74,6 +76,7 @@
 	                  "INSTALL_ROOT={{user `install_root`}}",
 			  "SLURM_ROOT={{user `slurm_root`}}",
                           "IMAGE_NAME={{user `source_image_family`}}",
+                          "ARCH={{user `target_arch`}}",
 			  "COMPILER={{user `compiler`}}"],
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
       "script": "{{user `pkg_path`}}/install.sh"
