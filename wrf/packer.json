@@ -73,6 +73,17 @@
                           "ARCH={{user `target_arch`}}",
 			  "COMPILER={{user `compiler`}}"],
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
+      "script": "{{user `common_path`}}/spack-pkg-install.sh"
+    },
+    {
+      "type": "shell",
+      "environment_vars":["PROJECT_ID={{user `project_id`}}",
+	                  "INSTALL_ROOT={{user `install_root`}}",
+			  "SLURM_ROOT={{user `slurm_root`}}",
+                          "IMAGE_NAME={{user `source_image_family`}}",
+                          "ARCH={{user `target_arch`}}",
+			  "COMPILER={{user `compiler`}}"],
+      "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
       "script": "{{user `pkg_path`}}/install.sh"
     }
   ]  

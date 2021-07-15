@@ -14,6 +14,7 @@ steps:
         "-var","image_family=${_IMAGE_FAMILY}",
         "-var","install_root=${_INSTALL_ROOT}",
         "-var","slurm_root=${_SLURM_ROOT}",
+        "-var","target_arch=${_ARCH}",
         "-var","compiler=${_COMPILER}",
         "-var","pkg_path=${_PKG_PATH}",
         "-var","common_path=${_COMMON_PATH}",
@@ -33,5 +34,7 @@ substitutions:
     _COMPILER: 'gcc@10.2.0'
     _PKG_PATH: "singularity"
     _COMMON_PATH: "common"
+    _ARCH: "cascadelake"
+
 
 timeout : 86400s

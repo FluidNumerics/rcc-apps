@@ -9,8 +9,9 @@
     "image_name":"gromacs-gcp-slurm-gcp-centos7-latest",
     "image_family":"gromacs-gcp-slurm-gcp-centos7",
     "install_root":"/apps",
+    "machine_type": "n1-standard-32",
     "slurm_root":"/usr/local",
-    "target_arch":"cascadelake",
+    "target_arch":"broadwell",
     "pkg_path": "gromacs",
     "common_path": "common"
   },
@@ -19,7 +20,7 @@
     "project_id": "{{user `project_id`}}",
     "source_image_family": "{{user `source_image_family`}}",
     "source_image_project_id": "{{user `source_image_project`}}",
-    "machine_type": "n1-standard-32",
+    "machine_type": "{{user `machine_type`}}",
     "disk_size": 50,
     "zone": "{{user `zone`}}",
     "subnetwork" :"{{user `subnet`}}",
@@ -69,6 +70,17 @@
                  "sudo mv /tmp/spack.yaml {{user `install_root`}}/spack-pkg-env/spack.yaml",
                  "sudo mv /tmp/share {{user `install_root`}}/"
                ]
+    },
+    {
+      "type": "shell",
+      "environment_vars":["PROJECT_ID={{user `project_id`}}",
+	                  "INSTALL_ROOT={{user `install_root`}}",
+			  "SLURM_ROOT={{user `slurm_root`}}",
+                          "IMAGE_NAME={{user `source_image_family`}}",
+                          "ARCH={{user `target_arch`}}",
+			  "COMPILER={{user `compiler`}}"],
+      "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
+      "script": "{{user `common_path`}}/spack-pkg-install.sh"
     },
     {
       "type": "shell",

@@ -45,6 +45,7 @@ spack:
       buildable: false
       externals:
       - spec: cuda@11.2.152
+        prefix: /usr/local/cuda
     flex:
       buildable: true
       version: 
