@@ -28,16 +28,14 @@ substitutions:
     _SUBNETWORK: 'default'
     _SOURCE_IMAGE_FAMILY: 'schedmd-slurm-20-11-4-centos-7'
     _SOURCE_IMAGE_PROJECT: 'schedmd-slurm-public'
-    _IMAGE_NAME: 'gromacs-gcp-foss-c2-latest'
-    _IMAGE_FAMILY: 'gromacs-gcp-foss-c2'
+    _IMAGE_NAME: 'gromacs-gcp-foss-latest'
+    _IMAGE_FAMILY: 'gromacs-gcp-foss'
     _INSTALL_ROOT: '/opt'
     _SLURM_ROOT: '/usr/local'
     _COMPILER: 'gcc@10.2.0'
     _PKG_PATH: "gromacs"
     _COMMON_PATH: "common"
-    _ARCH: "cascadelake"
-    _MACHINE_TYPE: "c2-standard-16"
-    #_ARCH: "broadwell"
-    #_MACHINE_TYPE: "n1-standard-32"
+    _ARCH: "broadwell"
+    _MACHINE_TYPE: "n1-standard-32"
 
 timeout : 28800s
