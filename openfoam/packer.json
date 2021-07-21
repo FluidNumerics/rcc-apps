@@ -43,17 +43,6 @@
                  "sudo sysctl -p"] 
     },
     {
-      "type": "shell",
-      "environment_vars":["PROJECT_ID={{user `project_id`}}",
-	                  "INSTALL_ROOT={{user `install_root`}}",
-			  "SLURM_ROOT={{user `slurm_root`}}",
-                          "IMAGE_NAME={{user `source_image_family`}}",
-                          "ARCH={{user `target_arch`}}",
-			  "COMPILER={{user `compiler`}}"],
-      "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
-      "script": "{{user `common_path`}}/spack-setup.sh"
-    },
-    {
       "type": "file",
       "source": "{{user `pkg_path`}}/env/spack.yaml",
       "destination": "/tmp/"
@@ -73,7 +62,7 @@
                           "ARCH={{user `target_arch`}}",
 			  "COMPILER={{user `compiler`}}"],
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
-      "script": "{{user `common_path`}}/spack-pkg-install.sh"
+      "script": "{{user `common_path`}}/spack-install.sh"
     },
     {
       "type": "shell",
