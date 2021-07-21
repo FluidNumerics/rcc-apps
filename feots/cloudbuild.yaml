@@ -1,0 +1,37 @@
+steps:
+
+
+- id: &BUILD Build Image
+  name: 'hashicorp/packer:latest'
+  args: ["build",
+        "-force",
+        "-var","project_id=$PROJECT_ID",
+        "-var","zone=$_ZONE",
+        "-var","source_image_family=${_SOURCE_IMAGE_FAMILY}",
+        "-var","source_image_project=${_SOURCE_IMAGE_PROJECT}",
+        "-var","subnet=${_SUBNETWORK}",
+        "-var","image_name=${_IMAGE_NAME}",
+        "-var","image_family=${_IMAGE_FAMILY}",
+        "-var","install_root=${_INSTALL_ROOT}",
+        "-var","slurm_root=${_SLURM_ROOT}",
+        "-var","compiler=${_COMPILER}",
+        "-var","pkg_path=${_PKG_PATH}",
+        "-var","common_path=${_COMMON_PATH}",
+        '${_PKG_PATH}/packer.json']
+  waitFor: ["-"]
+
+
+substitutions:
+    _ZONE: 'us-central1-c'
+    _SUBNETWORK: 'default'
+    _SOURCE_IMAGE_FAMILY: 'schedmd-slurm-20-11-7-centos-7'
+    _SOURCE_IMAGE_PROJECT: 'hpc-apps'
+    _IMAGE_NAME: 'feots-gcp-foss-latest'
+    _IMAGE_FAMILY: 'feots-gcp-foss'
+    _INSTALL_ROOT: '/opt'
+    _SLURM_ROOT: '/usr/local'
+    _COMPILER: 'gcc@9.2.0'
+    _PKG_PATH: "feots"
+    _COMMON_PATH: "common"
+
+timeout : 28800s
