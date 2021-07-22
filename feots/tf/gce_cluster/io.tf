@@ -36,7 +36,7 @@ variable "image" {
 variable "disk_size_gb" {
   type = number
   description = "Size of each GCE instance boot disk in your cluster."
-  default = 50
+  default = 150
 }
 
 variable "disk_type" {

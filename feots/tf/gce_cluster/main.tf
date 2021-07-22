@@ -3,8 +3,8 @@ provider "google" {
 }
 
 resource "google_service_account" "gce_service_account" {
-  account_id = "gromacs"
-  display_name = "GROMACS Service account"
+  account_id = "feots-sa"
+  display_name = "FEOTS Service account"
   project = var.project
 }
 
