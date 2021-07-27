@@ -31,7 +31,7 @@ substitutions:
     _IMAGE_FAMILY: 'wrf-gcp-foss'
     _INSTALL_ROOT: '/opt'
     _SLURM_ROOT: '/usr/local'
-    _COMPILER: 'gcc@9.2.0'
+    _COMPILER: 'intel-oneapi-compilers'
     _PKG_PATH: "wrf"
     _COMMON_PATH: "common"
     _ARCH: "cascadelake"
