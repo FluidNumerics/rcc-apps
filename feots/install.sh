@@ -26,7 +26,15 @@ echo "#!/bin/bash" > /etc/profile.d/z11_feots.sh
 echo "export PATH=\${PATH}:${INSTALL_ROOT}/feots/bin" >> /etc/profile.d/z11_feots.sh
 echo "export LD_LIBRARY_PATH=\${LD_LIBRARY_PATH}:${INSTALL_ROOT}/feots/lib" >> /etc/profile.d/z11_feots.sh
 echo "export FEOTS_LIB=\"-L${INSTALL_ROOT}/feots/lib -lfeots\"" >> /etc/profile.d/z11_feots.sh
-echo "export FEOTS_INCLUDE=\"-I${INSTALL_ROOT}/feots/include" >> /etc/profile.d/z11_feots.sh
+echo "export FEOTS_INCLUDE=\"-I${INSTALL_ROOT}/feots/include\"" >> /etc/profile.d/z11_feots.sh
+
+# Set up the argentine basin demo
+source /etc/profile.d/z11_feots.sh
+mv /tmp/share/demo.sh ${INSTALL_ROOT}/feots/examples/zapiola/
+cd ${INSTALL_ROOT}/feots/examples/zapiola
+make
+
+chown -R root: ${INSTALL_ROOT}/feots/share/argentine-basin
 
 # Add Argentine Basin input decks
 mkdir -p ${INSTALL_ROOT}/feots-db
@@ -35,17 +43,6 @@ gsutil -m cp -r gs://feots-db/E3SMV0-HILAT-5DAVG ${INSTALL_ROOT}/feots-db
 gsutil -m cp -r gs://feots-db/argentine_basin_regional_operators/* ${INSTALL_ROOT}/feots-db/argentine-basin/
 
 
-mkdir -p ${INSTALL_ROOT}/share/argentine-basin
-source /etc/profile.d/z11_feots.sh
-cp ${INSTALL_ROOT}/feots/examples/zapiola/*.f90 \
-   ${INSTALL_ROOT}/feots/examples/zapiola/Makefile \
-   ${INSTALL_ROOT}/feots/examples/zapiola/runtime.params \
-   ${INSTALL_ROOT}/share/argentine-basin/
-
-mv /tmp/share/demo.sh ${INSTALL_ROOT}/share/argentine-basin/
-
-cd ${INSTALL_ROOT}/share/argentine-basin
-make
 
 
 

@@ -2,7 +2,7 @@
 
 export FEOTS_DBROOT=/opt/feots-db/E3SMV0-HILAT-5DAVG
 export REGIONAL_DB=/opt/feots-db/argentine-basin
-export DEMO_DIR=/opt/feots/share/argentine-basin
+export DEMO_DIR=/opt/feots/examples/zapiola
 export OUTDIR=~/feots
 
 mkdir -p $OUTDIR
@@ -36,7 +36,7 @@ echo ""
 echo "================================================"
 echo "Creating initial conditions"
 echo ""
-mpirun -np 6 ./init --out ${OUTDIR} \
+mpirun -np 6 --map-by core --bind-to core ./init --out ${OUTDIR} \
                     --regional-db ${REGIONAL_DB} \
                     --dbroot ${FEOTS_DBROOT} \
                     --param-file ./runtime.params
@@ -45,7 +45,7 @@ echo ""
 echo "================================================"
 echo "Creating initial conditions"
 echo ""
-mpirun -np 6 feots integrate ${FEOTS_FLAGS} \
+mpirun -np 6 --map-by core --bind-to core feots integrate ${FEOTS_FLAGS} \
                              --regional-db ${REGIONAL_DB} \
                              --out ${OUTDIR} \
                              --param-file ./runtime.params
