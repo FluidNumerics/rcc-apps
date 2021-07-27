@@ -1,11 +1,11 @@
 FEOTS_NAME ?= "feots"
-FEOTS_PROJECT ?= ""
+FEOTS_PROJECT ?= $(shell gcloud config get-value project)
 FEOTS_ZONE ?= "us-west1-b"
 FEOTS_MACHINE_TYPE ?= "c2-standard-16"
 FEOTS_NODE_COUNT ?= 1
 FEOTS_IMAGE ?= "projects/hpc-apps/global/images/feots-gcp-foss-latest"
 
-.PHONY: plan apply destroy
+.PHONY: clean plan apply destroy
 
 fluid.tfvars: fluid.tfvars.tmpl
 	cp fluid.tfvars.tmpl fluid.tfvars
@@ -27,3 +27,9 @@ apply: plan
 
 destroy:
 	terraform destroy -var-file=fluid.tfvars -auto-approve
+	rm fluid.tfvars
+
+clean:
+	rm -rf fluid.tfvars .terraform terraform.tfstate*
+
+
