@@ -40,7 +40,7 @@ spack:
     boost: 
       buildable: true
       version: 
-      - 1.68.0
+      - 1.76.0
     cuda:
       buildable: false
       externals:
