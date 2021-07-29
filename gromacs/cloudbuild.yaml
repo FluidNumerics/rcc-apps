@@ -36,6 +36,6 @@ substitutions:
     _PKG_PATH: "gromacs"
     _COMMON_PATH: "common"
     _ARCH: "broadwell"
-    _MACHINE_TYPE: "n1-standard-32"
+    _MACHINE_TYPE: "n1-standard-16"
 
 timeout : 28800s
