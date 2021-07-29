@@ -1,5 +1,6 @@
 {
   "variables": {
+    "disk_size_gb": 50,
     "project_id": "",
     "compiler": "gcc@9.2.0",
     "zone": "us-central1-a",
@@ -20,7 +21,7 @@
     "source_image_family": "{{user `source_image_family`}}",
     "source_image_project_id": "{{user `source_image_project`}}",
     "machine_type": "n1-standard-32",
-    "disk_size": 50,
+    "disk_size": "{{user `disk_size_gb`}}",
     "zone": "{{user `zone`}}",
     "subnetwork" :"{{user `subnet`}}",
     "image_family": "{{user `image_family`}}",
