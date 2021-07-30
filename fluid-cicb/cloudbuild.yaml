@@ -31,7 +31,7 @@ substitutions:
     _IMAGE_FAMILY: 'fluid-cicb-gcp-foss'
     _INSTALL_ROOT: '/opt'
     _SLURM_ROOT: '/usr/local'
-    _COMPILER: 'gcc@10.2.0'
+    _COMPILER: 'gcc@9.2.0'
     _PKG_PATH: "fluid-cicb"
     _COMMON_PATH: "common"
     _ARCH: "x86_64"
