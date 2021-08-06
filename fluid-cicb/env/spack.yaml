@@ -8,7 +8,6 @@ spack:
   specs:
   - singularity
   - openmpi
-  - hpctoolkit
    
   packages:
     all:

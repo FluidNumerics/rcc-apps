@@ -12,6 +12,7 @@
     "slurm_root":"/usr/local",
     "target_arch":"cascadelake",
     "pkg_path": "fluid-cicb",
+    "workspace": "/apps/workspace",
     "common_path": "common"
   },
   "builders": [{
@@ -72,6 +73,7 @@
 			  "SLURM_ROOT={{user `slurm_root`}}",
                           "IMAGE_NAME={{user `source_image_family`}}",
                           "ARCH={{user `target_arch`}}",
+			  "WORKSPACE={{user `workspace`}}",
 			  "COMPILER={{user `compiler`}}"],
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
       "script": "{{user `pkg_path`}}/install.sh"

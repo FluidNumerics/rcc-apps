@@ -7,8 +7,8 @@
 
 
 # Provide conveniencce directory for bind mount
-mkdir /workspace
-chmod ugo=rwx -R /workspace
+mkdir $WORKSPACE
+chmod ugo=rwx -R $WORKSPACE
 
 # Update MOTD
 cat > /etc/motd << EOL
