@@ -1,0 +1,54 @@
+{
+  "variables": {
+    "project_id": "",
+    "zone": "us-central1-a",
+    "subnet": "default",
+    "source_image_family":"centos-7",
+    "source_image_project":"centos-cloud",
+    "image_name":"lustre-gcp-latest",
+    "image_family":"lustre-gcp",
+    "pkg_path": "gromacs",
+    "common_path": "common",
+    "lustre_version":"latest-release",
+    "lustre_client_version":"lustre-2.12.7",
+    "e2fs_version":"latest"
+  },
+  "builders": [{
+    "type": "googlecompute",
+    "project_id": "{{user `project_id`}}",
+    "source_image_family": "{{user `source_image_family`}}",
+    "source_image_project_id": "{{user `source_image_project`}}",
+    "machine_type": "n1-standard-32",
+    "disk_size": 20,
+    "zone": "{{user `zone`}}",
+    "subnetwork" :"{{user `subnet`}}",
+    "image_family": "{{user `image_family`}}",
+    "image_name": "{{user `image_name`}}",
+    "instance_name":"{{user `image_name`}}{{timestamp}}",
+    "tags":["cloudbuild"],
+    "scopes":["https://www.googleapis.com/auth/cloud-platform"],
+    "ssh_username": "packer"
+  }],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "{{user `common_path`}}/etc",
+      "destination": "/tmp/"
+    },
+    {
+      "type": "shell",
+      "inline":[ "sudo mv /tmp/etc/sysctl.conf /etc/sysctl.conf",
+	         "sudo mv /tmp/etc/security/limits.d/* /etc/security/limits.d/",
+                 "sudo sysctl -p"] 
+    },
+    {
+      "type": "shell",
+      "environment_vars":["LUSTRE_VERSION={{user `lustre_version`}}",
+	                  "E2FS_VERSION={{user `e2fs_version`}}",
+			  "LUSTRE_CLIENT_VERSION={{user `lustre_client_version`}}"],
+      "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
+      "script": "{{user `pkg_path`}}/install.sh"
+    }
+  ]  
+}
+

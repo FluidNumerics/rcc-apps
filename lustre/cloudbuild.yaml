@@ -1,0 +1,37 @@
+steps:
+
+
+- id: &BUILD Build Image
+  name: 'hashicorp/packer:latest'
+  args: ["build",
+        "-force",
+        "-var","project_id=$PROJECT_ID",
+        "-var","zone=$_ZONE",
+        "-var","source_image_family=${_SOURCE_IMAGE_FAMILY}",
+        "-var","source_image_project=${_SOURCE_IMAGE_PROJECT}",
+        "-var","subnet=${_SUBNETWORK}",
+        "-var","image_name=${_IMAGE_NAME}",
+        "-var","image_family=${_IMAGE_FAMILY}",
+        "-var","lustre_version=${_LUSTRE_VERSION}",
+        "-var","lustre_client_version=${_LUSTRE_CLIENT_VERSION}",
+        "-var","pkg_path=${_PKG_PATH}",
+        "-var","common_path=${_COMMON_PATH}",
+        "-var","e2fs_version=${_E2FS_VERSION}",
+        '${_PKG_PATH}/packer.json']
+  waitFor: ["-"]
+
+
+substitutions:
+    _ZONE: 'us-central1-c'
+    _SUBNETWORK: 'default'
+    _SOURCE_IMAGE_FAMILY: 'centos-7'
+    _SOURCE_IMAGE_PROJECT: 'centos-cloud'
+    _IMAGE_NAME: 'lustre-gcp-latest'
+    _IMAGE_FAMILY: 'lustre-gcp'
+    _PKG_PATH: "lustre"
+    _LUSTRE_VERSION: 'latest-release'
+    _LUSTRE_CLIENT_VERSION: 'lustre-2.12.7'
+    _E2FS_VERSION: 'latest'
+    _COMMON_PATH: "common"
+
+timeout : 28800s
