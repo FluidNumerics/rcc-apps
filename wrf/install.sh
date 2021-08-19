@@ -48,12 +48,6 @@ EOL
 mkdir -p ${INSTALL_ROOT}/share
 cat > ${INSTALL_ROOT}/share/wrf-conus2p5.sh << EOL
 #!/bin/bash
-#SBATCH --partition=wrf
-#SBATCH --ntasks=480
-#SBATCH --ntasks-per-node=60
-#SBATCH --mem-per-cpu=2g
-#SBATCH --cpus-per-task=1
-#SBATCH --account=default
 #
 # /////////////////////////////////////////////// #
 
@@ -70,12 +64,6 @@ EOL
 
 cat > ${INSTALL_ROOT}/share/wrf-conus12.sh << EOL
 #!/bin/bash
-#SBATCH --partition=wrf
-#SBATCH --ntasks=24
-#SBATCH --ntasks-per-node=8
-#SBATCH --mem-per-cpu=2g
-#SBATCH --cpus-per-task=1
-#SBATCH --account=default
 #
 # /////////////////////////////////////////////// #
 
