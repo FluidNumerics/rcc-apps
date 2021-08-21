@@ -13,7 +13,7 @@ BUILDCACHE="/tmp/gcp-spack-cache/${IMAGE_NAME}"
 yum update -y
 yum install -y valgrind valgrind-devel
 
-if [[ "$IMAGE_NAME" != "fluid-hpc"* ]]; then
+if [[ "$IMAGE_NAME" != "rcc-"* ]]; then
    yum install -y gcc gcc-c++ gcc-gfortran
    pip3 install google-cloud-storage
 

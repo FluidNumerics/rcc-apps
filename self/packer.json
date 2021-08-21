@@ -1,0 +1,82 @@
+{
+  "variables": {
+    "project_id": "",
+    "compiler": "gcc@10.2.0",
+    "zone": "us-central1-a",
+    "subnet": "default",
+    "source_image_family":"schedmd-slurm-20-11-4-centos-7",
+    "source_image_project":"schedmd-slurm-public",
+    "image_name":"self-gcp-slurm-gcp-centos7-latest",
+    "image_family":"self-gcp-slurm-gcp-centos7",
+    "install_root":"/apps",
+    "machine_type": "n1-standard-32",
+    "slurm_root":"/usr/local",
+    "target_arch":"broadwell",
+    "pkg_path": "self",
+    "common_path": "common"
+  },
+  "builders": [{
+    "type": "googlecompute",
+    "project_id": "{{user `project_id`}}",
+    "source_image_family": "{{user `source_image_family`}}",
+    "source_image_project_id": "{{user `source_image_project`}}",
+    "machine_type": "{{user `machine_type`}}",
+    "disk_size": 50,
+    "zone": "{{user `zone`}}",
+    "subnetwork" :"{{user `subnet`}}",
+    "image_family": "{{user `image_family`}}",
+    "image_name": "{{user `image_name`}}",
+    "instance_name":"{{user `image_name`}}{{timestamp}}",
+    "tags":["cloudbuild"],
+    "scopes":["https://www.googleapis.com/auth/cloud-platform"],
+    "ssh_username": "packer"
+  }],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "{{user `common_path`}}/etc",
+      "destination": "/tmp/"
+    },
+    {
+      "type": "shell",
+      "inline":[ "sudo mv /tmp/etc/sysctl.conf /etc/sysctl.conf",
+	         "sudo mv /tmp/etc/security/limits.d/* /etc/security/limits.d/",
+                 "sudo sysctl -p"] 
+    },
+    {
+      "type": "file",
+      "source": "{{user `pkg_path`}}/env/spack.yaml",
+      "destination": "/tmp/"
+    },
+    {
+      "type": "shell",
+      "inline":[ "sudo mkdir {{user `install_root`}}/spack-pkg-env",
+                 "sudo mv /tmp/spack.yaml {{user `install_root`}}/spack-pkg-env/spack.yaml",
+                 "sudo mv /tmp/share {{user `install_root`}}/"
+               ]
+    },
+    {
+      "type": "shell",
+      "environment_vars":["PROJECT_ID={{user `project_id`}}",
+	                  "INSTALL_ROOT={{user `install_root`}}",
+			  "SLURM_ROOT={{user `slurm_root`}}",
+                          "IMAGE_NAME={{user `source_image_family`}}",
+                          "ARCH={{user `target_arch`}}",
+			  "COMPILER={{user `compiler`}}"],
+      "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
+      "script": "{{user `common_path`}}/spack-install.sh"
+    },
+    {
+      "type": "shell",
+      "environment_vars":["PROJECT_ID={{user `project_id`}}",
+	                  "INSTALL_ROOT={{user `install_root`}}",
+			  "SLURM_ROOT={{user `slurm_root`}}",
+                          "IMAGE_NAME={{user `source_image_family`}}",
+                          "ARCH={{user `target_arch`}}",
+			  "COMPILER={{user `compiler`}}"],
+      "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
+      "script": "{{user `pkg_path`}}/install.sh"
+    }
+  ]  
+}
+
