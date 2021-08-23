@@ -51,7 +51,7 @@ sed -i 's/@ARCH@/'"${ARCH}"'/g' ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
 source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
 
 # Fluid Numerics Images (start with "fluid")
-if [[ "$IMAGE_NAME" != "fluid"* ]]; then
+if [[ "$IMAGE_NAME" != "rcc-"* ]]; then
    spack install ${COMPILER}
    spack load ${COMPILER}
    spack compiler find --scope site
