@@ -6,7 +6,7 @@ spack:
   concretization: separately
 
   specs:
-  - cmake@@3.21.1
+  - cmake@3.18.4
   - hdf5@1.12.0+cxx+fortran~mpi
   - hohqmesh@v1.0.1
 
@@ -22,11 +22,44 @@ spack:
       target:
       - @ARCH@
 
+    autoconf:
+      buildable: false
+      externals:
+      - spec: autoconf@2.69
+        prefix: /usr
+    automake:
+      buildable: false
+      externals:
+      - spec: automake@1.13.4
+        prefix: /usr
+    bison:
+      buildable: false
+      externals:
+      - spec: bison@3.0.4
+        prefix: /usr
+    boost: 
+      buildable: true
+      version: 
+      - 1.68.0
     cuda:
       buildable: false
       externals:
       - spec: cuda@11.2.152
         prefix: /usr/local/cuda
+    libevent:
+      buildable: false
+      externals:
+      - spec: libevent@2.0.21
+        prefix: /usr
+    m4: 
+      buildable: true
+      version: 
+      - 1.4.17
+    ncurses:
+      buildable: false
+      externals:
+      - spec: ncurses@5.9
+        prefix: /usr
     openmpi:
       buildable: true
       version: 
@@ -42,3 +75,7 @@ spack:
       externals:
       - spec: slurm@20-11
         prefix: /usr/local
+    valgrind:
+      buildable: false
+      externals:
+      - spec: valgrind@3.15.0+boost~mpi+only64bit
