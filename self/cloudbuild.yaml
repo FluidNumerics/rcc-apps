@@ -15,10 +15,11 @@ steps:
         "-var","install_root=${_INSTALL_ROOT}",
         "-var","machine_type=${_MACHINE_TYPE}",
         "-var","slurm_root=${_SLURM_ROOT}",
-        "-var","target_arch=${_ARCH}",
+        "-var","target_arch=${_TARGET_ARCH}",
         "-var","compiler=${_COMPILER}",
         "-var","pkg_path=${_PKG_PATH}",
         "-var","common_path=${_COMMON_PATH}",
+        "-var","env_file=${_ENV_FILE}",
         '${_PKG_PATH}/packer.json']
   waitFor: ["-"]
 
@@ -35,7 +36,8 @@ substitutions:
     _COMPILER: 'gcc@10.2.0'
     _PKG_PATH: "self"
     _COMMON_PATH: "common"
-    _ARCH: "broadwell"
+    _TARGET_ARCH: "broadwell"
+    _ENV_FILE: "env/spack.yaml"
     _MACHINE_TYPE: "n1-standard-16"
 
 timeout : 28800s

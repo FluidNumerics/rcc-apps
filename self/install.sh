@@ -8,31 +8,16 @@
 
 source /etc/profile.d/z10_spack_environment.sh
 
-# Install hipfort
-git clone https://github.com/ROCmSoftwarePlatform/hipfort.git /tmp/hipfort
-mkdir /tmp/hipfort/build
-cd /tmp/hipfort/build
-FC=$(which gfortran) cmake -DCMAKE_INSTALL_PREFIX=/opt/rocm /tmp/hipfort
-make -j install
-echo "PATH=\${PATH}:/opt/rocm/bin" >> /etc/profile.d/z10_spack_environment.sh
+if [[ "$IMAGE_NAME" != "rcc-"* ]]; then
+    # Install hipfort
+    git clone https://github.com/ROCmSoftwarePlatform/hipfort.git /tmp/hipfort
+    mkdir /tmp/hipfort/build
+    cd /tmp/hipfort/build
+    FC=$(which gfortran) cmake -DCMAKE_INSTALL_PREFIX=/opt/rocm /tmp/hipfort
+    make -j install
+    echo "PATH=\${PATH}:/opt/rocm/bin" >> /etc/profile.d/z10_spack_environment.sh
+fi
 
-
-# FEQParse
-git clone https://github.com/FluidNumerics/feq-parse.git /tmp/extern/feq-parse
-mkdir -p /tmp/extern/feq-parse/build
-cd /tmp/extern/feq-parse/build
-cmake -DCMAKE_INSTALL_PREFIX="/opt/feqparse" /tmp/extern/feq-parse
-make && make install
-
-# FLAP
-git clone --recurse-submodules https://github.com/szaghi/FLAP.git /tmp/extern/FLAP
-mkdir -p /tmp/extern/FLAP/build
-cd /tmp/extern/FLAP/build 
-FFLAGS=-cpp cmake -DCMAKE_INSTALL_PREFIX="/opt/FLAP" /tmp/extern/FLAP
-make && make install
-
-
-source /etc/profile.d/z10_spack_environment.sh
 # SELF Serial-x86 build
 git clone https://github.com/FluidNumerics/self.git /tmp/self
 cd /tmp
@@ -41,6 +26,7 @@ SELF_PREFIX=/opt/self/serial-x86 \
 FC=gfortran \
 PREC=double \
 make
+rm -r /tmp/self
 
 git clone https://github.com/FluidNumerics/self.git /tmp/self
 cd /tmp
@@ -50,6 +36,8 @@ FC=hipfort \
 HIPFORT_GPU=sm_70 \
 PREC=double \
 make
+mv /tmp/self/src/ /opt/self/
+rm -r /tmp/self
 
 
 # TO DO : Add Modules for self/serial-x86 and self/serial-x86-nvcc
