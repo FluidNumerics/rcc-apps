@@ -13,14 +13,15 @@ steps:
         "-var","image_name=${_IMAGE_NAME}",
         "-var","image_family=${_IMAGE_FAMILY}",
         "-var","install_root=${_INSTALL_ROOT}",
+        "-var","machine_type=${_MACHINE_TYPE}",
         "-var","slurm_root=${_SLURM_ROOT}",
         "-var","target_arch=${_ARCH}",
         "-var","compiler=${_COMPILER}",
         "-var","pkg_path=${_PKG_PATH}",
         "-var","common_path=${_COMMON_PATH}",
+        "-var","env_file=${_ENV_FILE}",
         '${_PKG_PATH}/packer.json']
   waitFor: ["-"]
-
 
 substitutions:
     _ZONE: 'us-central1-c'
@@ -31,9 +32,11 @@ substitutions:
     _IMAGE_FAMILY: 'openfoam-gcp-foss'
     _INSTALL_ROOT: '/opt'
     _SLURM_ROOT: '/usr/local'
-    _COMPILER: 'gcc@10.2.0'
+    _COMPILER: 'intel-oneapi-compilers'
     _PKG_PATH: "openfoam"
     _COMMON_PATH: "common"
     _ARCH: "cascadelake"
+    _ENV_FILE: "env/spack.yaml"
+    _MACHINE_TYPE: "n1-standard-16"
 
 timeout : 28800s

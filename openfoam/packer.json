@@ -9,17 +9,19 @@
     "image_name":"openfoam-gcp-slurm-gcp-centos7-latest",
     "image_family":"openfoam-gcp-slurm-gcp-centos7",
     "install_root":"/apps",
+    "machine_type": "n1-standard-32",
     "slurm_root":"/usr/local",
     "target_arch":"cascadelake",
     "pkg_path": "openfoam",
-    "common_path": "common"
+    "common_path": "common",
+    "env_file": "env/spack.yaml"
   },
   "builders": [{
     "type": "googlecompute",
     "project_id": "{{user `project_id`}}",
     "source_image_family": "{{user `source_image_family`}}",
     "source_image_project_id": "{{user `source_image_project`}}",
-    "machine_type": "n1-standard-32",
+    "machine_type": "{{user `machine_type`}}",
     "disk_size": 50,
     "zone": "{{user `zone`}}",
     "subnetwork" :"{{user `subnet`}}",
@@ -44,7 +46,7 @@
     },
     {
       "type": "file",
-      "source": "{{user `pkg_path`}}/env/spack.yaml",
+      "source": "{{user `pkg_path`}}/{{user `env_file`}}",
       "destination": "/tmp/"
     },
     {
