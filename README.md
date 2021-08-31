@@ -43,6 +43,7 @@ Each `cloudbuild.yaml` has the following variables
 * `_COMMON_PATH` - The path to the `common/` directory in this repository
 * `_TARGET_ARCH` - The target architecture to pass to Spack's `target` flag (e.g. `target=${_TARGET_ARCH}`)
 * `_ENV_FILE` - The path, relative to `_PKG_PATH` to the spack environment file. The default is set to `env/spack.yaml`. This is useful if you are changing the `_SOURCE_IMAGE_FAMILY` and need to modify the system provided packags.
+* `_MACHINE_TYPE` - The type of machine to use to build the image. When packer is used to bake a VM image, it creates a GCE instance on which it runs the installation steps. The size and shape of this instance is determined by this variable.
 
 
 While the default values have been generally tested, the value of these variables can be modified when executing a build using `--substitutions=`, e.g.

@@ -13,6 +13,7 @@ steps:
         "-var","image_name=${_IMAGE_NAME}",
         "-var","image_family=${_IMAGE_FAMILY}",
         "-var","install_root=${_INSTALL_ROOT}",
+        "-var","machine_type=${_MACHINE_TYPE}",
         "-var","slurm_root=${_SLURM_ROOT}",
         "-var","target_arch=${_TARGET_ARCH}",
         "-var","compiler=${_COMPILER}",
@@ -21,7 +22,6 @@ steps:
         "-var","env_file=${_ENV_FILE}",
         '${_PKG_PATH}/packer.json']
   waitFor: ["-"]
-
 
 substitutions:
     _ZONE: 'us-central1-c'
@@ -37,5 +37,6 @@ substitutions:
     _COMMON_PATH: "common"
     _TARGET_ARCH: "cascadelake"
     _ENV_FILE: "env/spack.yaml"
+    _MACHINE_TYPE: "n1-standard-16"
 
 timeout : 28800s

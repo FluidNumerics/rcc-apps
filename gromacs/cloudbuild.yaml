@@ -35,7 +35,8 @@ substitutions:
     _COMPILER: 'gcc@10.2.0'
     _PKG_PATH: "gromacs"
     _COMMON_PATH: "common"
-    _ARCH: "broadwell"
+    _TARGET_ARCH: "broadwell"
+    _ENV_FILE: "env/spack.yaml"
     _MACHINE_TYPE: "n1-standard-16"
 
 timeout : 28800s
