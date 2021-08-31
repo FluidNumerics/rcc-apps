@@ -14,10 +14,11 @@ steps:
         "-var","image_family=${_IMAGE_FAMILY}",
         "-var","install_root=${_INSTALL_ROOT}",
         "-var","slurm_root=${_SLURM_ROOT}",
-        "-var","target_arch=${_ARCH}",
+        "-var","target_arch=${_TARGET_ARCH}",
         "-var","compiler=${_COMPILER}",
         "-var","pkg_path=${_PKG_PATH}",
         "-var","common_path=${_COMMON_PATH}",
+        "-var","env_file=${_ENV_FILE}",
         '${_PKG_PATH}/packer.json']
   waitFor: ["-"]
 
@@ -34,6 +35,7 @@ substitutions:
     _COMPILER: 'intel-oneapi-compilers'
     _PKG_PATH: "wrf"
     _COMMON_PATH: "common"
-    _ARCH: "cascadelake"
+    _TARGET_ARCH: "cascadelake"
+    _ENV_FILE: "env/spack.yaml"
 
 timeout : 28800s
