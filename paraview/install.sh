@@ -89,7 +89,7 @@ cat > /etc/motd << EOL
 
   Copyright 2021 Fluid Numerics LLC
 
-  https://github.com/FluidNumerics/hpc-apps-gcp
+  https://github.com/FluidNumerics/rcc-apps
 
   This offering is not approved or endorsed by OpenCFD Ltd,
   producer and distributor of the OpenFOAM software via www.openfoam.com,

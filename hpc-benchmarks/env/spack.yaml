@@ -6,8 +6,9 @@ spack:
   concretization: separately
 
   specs:
-  - singularity
-  - openmpi
+  - hpcc
+  - hpcg
+  - osu-micro-benchmarks
    
   packages:
     all:
@@ -19,7 +20,7 @@ spack:
           - openmpi
 
       target:
-      - @ARCH@
+      - x86_64
 
     autoconf:
       buildable: false
@@ -39,26 +40,17 @@ spack:
     boost: 
       buildable: true
       version: 
-      - 1.76.0
+      - 1.68.0
     cuda:
       buildable: false
       externals:
       - spec: cuda@11.2.152
         prefix: /usr/local/cuda
-    hpctoolkit:
-      buildable: true
-      version: 
-      - 2021.05.15
-      variants: +cuda~viewer
     libevent:
       buildable: false
       externals:
       - spec: libevent@2.0.21
         prefix: /usr
-    libtool: 
-      buildable: true
-      version: 
-      - 2.4.2
     m4: 
       buildable: true
       version: 
@@ -72,7 +64,7 @@ spack:
       buildable: true
       version: 
       - 4.0.5
-      variants: +singularity +cxx +cxx_exceptions +legacylaunchers +memchecker +pmi +static+vt +wrapper-rpath fabrics=auto schedulers=slurm
+      variants: +cxx +cxx_exceptions +legacylaunchers +memchecker +pmi +static+vt +wrapper-rpath fabrics=auto schedulers=slurm
     singularity: 
       buildable: true
       version: 

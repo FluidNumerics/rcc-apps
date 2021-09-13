@@ -20,7 +20,7 @@ cat > /etc/motd << EOL
 
   Open source implementations of this solution can be found at
 
-    https://github.com/FluidNumerics/hpc-apps-gcp/spack
+    https://github.com/FluidNumerics/rcc-apps
 
   This solution contains free and open-source software 
   All applications installed can be listed using 

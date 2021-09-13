@@ -6,16 +6,10 @@
 # //////////////////////////////////////////////////////////////// #
 
 
-# Install benchmark data
-mkdir -p ${INSTALL_ROOT}/share/conus-2.5km
-gsutil -u ${PROJECT_ID} cp gs://wrf-gcp-benchmark-data/benchmark/conus-2.5km/* ${INSTALL_ROOT}/share/conus-2.5km/
-mkdir -p ${INSTALL_ROOT}/share/conus-12km
-gsutil -u ${PROJECT_ID} cp gs://wrf-gcp-benchmark-data/benchmark/conus-12km/* ${INSTALL_ROOT}/share/conus-12km/
-
 # Update MOTD
 cat > /etc/motd << EOL
 =======================================================================  
-  WRF-GCP VM Image
+  HPC Benchmarks VM Image
   Copyright 2021 Fluid Numerics LLC
 
 =======================================================================  

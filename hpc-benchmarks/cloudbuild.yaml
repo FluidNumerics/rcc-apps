@@ -13,30 +13,30 @@ steps:
         "-var","image_name=${_IMAGE_NAME}",
         "-var","image_family=${_IMAGE_FAMILY}",
         "-var","install_root=${_INSTALL_ROOT}",
+        "-var","machine_type=${_MACHINE_TYPE}",
         "-var","slurm_root=${_SLURM_ROOT}",
-        "-var","target_arch=${_ARCH}",
+        "-var","target_arch=${_TARGET_ARCH}",
         "-var","compiler=${_COMPILER}",
         "-var","pkg_path=${_PKG_PATH}",
         "-var","common_path=${_COMMON_PATH}",
-        "-var","workspace=${_WORKSPACE}",
+        "-var","env_file=${_ENV_FILE}",
         '${_PKG_PATH}/packer.json']
   waitFor: ["-"]
-
 
 substitutions:
     _ZONE: 'us-central1-c'
     _SUBNETWORK: 'default'
-    _SOURCE_IMAGE_FAMILY: 'fluid-slurm-gcp-centos-7-v3'
-    _SOURCE_IMAGE_PROJECT: 'fluid-cluster-ops'
-    _IMAGE_NAME: 'fluid-cicb-latest'
-    _IMAGE_FAMILY: 'fluid-cicb'
-    _WORKSPACE: '/apps/workspace'
+    _SOURCE_IMAGE_FAMILY: 'schedmd-slurm-20-11-4-centos-7'
+    _SOURCE_IMAGE_PROJECT: 'schedmd-slurm-public'
+    _IMAGE_NAME: 'hpc-benchmarks-foss-latest'
+    _IMAGE_FAMILY: 'hpc-benchmarks-foss'
     _INSTALL_ROOT: '/opt'
     _SLURM_ROOT: '/usr/local'
-    _COMPILER: 'gcc@9.2.0'
-    _PKG_PATH: "fluid-cicb"
+    _COMPILER: 'intel-oneapi-compilers'
+    _PKG_PATH: "wrf"
     _COMMON_PATH: "common"
-    _ARCH: "x86_64"
+    _TARGET_ARCH: "cascadelake"
+    _ENV_FILE: "env/spack.yaml"
+    _MACHINE_TYPE: "n1-standard-16"
 
-
-timeout : 86400s
+timeout : 28800s
