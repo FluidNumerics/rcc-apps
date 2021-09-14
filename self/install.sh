@@ -20,16 +20,17 @@ fi
 
 # SELF Serial-x86 build
 git clone https://github.com/FluidNumerics/self.git -b develop /tmp/self
-cd /tmp
+cd /tmp/self
 BUILD=release \
 SELF_PREFIX=/opt/self/serial-x86 \
 FC=gfortran \
 PREC=double \
 make
+cd /tmp
 rm -r /tmp/self
 
 git clone https://github.com/FluidNumerics/self.git -b develop /tmp/self
-cd /tmp
+cd /tmp/self
 BUILD=release \
 SELF_PREFIX=/opt/self/serial-x86-nvcc \
 FC=hipfort \
@@ -37,6 +38,7 @@ HIPFORT_GPU=sm_70 \
 PREC=double \
 make
 mv /tmp/self/src/ /opt/self/
+cd /tmp
 rm -r /tmp/self
 
 
