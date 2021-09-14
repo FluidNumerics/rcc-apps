@@ -63,8 +63,10 @@ if [[ "$IMAGE_NAME" != "rcc-"* ]]; then
    spack compiler find --scope site
 fi
 
+
 # Install packages specified in the spack environment
-spack env activate ${INSTALL_ROOT}/spack-pkg-env/
+cat ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
+spack env activate -d ${INSTALL_ROOT}/spack-pkg-env/
 spack install --fail-fast --source
 spack gc -y
 spack env deactivate
