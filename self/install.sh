@@ -19,7 +19,7 @@ if [[ "$IMAGE_NAME" != "rcc-"* ]]; then
 fi
 
 # SELF Serial-x86 build
-git clone https://github.com/FluidNumerics/self.git /tmp/self
+git clone https://github.com/FluidNumerics/self.git -b develop /tmp/self
 cd /tmp
 BUILD=release \
 SELF_PREFIX=/opt/self/serial-x86 \
@@ -28,7 +28,7 @@ PREC=double \
 make
 rm -r /tmp/self
 
-git clone https://github.com/FluidNumerics/self.git /tmp/self
+git clone https://github.com/FluidNumerics/self.git -b develop /tmp/self
 cd /tmp
 BUILD=release \
 SELF_PREFIX=/opt/self/serial-x86-nvcc \
@@ -52,7 +52,7 @@ cat > /etc/motd << EOL
 
   Open source implementations of this solution can be found at
 
-    https://github.com/FluidNumerics/hpc-apps-gcp
+    https://github.com/FluidNumerics/rcc-apps
 
   This solution contains free and open-source software 
   All applications installed can be listed using 
