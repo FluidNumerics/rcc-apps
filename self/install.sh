@@ -42,6 +42,10 @@ cd /tmp
 rm -r /tmp/self
 
 
+# Test installation #
+/opt/self/serial-x86/self --help || exit 1
+
+
 # TO DO : Add Modules for self/serial-x86 and self/serial-x86-nvcc
 
 # Update MOTD
