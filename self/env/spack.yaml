@@ -10,7 +10,7 @@ spack:
   - hdf5@1.12.0+cxx+fortran~mpi
   - hohqmesh@v1.0.1
   - flap@master
-  - feq-parse@1.1.0
+  - feq-parse@v1.1.0
 
   packages:
     all:
