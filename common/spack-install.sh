@@ -40,34 +40,42 @@ if [[ -f "/etc/profile.d/cuda.sh" ]]; then
 	mv /etc/profile.d/cuda.sh /etc/profile.d/z11_cuda.sh
 fi
 
-# Set up the installation root for spack view
-sed -i 's#@INSTALL_ROOT@#'"${INSTALL_ROOT}"'#g' ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
-
-# Set up the preferred compiler for all packages
-if [[ "$COMPILER" == *"intel"* ]]; then
-  sed -i 's/@COMPILER@/intel/g' ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
-else
-  sed -i 's/@COMPILER@/'"${COMPILER}"'/g' ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
+# Move a packages.yaml file if its provided
+if [[ -f "/tmp/packages.yaml" ]]; then
+  mv /tmp/packages.yaml ${INSTALL_ROOT}/spack/etc/spack/packages.yaml
 fi
 
-# Set the target architecture for all packages
-sed -i 's/@ARCH@/'"${ARCH}"'/g' ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
+# Modify a Spack environment file if it's provided
+if [[ -f "${INSTALL_ROOT}/spack-pkg-env/spack.yaml" ]]; then
+  # Set up the installation root for spack view
+  sed -i 's#@INSTALL_ROOT@#'"${INSTALL_ROOT}"'#g' ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
 
+  # Set up the preferred compiler for all packages
+  if [[ "$COMPILER" == *"intel"* ]]; then
+    sed -i 's/@COMPILER@/intel/g' ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
+  else
+    sed -i 's/@COMPILER@/'"${COMPILER}"'/g' ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
+  fi
+
+  # Set the target architecture for all packages
+  sed -i 's/@ARCH@/'"${ARCH}"'/g' ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
+fi
 
 source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
 
-# Research Computing Cloud Images (start with "rcc")
-if [[ "$IMAGE_NAME" != "rcc-"* ]]; then
-   spack install ${COMPILER}
-   spack load ${COMPILER}
-   spack compiler find --scope site
+if [[ -f "${INSTALL_ROOT}/spack-pkg-env/spack.yaml" ]]; then
+  # Research Computing Cloud Images (start with "rcc")
+  if [[ "$IMAGE_NAME" != "rcc-"* ]]; then
+     spack install ${COMPILER}
+     spack load ${COMPILER}
+     spack compiler find --scope site
+  fi
+
+  # Install packages specified in the spack environment
+  cat ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
+  spack env activate -d ${INSTALL_ROOT}/spack-pkg-env/
+  spack install --fail-fast --source
+  spack gc -y
+  spack env deactivate
+  spack env activate --sh -d ${INSTALL_ROOT}/spack-pkg-env/ >> /etc/profile.d/z10_spack_environment.sh 
 fi
-
-
-# Install packages specified in the spack environment
-cat ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
-spack env activate -d ${INSTALL_ROOT}/spack-pkg-env/
-spack install --fail-fast --source
-spack gc -y
-spack env deactivate
-spack env activate --sh -d ${INSTALL_ROOT}/spack-pkg-env/ >> /etc/profile.d/z10_spack_environment.sh 
