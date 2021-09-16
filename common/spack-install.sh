@@ -63,6 +63,14 @@ fi
 
 source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
 
+if [ -z "$SPACK_BUCKET" ]; then
+        # Add spack mirror #
+        spack gpg init
+        spack gpg create ${INSTALL_ROOT}/spack/share/RCC_gpg support@fluidnumerics.com
+        spack mirror add RCC ${SPACK_BUCKET}
+        spack buildcache keys --install --trust
+fi
+
 if [[ -f "${INSTALL_ROOT}/spack-pkg-env/spack.yaml" ]]; then
   # Research Computing Cloud Images (start with "rcc")
   if [[ "$IMAGE_NAME" != "rcc-"* ]]; then
