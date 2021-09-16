@@ -82,6 +82,8 @@ done
 
 spack gc -y
 
-spack mirror rm RCC
+if [ -z "$SPACK_BUCKET" ]; then
+  spack mirror rm RCC
+fi
 
 cat /dev/null > /var/log/messages
