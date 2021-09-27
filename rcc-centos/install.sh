@@ -80,7 +80,10 @@ for COMPILER in "${COMPILERS[@]}"; do
   fi
 done
 
+spack install singularity % gcc@9.4.0
+
 spack gc -y
+
 
 if [[ -n "$SPACK_BUCKET" ]]; then
   spack mirror rm RCC
