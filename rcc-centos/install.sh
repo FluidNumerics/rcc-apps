@@ -82,7 +82,7 @@ done
 
 spack gc -y
 
-if [ -z "$SPACK_BUCKET" ]; then
+if [[ -n "$SPACK_BUCKET" ]]; then
   spack mirror rm RCC
 fi
 
