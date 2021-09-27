@@ -42,11 +42,13 @@ fi
 
 # Move a packages.yaml file if its provided
 if [[ -f "/tmp/packages.yaml" ]]; then
+  echo "Moving packages.yaml into site location"
   mv /tmp/packages.yaml ${INSTALL_ROOT}/spack/etc/spack/packages.yaml
 fi
 
 # Modify a Spack environment file if it's provided
 if [[ -f "${INSTALL_ROOT}/spack-pkg-env/spack.yaml" ]]; then
+  echo "Moving spack.yaml into env location"
   # Set up the installation root for spack view
   sed -i 's#@INSTALL_ROOT@#'"${INSTALL_ROOT}"'#g' ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
 
@@ -63,7 +65,7 @@ fi
 
 source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
 
-if [ -z "$SPACK_BUCKET" ]; then
+if [[ -z "$SPACK_BUCKET" ]]; then
         # Add spack mirror #
         spack gpg init
         spack gpg create ${INSTALL_ROOT}/spack/share/RCC_gpg support@fluidnumerics.com
