@@ -44,9 +44,15 @@
       "destination": "/tmp/"
     },
     {
+      "type": "file",
+      "source": "{{user `pkg_path`}}/motd",
+      "destination": "/tmp/"
+    },
+    {
       "type": "shell",
       "inline":[ "sudo mv /tmp/etc/sysctl.conf /etc/sysctl.conf",
 	         "sudo mv /tmp/etc/security/limits.d/* /etc/security/limits.d/",
+	         "sudo mv /tmp/motd /etc/motd",
                  "sudo sysctl -p"] 
     },
     {
