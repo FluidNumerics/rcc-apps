@@ -27,7 +27,6 @@ if [[ "$IMAGE_NAME" != "rcc-"* ]]; then
    
    # Find system compilers
    spack compiler find --scope site
-   spack config add "config:install_tree:padded_length:128"
 fi
 
 ## For ensuring that Slurm paths are in default path ##
