@@ -87,7 +87,7 @@ Fluid Numerics provides support and consulting services to help you get up and r
 ### Fluid Numerics' Research Computing Cloud VM Image Library
 Fluid Numerics builds and tests all of the applications in this repository and actively supports adding upgrades and updates to our managed VM library. Access to the RCC VM image library also comes with support from Fluid Numerics to help you use these images. 
 
-The RCC VM Image Library and our open-source [`rcc-apps-tf`](https://github.com/FluidNumerics/rcc-apps-tf) infrastructure-as-code can save you time in cloud design and engineering and provide you access to tested VM images ready for launch on GCP alongside professional and technical support from Fluid Numerics.
+The RCC VM Image Library and our open-source [`rcc-tf`](https://github.com/FluidNumerics/rcc-tf) infrastructure-as-code can save you time in cloud design and engineering and provide you access to tested VM images ready for launch on GCP alongside professional and technical support from Fluid Numerics.
 
 
 Images that are currently available :
