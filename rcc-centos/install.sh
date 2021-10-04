@@ -91,4 +91,7 @@ if [[ -n "$SPACK_BUCKET" ]]; then
   spack mirror rm RCC
 fi
 
+mkdir /apps/workspace
+chmod ugo=rwx -R /apps/workspace
+
 cat /dev/null > /var/log/messages
