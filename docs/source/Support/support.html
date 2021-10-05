@@ -1,0 +1,49 @@
+<body>
+	<h2>Fluid Numerics Community Support</h2>
+	<a href="#" id="feature_button" class='btn btn-primary btn-large'>Request Feature</a><br />
+    <a href="#" id="support_button" class='btn btn-primary btn-large'>Request Support</a><br />
+	<a href="#" id="bug_button" class='btn btn-primary btn-large'>Report bug</a>
+  	<!-- Jira Issue Collector - append this at the bottom of <body> -->
+        <script type="text/javascript" src="https://octoskelo.atlassian.net/s/d41d8cd98f00b204e9800998ecf8427e-T/-lgwqy6/b/3/9edb822e6c4db3635f27806476c088cb/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=c3804f02"></script>
+        <script type="text/javascript" src="https://octoskelo.atlassian.net/s/d41d8cd98f00b204e9800998ecf8427e-T/-lgwqy6/b/3/9edb822e6c4db3635f27806476c088cb/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=3ed8d749"></script>
+        <script type="text/javascript" src="https://octoskelo.atlassian.net/s/d41d8cd98f00b204e9800998ecf8427e-T/-lgwqy6/b/3/9edb822e6c4db3635f27806476c088cb/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=08dd2dd6"></script>
+	<!-- We will customize Jira in the following script tag -->
+	<script type="text/javascript">
+		// safely use jquery here since the issue collector will load it for you
+		$(document).ready(function() {
+			window.ATL_JQ_PAGE_PROPS = $.extend(window.ATL_JQ_PAGE_PROPS, {
+				// ==== feature collector ====
+				  'c3804f02' : {
+					// === custom trigger function ===
+					  triggerFunction : function( showCollectorDialog ) {
+						$('#feature_button').click( function(e) {
+							e.preventDefault();
+							showCollectorDialog();
+						});
+ 					} 
+				}
+				// ==== support request ====
+				, '3ed8d749' : {
+					// === custom trigger function ===
+					  triggerFunction : function( showCollectorDialog ) {
+						$('#support_button').click( function(e) {
+							e.preventDefault();
+							showCollectorDialog();
+						});
+ 					} 
+				}
+				// ==== bug collector ====
+				, '08dd2dd6' : {
+					// === custom trigger function ===
+
+					  triggerFunction : function( showCollectorDialog ) {
+						$('#bug_button').click( function(e) {
+							e.preventDefault();
+							showCollectorDialog();
+						});
+ 					}
+				}
+			});
+		});
+	</script>
+</body>
