@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+SYSTEM_COMPILER="gcc@8.3.0"
 spack_install() {
   # This function attempts to install from the cache. If this fails, 
   # then it will install from source and create a buildcache for this package
@@ -39,7 +39,7 @@ COMPILERS=("gcc@11.2.0"
 	   "gcc@9.4.0")
 
 for COMPILER in "${COMPILERS[@]}"; do
-  spack_install "${COMPILER} % gcc@4.8.5 target=${ARCH}"
+  spack_install "${COMPILER} % ${SYSTEM_COMPILER} target=${ARCH}"
   spack load ${COMPILER} && spack compiler find --scope site && spack unload ${COMPILER}
 done
 
