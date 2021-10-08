@@ -33,21 +33,9 @@ system_deps
 
 source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
 
-# Install "after-market" compilers
-COMPILERS=("gcc@11.2.0"
-           "gcc@10.3.0"
-	   "gcc@9.4.0")
-
-for COMPILER in "${COMPILERS[@]}"; do
-  spack_install "${COMPILER} % ${SYSTEM_COMPILER} target=${ARCH}"
-  spack load ${COMPILER} && spack compiler find --scope site && spack unload ${COMPILER}
-done
-
 spack compiler find --scope site
 # Install OpenMPI with desired compilers
-COMPILERS=("gcc@11.2.0"
-           "gcc@10.3.0"
-	   "gcc@9.4.0")
+COMPILERS=(${SYSTEM_COMPILER})
 for COMPILER in "${COMPILERS[@]}"; do
   if [[ "$COMPILER" == *"intel"* ]];then
     spack_install "openmpi@4.0.5 % intel target=${ARCH}"
