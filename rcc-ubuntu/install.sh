@@ -5,7 +5,7 @@ SYSTEM_COMPILER="gcc@9.3.0"
 spack_install() {
   # This function attempts to install from the cache. If this fails, 
   # then it will install from source and create a buildcache for this package
-  if [ -z "$SPACK_BUCKET" ]; then
+  if [[ -n "$SPACK_BUCKET" ]]; then
     spack buildcache install "$1" || \
   	  ( spack install --no-cache "$1" && \
   	    spack buildcache create -a --rebuild-index \
@@ -74,7 +74,7 @@ done
 
 spack gc -y
 
-if [ -z "$SPACK_BUCKET" ]; then
+if [[ -n "$SPACK_BUCKET" ]]; then
   spack mirror rm RCC
 fi
 
