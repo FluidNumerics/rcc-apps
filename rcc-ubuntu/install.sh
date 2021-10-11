@@ -54,11 +54,22 @@ source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
 
 # Install "after-market" compilers
 spack compiler find --scope site
-# Adjust the paths to AMD Clang/Flang compilers
-sed -i "s#cc: /bin/clang-ocl#cc: /opt/rocm/bin/amdclang#" ${INSTALL_ROOT}/spack/etc/spack/compilers.yaml
-sed -i "s#cxx: null#cxx: /opt/rocm/bin/amdclang++#" ${INSTALL_ROOT}/spack/etc/spack/compilers.yaml
-sed -i "s#f77: null#f77: /opt/rocm/bin/amdflang#" ${INSTALL_ROOT}/spack/etc/spack/compilers.yaml
-sed -i "s#fc: null#fc: /opt/rocm/bin/amdflang#" ${INSTALL_ROOT}/spack/etc/spack/compilers.yaml
+tee -a ${INSTALL_ROOT}/spack/etc/spack/compilers.yaml << EOF
+- compiler: 
+    spec: clang@13.0.0
+    paths:
+      cc: /opt/rocm/bin/amdclang
+      cxx: /opt/rocm/bin/amdclang++
+      f77: /opt/rocm/bin/amdflang
+      fc: /opt/rocm/bin/amdflang
+    flags: {}
+    operating_system: ubuntu20.04
+    target: x86_64
+    modules: []
+    environment: {}
+    extra_rpaths: []
+EOF
+
 cat ${INSTALL_ROOT}/spack/etc/spack/compilers.yaml
 
 # Install OpenMPI with desired compilers
