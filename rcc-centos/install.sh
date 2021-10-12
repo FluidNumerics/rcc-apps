@@ -82,6 +82,12 @@ done
 
 spack install singularity % gcc@9.4.0
 
+# Checkpoint/Restart tools
+spack_install "dmtcp % gcc@4.8.5 target=${ARCH}"
+
+# Profilers
+spack_install "hpctoolkit@2021.05.15 +cuda~viewer % gcc@10.3.0 target=${ARCH}"  # HPC Toolkit requires gcc 7 or above
+
 spack gc -y
 
 

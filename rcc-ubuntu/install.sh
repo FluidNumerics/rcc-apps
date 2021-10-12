@@ -83,6 +83,15 @@ for COMPILER in "${COMPILERS[@]}"; do
   fi
 done
 
+# Singularity
+spack_install singularity
+
+# Checkpoint/Restart tools
+spack_install "dmtcp target=${ARCH}"
+
+# Profilers
+spack_install "hpctoolkit@2021.05.15 +cuda~viewer target=${ARCH}"  # HPC Toolkit requires gcc 7 or above
+
 spack gc -y
 
 if [[ -n "$SPACK_BUCKET" ]]; then
