@@ -13,19 +13,30 @@ steps:
         "-var","image_name=${_IMAGE_NAME}",
         "-var","image_family=${_IMAGE_FAMILY}",
         "-var","install_root=${_INSTALL_ROOT}",
+        "-var","machine_type=${_MACHINE_TYPE}",
         "-var","slurm_root=${_SLURM_ROOT}",
-        'wrf/packer.json']
+        "-var","target_arch=${_TARGET_ARCH}",
+        "-var","compiler=${_COMPILER}",
+        "-var","pkg_path=${_PKG_PATH}",
+        "-var","common_path=${_COMMON_PATH}",
+        "-var","env_file=${_ENV_FILE}",
+        '${_PKG_PATH}/packer.json']
   waitFor: ["-"]
-
 
 substitutions:
     _ZONE: 'us-central1-c'
     _SUBNETWORK: 'default'
-    _SOURCE_IMAGE_FAMILY: 'schedmd-slurm-20-11-4-centos-7'
-    _SOURCE_IMAGE_PROJECT: 'schedmd-slurm-public'
-    _IMAGE_NAME: 'wrf-gcp-slurm-gcp-centos7-latest'
-    _IMAGE_FAMILY: 'wrf-gcp-slurm-gcp-centos7'
-    _INSTALL_ROOT: '/apps'
+    _SOURCE_IMAGE_FAMILY: 'rcc-centos-foss-v300'
+    _SOURCE_IMAGE_PROJECT: 'research-computing-cloud'
+    _IMAGE_NAME: 'paraview-foss-latest'
+    _IMAGE_FAMILY: 'paraview-foss'
+    _INSTALL_ROOT: '/opt'
     _SLURM_ROOT: '/usr/local'
+    _COMPILER: 'intel-oneapi-compilers'
+    _PKG_PATH: "paraview"
+    _COMMON_PATH: "common"
+    _TARGET_ARCH: "cascadelake"
+    _ENV_FILE: "env/spack.yaml"
+    _MACHINE_TYPE: "n1-standard-16"
 
 timeout : 28800s
