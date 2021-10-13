@@ -20,6 +20,7 @@ spack_install() {
 function system_deps(){
 
     export DEBIAN_FRONTEND=noninteractive
+    sleep 30 # Wait for unattended-upgrades to stop 
     dpkg  --configure -a
     apt-get update -y 
     apt-get install -y libnuma-dev python3-dev python3-pip build-essential zip unzip
