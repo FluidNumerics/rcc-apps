@@ -24,8 +24,8 @@ steps:
 substitutions:
     _ZONE: 'us-central1-c'
     _SUBNETWORK: 'default'
-    _SOURCE_IMAGE_FAMILY: 'schedmd-slurm-20-11-7-centos-7'
-    _SOURCE_IMAGE_PROJECT: 'hpc-apps'
+    _SOURCE_IMAGE_FAMILY: 'rcc-centos-foss-v300'
+    _SOURCE_IMAGE_PROJECT: 'research-computing-cloud'
     _IMAGE_NAME: 'feots-gcp-foss-latest'
     _IMAGE_FAMILY: 'feots-gcp-foss'
     _INSTALL_ROOT: '/opt'

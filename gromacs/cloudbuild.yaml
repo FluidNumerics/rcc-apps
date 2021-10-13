@@ -26,8 +26,8 @@ steps:
 substitutions:
     _ZONE: 'us-central1-c'
     _SUBNETWORK: 'default'
-    _SOURCE_IMAGE_FAMILY: 'schedmd-slurm-20-11-4-centos-7'
-    _SOURCE_IMAGE_PROJECT: 'schedmd-slurm-public'
+    _SOURCE_IMAGE_FAMILY: 'rcc-centos-foss-v300'
+    _SOURCE_IMAGE_PROJECT: 'research-computing-cloud'
     _IMAGE_NAME: 'gromacs-gcp-foss-latest'
     _IMAGE_FAMILY: 'gromacs-gcp-foss'
     _INSTALL_ROOT: '/opt'
