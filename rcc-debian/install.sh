@@ -50,6 +50,10 @@ spack_install "dmtcp target=${ARCH}"
 # Profilers
 spack_install "hpctoolkit@2021.05.15 +cuda~viewer target=${ARCH}"  # HPC Toolkit requires gcc 7 or above
 
+# Benchmarks
+spack_install hpcc % ${SYSTEM_COMPILER}
+spack_install hpcg % ${SYSTEM_COMPILER}
+spack_install osu-micro-benchmarks % ${SYSTEM_COMPILER}
 
 spack gc -y
 
