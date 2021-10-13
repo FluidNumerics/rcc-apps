@@ -6,6 +6,9 @@
 # //////////////////////////////////////////////////////////////// #
 
 
+# Enable GatewayPorts for Paraview reverse connections
+sed -i 's/\#GatewayPorts no/GatewayPorts yes/g' /etc/ssh/sshd_config
+
 # Update MOTD
 cat > /etc/motd << EOL
 =======================================================================  
