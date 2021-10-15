@@ -6,13 +6,13 @@ spack_install() {
   # then it will install from source and create a buildcache for this package
   if [[ -n "$SPACK_BUCKET" ]]; then
     spack buildcache install "$1" || \
-  	  ( spack install --no-cache "$1" && \
+  	  ( spack install --source --no-cache "$1" && \
   	    spack buildcache create -a --rebuild-index \
   	                            -k ${INSTALL_ROOT}/spack/share/RCC_gpg \
 				    -m RCC \
 				    -f "$1" )
   else
-     spack install "$1"
+     spack install --source "$1"
   fi
 }
 
