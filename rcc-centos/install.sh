@@ -1,6 +1,7 @@
 #!/bin/bash
 
 
+SYSTEM_COMPILER="gcc@4.8.5"
 spack_install() {
   # This function attempts to install from the cache. If this fails, 
   # then it will install from source and create a buildcache for this package
@@ -72,33 +73,50 @@ COMPILERS=("gcc@11.2.0"
            "gcc@10.3.0"
            "gcc@9.4.0"
 	   "clang@13.0.0")
+
 for COMPILER in "${COMPILERS[@]}"; do
   if [[ "$COMPILER" == *"intel"* ]];then
     spack_install "openmpi@4.0.5 % intel target=${ARCH}"
     # Benchmarks
-    spack_install "hpcc % intel"
-    spack_install "hpcg % intel"
+    spack_install "hpcc % intel target=${ARCH}"
+    spack_install "hpcg % intel target=${ARCH}"
     spack_install "osu-micro-benchmarks % intel"
   else
     spack_install "openmpi@4.0.5 % ${COMPILER} target=${ARCH}"
     # Benchmarks
-    spack_install "hpcc % ${COMPILER}"
-    spack_install "hpcg % ${COMPILER}"
-    spack_install "osu-micro-benchmarks % ${COMPILER}"
+    spack_install "hpcc % ${COMPILER} target=${ARCH}"
+    spack_install "hpcg % ${COMPILER} target=${ARCH}"
+    spack_install "osu-micro-benchmarks % ${COMPILER} target=${ARCH}"
   fi
 done
 
 spack install singularity % gcc@9.4.0
 
 # Checkpoint/Restart tools
-spack_install "dmtcp % gcc@4.8.5 target=${ARCH}"
+spack_install "dmtcp % ${SYSTEM_COMPILER} target=${ARCH}"
 
 # Profilers
 spack_install "hpctoolkit@2021.05.15 +cuda~viewer % gcc@10.3.0 target=${ARCH}"  # HPC Toolkit requires gcc 7 or above
 
 
-spack gc -y
+# Install lmod (for modules support)
+# ** Currently in testing ** #
+if [[ -f "/tmp/modules.yaml" ]]; then
+  spack install lmod % ${SYSTEM_COMPILER}
+  source $(spack location -i lmod)/lmod/lmod/init/bash
+  source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
+  echo "Moving modules.yaml into site location"
+  mv /tmp/modules.yaml ${INSTALL_ROOT}/
+  mv /tmp/modules.yaml ${INSTALL_ROOT}/spack/etc/spack/modules.yaml
+  spack module tcl refresh --delete-tree -y
 
+  # Add configurations to load lmod at login
+  echo ". $(spack location -i lmod)/lmod/lmod/init/bash" >> /etc/profile.d/z10_spack_environment.sh
+  echo ". \${SPACK_ROOT}/share/spack/setup-env.sh" >> /etc/profile.d/z10_spack_environment.sh
+
+fi
+
+spack gc -y
 
 if [[ -n "$SPACK_BUCKET" ]]; then
   spack mirror rm RCC

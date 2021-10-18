@@ -37,15 +37,15 @@ for COMPILER in "${COMPILERS[@]}"; do
   if [[ "$COMPILER" == *"intel"* ]];then
     spack_install "openmpi@4.0.5 % intel target=${ARCH}"
     # Benchmarks
-    spack_install "hpcc % intel"
-    spack_install "hpcg % intel"
+    spack_install "hpcc % intel target=${ARCH}"
+    spack_install "hpcg % intel target=${ARCH}"
     spack_install "osu-micro-benchmarks % intel"
   else
     spack_install "openmpi@4.0.5 % ${COMPILER} target=${ARCH}"
     # Benchmarks
-    spack_install "hpcc % ${COMPILER}"
-    spack_install "hpcg % ${COMPILER}"
-    spack_install "osu-micro-benchmarks % ${COMPILER}"
+    spack_install "hpcc % ${COMPILER} target=${ARCH}"
+    spack_install "hpcg % ${COMPILER} target=${ARCH}"
+    spack_install "osu-micro-benchmarks % ${COMPILER} target=${ARCH}"
   fi
 done
 
