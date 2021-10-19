@@ -45,7 +45,7 @@
     },
     {
       "type": "file",
-      "source": "{{user `common_path`}}/modules.yaml",
+      "source": "{{user `pkg_path`}}/modules.yaml",
       "destination": "/tmp/"
     },
     {

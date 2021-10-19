@@ -110,7 +110,6 @@ if [[ -f "/tmp/modules.yaml" ]]; then
   source $(spack location -i lmod)/lmod/lmod/init/bash
   source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
   echo "Moving modules.yaml into site location"
-  mv /tmp/modules.yaml ${INSTALL_ROOT}/
   mv /tmp/modules.yaml ${INSTALL_ROOT}/spack/etc/spack/modules.yaml
   spack module lmod refresh --delete-tree -y
 

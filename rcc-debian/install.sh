@@ -72,7 +72,6 @@ if [[ -f "/tmp/modules.yaml" ]]; then
   source $(spack location -i lmod)/lmod/lmod/init/bash
   source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
   echo "Moving modules.yaml into site location"
-  mv /tmp/modules.yaml ${INSTALL_ROOT}/
   mv /tmp/modules.yaml ${INSTALL_ROOT}/spack/etc/spack/modules.yaml
   spack module lmod refresh --delete-tree -y
 
@@ -82,6 +81,8 @@ if [[ -f "/tmp/modules.yaml" ]]; then
   # Add configurations to load lmod at login
   echo ". $(spack location -i lmod)/lmod/lmod/init/bash" >> /etc/profile.d/z10_spack_environment.sh
   echo ". \${SPACK_ROOT}/share/spack/setup-env.sh" >> /etc/profile.d/z10_spack_environment.sh
+  echo "module unuse /usr/share/lmod/lmod/modulefiles/Core" >> /etc/profile.d/z10_spack_environment.sh
+  echo "module use ${INSTALL_ROOT}/spack/share/spack/lmod/linux-debian10-x86_64/Core" >> /etc/profile.d/z10_spack_environment.sh
 
 fi
 
