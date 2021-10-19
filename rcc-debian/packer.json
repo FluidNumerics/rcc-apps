@@ -45,6 +45,11 @@
     },
     {
       "type": "file",
+      "source": "{{user `common_path`}}/modules.yaml",
+      "destination": "/tmp/"
+    },
+    {
+      "type": "file",
       "source": "{{user `pkg_path`}}/motd",
       "destination": "/tmp/"
     },

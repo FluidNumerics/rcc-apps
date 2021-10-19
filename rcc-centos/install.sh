@@ -98,17 +98,23 @@ spack_install "dmtcp % ${SYSTEM_COMPILER} target=${ARCH}"
 # Profilers
 spack_install "hpctoolkit@2021.05.15 +cuda~viewer % gcc@10.3.0 target=${ARCH}"  # HPC Toolkit requires gcc 7 or above
 
+# Remove unused packages
+spack gc -y
 
 # Install lmod (for modules support)
 # ** Currently in testing ** #
 if [[ -f "/tmp/modules.yaml" ]]; then
   spack install lmod % ${SYSTEM_COMPILER}
+  spack gc -y
   source $(spack location -i lmod)/lmod/lmod/init/bash
   source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
   echo "Moving modules.yaml into site location"
   mv /tmp/modules.yaml ${INSTALL_ROOT}/
   mv /tmp/modules.yaml ${INSTALL_ROOT}/spack/etc/spack/modules.yaml
-  spack module tcl refresh --delete-tree -y
+  spack module lmod refresh --delete-tree -y
+
+  # Remove tcl modules
+  rm -rf ${INSTALL_ROOT}/spack/share/spack/modules
 
   # Add configurations to load lmod at login
   echo ". $(spack location -i lmod)/lmod/lmod/init/bash" >> /etc/profile.d/z10_spack_environment.sh
@@ -116,7 +122,6 @@ if [[ -f "/tmp/modules.yaml" ]]; then
 
 fi
 
-spack gc -y
 
 if [[ -n "$SPACK_BUCKET" ]]; then
   spack mirror rm RCC

@@ -1,0 +1,16 @@
+modules:
+  default:
+    enable::
+      - lmod
+    lmod:
+      core_compilers:
+        - 'gcc@4.8.5'
+      hierarchy:
+        - mpi
+      hash_length: 0
+      all:
+        environment:
+          set:
+            '{name}_ROOT': '{prefix}'
+      projections:
+        all:          '{name}/{version}'
