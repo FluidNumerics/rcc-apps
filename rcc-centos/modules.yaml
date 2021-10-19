@@ -7,11 +7,27 @@ modules:
         - libedit
         - libiconv
         - libxml2
+        - gmp
+        - lmod
+        - lua-luafilesystem
+        - lua-luaposix
+        - lua
+        - mpfr
+        - readline
+        - tcl
         - mpc
         - ncurses
         - openssh
+        - unzip
         - xz
         - zlib
+        - zstd
+        - valgrind
+        - slurm
+        - numactl
+        - libpciaccess
+        - libevent
+        - hwloc
       core_compilers:
         - 'gcc@4.8.5'
       hierarchy:
