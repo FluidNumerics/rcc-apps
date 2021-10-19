@@ -1,0 +1,41 @@
+spack:
+  view: @INSTALL_ROOT@/view
+  config:
+    install_tree: @INSTALL_ROOT@/software
+
+  concretization: separately
+
+  specs:
+  - openmpi
+  - singularity
+
+   
+  packages:
+    all:
+      compiler:
+      - @COMPILER@
+
+      providers:
+        mpi:
+          - openmpi
+
+      target:
+      - x86_64
+
+    openmpi:
+      buildable: true
+      version: 
+      - 4.0.5
+      variants: +cxx +cxx_exceptions +legacylaunchers +memchecker +pmi +static+vt +wrapper-rpath fabrics=auto schedulers=slurm
+    singularity: 
+      buildable: true
+      version: 
+      - 3.7.4
+    valgrind:
+      buildable: false
+      externals:
+      - spec: valgrind@3.15.0+boost~mpi+only64bit
+        prefix: /usr
+
+
+  
