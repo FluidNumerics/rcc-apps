@@ -12,9 +12,6 @@ spack:
    
   packages:
     all:
-      compiler:
-      - @COMPILER@
-
       providers:
         mpi:
           - openmpi

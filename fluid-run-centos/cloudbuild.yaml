@@ -1,0 +1,40 @@
+steps:
+
+
+- id: &BUILD Build Image
+  name: 'hashicorp/packer:latest'
+  args: ["build",
+        "-force",
+        "-var","project_id=$PROJECT_ID",
+        "-var","zone=$_ZONE",
+        "-var","source_image_family=${_SOURCE_IMAGE_FAMILY}",
+        "-var","source_image_project=${_SOURCE_IMAGE_PROJECT}",
+        "-var","subnet=${_SUBNETWORK}",
+        "-var","image_name=${_IMAGE_NAME}",
+        "-var","image_family=${_IMAGE_FAMILY}",
+        "-var","install_root=${_INSTALL_ROOT}",
+        "-var","machine_type=${_MACHINE_TYPE}",
+        "-var","slurm_root=${_SLURM_ROOT}",
+        "-var","target_arch=${_TARGET_ARCH}",
+        "-var","pkg_path=${_PKG_PATH}",
+        "-var","common_path=${_COMMON_PATH}",
+        "-var","env_file=${_ENV_FILE}",
+        '${_PKG_PATH}/packer.json']
+  waitFor: ["-"]
+
+substitutions:
+    _ZONE: 'us-central1-c'
+    _SUBNETWORK: 'default'
+    _SOURCE_IMAGE_FAMILY: 'schedmd-slurm-20-11-4-centos-7'
+    _SOURCE_IMAGE_PROJECT: 'research-computing-cloud'
+    _IMAGE_NAME: 'fluid-run-centos-latest'
+    _IMAGE_FAMILY: 'fluid-run-centos-foss'
+    _INSTALL_ROOT: '/opt'
+    _SLURM_ROOT: ''
+    _PKG_PATH: "fluid-run-centos"
+    _COMMON_PATH: "common"
+    _TARGET_ARCH: "x86_64"
+    _ENV_FILE: "env/spack.yaml"
+    _MACHINE_TYPE: "n1-standard-16"
+
+timeout : 28800s

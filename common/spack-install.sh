@@ -14,7 +14,7 @@ yum update -y || ( export DEBIAN_FRONTEND=noninteractive && apt-get update -y )
 yum install -y valgrind valgrind-devel || echo "Not on CentOS system"
 
 if [[ "$IMAGE_NAME" != "rcc-"* ]]; then
-   yum install -y gcc gcc-c++ gcc-gfortran || apt-get install -y build-essential
+   yum install -y gcc gcc-c++ gcc-gfortran git make wget patch || apt-get install -y build-essential git wget
    pip3 install google-cloud-storage
 
    ## Install spack (from FluidNumerics fork)
@@ -72,8 +72,7 @@ if [[ -n "$SPACK_BUCKET" ]]; then
 fi
 
 if [[ -f "${INSTALL_ROOT}/spack-pkg-env/spack.yaml" ]]; then
-  # Research Computing Cloud Images (start with "rcc")
-  if [[ "$IMAGE_NAME" != "rcc-"* ]]; then
+  if [[ -n "$COMPILER" ]]; then
      spack install ${COMPILER}
      spack load ${COMPILER}
      spack compiler find --scope site

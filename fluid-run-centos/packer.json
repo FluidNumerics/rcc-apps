@@ -1,13 +1,13 @@
 {
   "variables": {
     "project_id": "",
-    "compiler": "gcc@9.2.0",
+    "compiler": "",
     "zone": "us-central1-a",
     "subnet": "default",
     "source_image_family":"schedmd-slurm-20-11-4-centos-7",
-    "source_image_project":"schedmd-slurm-public",
-    "image_name":"wrf-gcp-slurm-gcp-centos7-latest",
-    "image_family":"wrf-gcp-slurm-gcp-centos7",
+    "source_image_project":"research-computing-cloud",
+    "image_name":"fluid-run-centos-latest",
+    "image_family":"fluid-run-foss",
     "install_root":"/apps",
     "machine_type": "n1-standard-32",
     "slurm_root":"/usr/local",
