@@ -53,7 +53,8 @@ source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
 # Install "after-market" compilers
 COMPILERS=("gcc@11.2.0"
            "gcc@10.3.0"
-	   "gcc@9.4.0")
+	   "gcc@9.4.0"
+	   "intel-oneapi-compilers@2021.3.0")
 
 for COMPILER in "${COMPILERS[@]}"; do
   spack_install "${COMPILER} % gcc@4.8.5 target=${ARCH}"
@@ -72,7 +73,8 @@ cat ${INSTALL_ROOT}/spack/etc/spack/compilers.yaml
 COMPILERS=("gcc@11.2.0"
            "gcc@10.3.0"
            "gcc@9.4.0"
-	   "clang@13.0.0")
+	   "clang@13.0.0"
+	   "intel")
 
 for COMPILER in "${COMPILERS[@]}"; do
   if [[ "$COMPILER" == *"intel"* ]];then

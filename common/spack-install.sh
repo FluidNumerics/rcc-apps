@@ -10,13 +10,44 @@ SPACK_VERSION="develop"
 BUILDCACHE="/tmp/gcp-spack-cache/${IMAGE_NAME}"
 ###
 
-yum update -y || ( export DEBIAN_FRONTEND=noninteractive && apt-get update -y )
-yum install -y valgrind valgrind-devel || echo "Not on CentOS system"
+OS=$(cat /etc/os-release | grep ^ID= | awk -F "=" '{print $2}')
+echo "Operating System : $OS"
 
-if [[ "$IMAGE_NAME" != "rcc-"* ]]; then
-   yum install -y gcc gcc-c++ gcc-gfortran git make wget patch || apt-get install -y build-essential git wget
-   pip3 install google-cloud-storage
+if [[ $OS == "centos" ]];then
 
+   PKGMGR=yum
+
+elif [[ $OS == "debian" ]];then
+
+   PKGMGR=apt-get
+   export DEBIAN_FRONTEND=noninteractive
+   apt-get remove -y unattended-upgrades
+
+elif [[ $OS == "ubuntu" ]];then
+
+   PKGMGR=apt-get
+   export DEBIAN_FRONTEND=noninteractive
+   apt-get remove -y unattended-upgrades
+
+fi
+
+$PKGMGR update -y
+if [[ $OS == "centos" ]];then
+    $PKGMGR install -y valgrind valgrind-devel
+fi
+
+if [[ $OS == "centos" ]];then
+   $PKGMGR install -y gcc gcc-c++ gcc-gfortran git make wget patch
+elif [[ $OS == "debian" ]];then
+   $PKGMGR install -y build-essential git wget libnuma-dev python3-dev python3-pip zip unzip
+elif [[ $OS == "ubuntu" ]];then
+   $PKGMGR install -y build-essential git wget libnuma-dev python3-dev python3-pip zip unzip
+fi
+
+pip3 install --upgrade google-cloud-storage google-api-python-client oauth2client google-cloud \
+    	               cython pyyaml parse docopt jsonschema dictdiffer
+
+if [[ ! -d ${INSTALL_ROOT}/spack ]]; then
    ## Install spack (from FluidNumerics fork)
    git clone https://github.com/FluidNumerics/spack.git ${INSTALL_ROOT}/spack
    
@@ -24,9 +55,9 @@ if [[ "$IMAGE_NAME" != "rcc-"* ]]; then
    echo "export SPACK_ROOT=${INSTALL_ROOT}/spack" >> /etc/profile.d/z10_spack_environment.sh
    echo ". \${SPACK_ROOT}/share/spack/setup-env.sh" >> /etc/profile.d/z10_spack_environment.sh
    source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
-   
    # Find system compilers
    spack compiler find --scope site
+
 fi
 
 ## For ensuring that Slurm paths are in default path ##

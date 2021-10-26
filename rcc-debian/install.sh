@@ -19,9 +19,8 @@ spack_install() {
 function system_deps(){
 
     export DEBIAN_FRONTEND=noninteractive
-    sleep 30 # Wait for unattended-upgrades to stop 
-    apt-get update -y 
-    apt-get install -y libnuma-dev python3-dev python3-pip build-essential zip unzip
+    apt-wait && apt-get update -y 
+    apt-wait && apt-get install -y libnuma-dev python3-dev python3-pip build-essential zip unzip
     pip3 install --upgrade google-cloud-storage google-api-python-client oauth2client google-cloud \
     	               cython pyyaml parse docopt jsonschema dictdiffer
 }
