@@ -92,13 +92,17 @@ for COMPILER in "${COMPILERS[@]}"; do
   fi
 done
 
-spack install singularity % gcc@9.4.0
+# Singularity
+spack_install "singularity % gcc@9.4.0 target=${ARCH}"
 
 # Checkpoint/Restart tools
 spack_install "dmtcp % ${SYSTEM_COMPILER} target=${ARCH}"
 
 # Profilers
 spack_install "hpctoolkit@2021.05.15 +cuda~viewer % gcc@10.3.0 target=${ARCH}"  # HPC Toolkit requires gcc 7 or above
+spack_install "intel-oneapi-advisor % ${SYSTEM_COMPILER} target=${ARCH}"
+spack_install "intel-oneapi-vtune % ${SYSTEM_COMPILER} target=${ARCH}"
+spack_install "intel-oneapi-inspector % ${SYSTEM_COMPILER} target=${ARCH}"
 
 # Remove unused packages
 spack gc -y
@@ -106,7 +110,7 @@ spack gc -y
 # Install lmod (for modules support)
 # ** Currently in testing ** #
 if [[ -f "/tmp/modules.yaml" ]]; then
-  spack install lmod % ${SYSTEM_COMPILER} target=${ARCH}
+  spack_install "lmod % ${SYSTEM_COMPILER} target=${ARCH}"
   spack gc -y
   source $(spack location -i lmod)/lmod/lmod/init/bash
   source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh

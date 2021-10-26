@@ -93,13 +93,16 @@ for COMPILER in "${COMPILERS[@]}"; do
 done
 
 # Singularity
-spack_install "singularity target=${ARCH}"
+spack_install "singularity % ${SYSTEM_COMPILER} target=${ARCH}"
 
 # Checkpoint/Restart tools
-spack_install "dmtcp target=${ARCH}"
+spack_install "dmtcp % ${SYSTEM_COMPILER} target=${ARCH}"
 
 # Profilers
 spack_install "hpctoolkit@2021.05.15 +cuda~viewer target=${ARCH}"  # HPC Toolkit requires gcc 7 or above
+spack_install "intel-oneapi-advisor % ${SYSTEM_COMPILER} target=${ARCH}"
+spack_install "intel-oneapi-vtune % ${SYSTEM_COMPILER} target=${ARCH}"
+spack_install "intel-oneapi-inspector % ${SYSTEM_COMPILER} target=${ARCH}"
 
 spack gc -y
 # Install lmod (for modules support)

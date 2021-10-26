@@ -16,29 +16,23 @@ spack_install() {
   fi
 }
 
-function system_deps(){
-
-    export DEBIAN_FRONTEND=noninteractive
-    apt-wait && apt-get update -y 
-    apt-wait && apt-get install -y libnuma-dev python3-dev python3-pip build-essential zip unzip
-    pip3 install --upgrade google-cloud-storage google-api-python-client oauth2client google-cloud \
-    	               cython pyyaml parse docopt jsonschema dictdiffer
-}
-
-system_deps
-
 source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
 
+spack_install "intel-oneapi-compilers@2021.3.0 target=${ARCH}"
+spack load intel-oneapi-compilers@2021.3.0
 spack compiler find --scope site
+spack unload intel-oneapi-compilers
+
 # Install OpenMPI with desired compilers
-COMPILERS=(${SYSTEM_COMPILER})
+COMPILERS=(${SYSTEM_COMPILER}
+           "intel-oneapi-compilers@2021.3.0")
 for COMPILER in "${COMPILERS[@]}"; do
   if [[ "$COMPILER" == *"intel"* ]];then
     spack_install "openmpi@4.0.5 % intel target=${ARCH}"
     # Benchmarks
     spack_install "hpcc % intel target=${ARCH}"
     spack_install "hpcg % intel target=${ARCH}"
-    spack_install "osu-micro-benchmarks % intel"
+    spack_install "osu-micro-benchmarks % intel target=${ARCH}"
   else
     spack_install "openmpi@4.0.5 % ${COMPILER} target=${ARCH}"
     # Benchmarks
@@ -56,17 +50,15 @@ spack_install "dmtcp target=${ARCH}"
 
 # Profilers
 spack_install "hpctoolkit@2021.05.15 +cuda~viewer target=${ARCH}"  # HPC Toolkit requires gcc 7 or above
-
-# Benchmarks
-spack_install "hpcc % ${SYSTEM_COMPILER}"
-spack_install "hpcg % ${SYSTEM_COMPILER}"
-spack_install "osu-micro-benchmarks % ${SYSTEM_COMPILER}"
+spack_install "intel-oneapi-advisor % ${SYSTEM_COMPILER} target=${ARCH}"
+spack_install "intel-oneapi-vtune % ${SYSTEM_COMPILER} target=${ARCH}"
+spack_install "intel-oneapi-inspector % ${SYSTEM_COMPILER} target=${ARCH}"
 
 spack gc -y
 # Install lmod (for modules support)
 # ** Currently in testing ** #
 if [[ -f "/tmp/modules.yaml" ]]; then
-  spack install lmod % ${SYSTEM_COMPILER}
+  spack_install "lmod % ${SYSTEM_COMPILER} target=${ARCH}"
   spack gc -y
   source $(spack location -i lmod)/lmod/lmod/init/bash
   source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
