@@ -50,7 +50,7 @@ for COMPILER in "${COMPILERS[@]}"; do
 done
 
 # Singularity
-spack_install singularity
+spack_install "singularity target=${ARCH}"
 
 # Checkpoint/Restart tools
 spack_install "dmtcp target=${ARCH}"
