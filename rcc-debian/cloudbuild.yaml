@@ -26,8 +26,8 @@ steps:
 substitutions:
     _ZONE: 'us-central1-c'
     _SUBNETWORK: 'default'
-    _SOURCE_IMAGE_FAMILY: 'schedmd-slurm-20-11-4-debian-10'
-    _SOURCE_IMAGE_PROJECT: 'schedmd-slurm-public'
+    _SOURCE_IMAGE_FAMILY: 'schedmd-slurm-20-11-7-debian-10'
+    _SOURCE_IMAGE_PROJECT: 'research-computing-cloud'
     _IMAGE_NAME: 'rcc-debian-foss-latest'
     _IMAGE_FAMILY: 'rcc-debian-foss'
     _INSTALL_ROOT: '/opt'
@@ -35,7 +35,7 @@ substitutions:
     _COMPILER: 'intel-oneapi-compilers'
     _PKG_PATH: "rcc-debian"
     _COMMON_PATH: "common"
-    _TARGET_ARCH: "cascadelake"
+    _TARGET_ARCH: "x86_64"
     _ENV_FILE: "env/spack.yaml"
     _MACHINE_TYPE: "n1-standard-16"
 
