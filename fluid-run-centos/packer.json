@@ -1,7 +1,7 @@
 {
   "variables": {
     "project_id": "",
-    "compiler": "",
+    "compiler": "gcc@4.8.5",
     "zone": "us-central1-a",
     "subnet": "default",
     "source_image_family":"schedmd-slurm-20-11-4-centos-7",
