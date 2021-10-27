@@ -34,6 +34,10 @@ fi
 $PKGMGR update -y
 if [[ $OS == "centos" ]];then
     $PKGMGR install -y valgrind valgrind-devel
+elif [[ $OS == "debian" ]];then
+    $PKGMGR install -y valgrind
+elif [[ $OS == "ubuntu" ]];then
+    $PKGMGR install -y valgrind
 fi
 
 if [[ $OS == "centos" ]];then
