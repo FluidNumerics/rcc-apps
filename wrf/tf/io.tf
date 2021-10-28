@@ -1,26 +1,25 @@
-#
-# Copyright 2019 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     https://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+variable "cloudsql_enable_ipv4" {
+  type = bool
+  description = "Flag to enable external access to the cloudsql instance"
+  default = false
+}
 
-variable "cloudsql" {
-  description = "Define an existing CloudSQL instance to use instead of instance-local MySQL"
-  type = object({
-    server_ip = string,
-    user      = string,
-    password  = string,
-    db_name   = string})
-  default = null
+variable "cloudsql_slurmdb" {
+  type = bool
+  description = "Boolean flag to enable (True) or disable (False) CloudSQL Slurm Database"
+  default = false
+}
+
+variable "cloudsql_name" {
+  type = string
+  description = "Name of the cloudsql instance used to host the Slurm database, if cloudsql_slurmdb is set to true"
+  default = "slurmdb"
+}
+
+variable "cloudsql_tier" {
+  type = string
+  description = "Instance type of the CloudSQL instance. See https://cloud.google.com/sql/docs/mysql/instance-settings for more options."
+  default = "db-n1-standard-8"
 }
 
 variable "cluster_name" {
@@ -28,32 +27,10 @@ variable "cluster_name" {
   type        = string
 }
 
-variable "compute_image_disk_size_gb" {
-  description = "Size of disk for compute node image."
-  default     = 20
-}
-
-variable "compute_image_disk_type" {
-  description = "Disk type (pd-ssd or pd-standard) for compute node image."
-  type        = string
-  default     = "pd-standard"
-}
-
-variable "compute_image_labels" {
-  description = "Labels to add to the compute node image. List of key key, value pairs."
-  type        = any
-  default     = {}
-}
-
-variable "compute_image_machine_type" {
-  type    = string
-  default = "n1-standard-2"
-}
-
 variable "compute_node_scopes" {
   description = "Scopes to apply to compute nodes."
   type        = list(string)
-  default     = [
+  default = [
     "https://www.googleapis.com/auth/monitoring.write",
     "https://www.googleapis.com/auth/logging.write"
   ]
@@ -62,43 +39,43 @@ variable "compute_node_scopes" {
 variable "compute_node_service_account" {
   description = "Service Account for compute nodes."
   type        = string
-  default     = "default"
+  default     = null
 }
 
 variable "controller_machine_type" {
   description = "Machine type to use for the controller instance"
   type        = string
-  default     = "n1-standard-2"
+  default     = null
 }
 
 variable "controller_disk_type" {
   description = "Disk type (pd-ssd or pd-standard) for controller."
   type        = string
-  default     = "pd-standard"
+  default     = null
+}
+
+variable "controller_image" {
+  description = "Slurm image to use for the controller instance"
+  type        = string
+  default     = "projects/fluid-cluster-ops/images/family/rcc-centos-7-v300"
+}
+
+variable "controller_instance_template" {
+  description = "Instance template to use to create controller instance"
+  type        = string
+  default     = null
 }
 
 variable "controller_disk_size_gb" {
   description = "Size of disk for the controller."
   type        = number
-  default     = 50
-}
-
-variable "controller_image" {
-  description = "Disk OS image (with Slurm) path for controller instance"
-  type = string
-  default = "projects/schedmd-slurm-public/global/images/schedmd-slurm-20-11-4-hpc-centos-7-2021-03-12-215000"
-}
-
-variable "login_image" {
-  description = "Disk OS image (with Slurm) path for login instance"
-  type = string
-  default = "projects/schedmd-slurm-public/global/images/schedmd-slurm-20-11-4-hpc-centos-7-2021-03-12-215000"
+  default     = 100
 }
 
 variable "controller_labels" {
   description = "Labels to add to controller instance. List of key key, value pairs."
   type        = any
-  default     = {}
+  default     = null
 }
 
 variable "controller_secondary_disk" {
@@ -126,7 +103,7 @@ variable "controller_scopes" {
 variable "controller_service_account" {
   description = "Service Account for the controller"
   type        = string
-  default     = "default"
+  default     = null
 }
 
 variable "disable_login_public_ips" {
@@ -147,42 +124,54 @@ variable "disable_compute_public_ips" {
 variable "login_disk_type" {
   description = "Disk type (pd-ssd or pd-standard) for login nodes."
   type        = string
-  default     = "pd-standard"
+  default     = null
 }
 
 variable "login_disk_size_gb" {
   description = "Size of disk for login nodes."
   type        = number
-  default     = 50
+  default     = 100
+}
+
+variable "login_image" {
+  description = "Slurm image to use for login instances"
+  type        = string
+  default     = "projects/fluid-cluster-ops/images/family/rcc-centos-7-v300"
+}
+
+variable "login_instance_template" {
+  description = "Instance template to use to creating login instances"
+  type        = string
+  default     = null
 }
 
 variable "login_labels" {
   description = "Labels to add to login instances. List of key key, value pairs."
   type        = any
-  default     = {}
+  default     = null
 }
 
 variable "login_machine_type" {
   description = "Machine type to use for login node instances."
   type        = string
-  default     = "n1-standard-2"
+  default     = null
 }
 
 variable "login_network_storage" {
   description = "An array of network attached storage mounts to be configured on the login and controller instances."
   type = list(object({
-    server_ip     = string,
-    remote_mount  = string,
-    local_mount   = string,
-    fs_type       = string,
-    mount_options = string}))
+    server_ip    = string,
+    remote_mount = string,
+    local_mount  = string,
+    fs_type      = string,
+  mount_options = string }))
   default = []
 }
 
 variable "login_node_scopes" {
   description = "Scopes to apply to login nodes."
   type        = list(string)
-  default     = [
+  default = [
     "https://www.googleapis.com/auth/monitoring.write",
     "https://www.googleapis.com/auth/logging.write"
   ]
@@ -191,7 +180,7 @@ variable "login_node_scopes" {
 variable "login_node_service_account" {
   description = "Service Account for compute nodes."
   type        = string
-  default     = "default"
+  default     = null
 }
 
 variable "login_node_count" {
@@ -204,6 +193,11 @@ variable "munge_key" {
   default     = null
 }
 
+variable "jwt_key" {
+  description = "Specific libjwt key to use"
+  default     = null
+}
+
 variable "network_name" {
   default = null
   type    = string
@@ -212,17 +206,12 @@ variable "network_name" {
 variable "network_storage" {
   description = " An array of network attached storage mounts to be configured on all instances."
   type = list(object({
-    server_ip     = string,
-    remote_mount  = string,
-    local_mount   = string,
-    fs_type       = string,
-    mount_options = string}))
+    server_ip    = string,
+    remote_mount = string,
+    local_mount  = string,
+    fs_type      = string,
+  mount_options = string }))
   default = []
-}
-
-variable "ompi_version" {
-  description = "Version/branch of OpenMPI to install with Slurm/PMI support. Allows mpi programs to be run with srun."
-  default     = null
 }
 
 variable "partitions" {
@@ -240,6 +229,7 @@ variable "partitions" {
     cpu_platform         = string,
     gpu_type             = string,
     gpu_count            = number,
+    gvnic                = bool,
     network_storage = list(object({
       server_ip    = string,
       remote_mount = string,
@@ -265,10 +255,6 @@ variable "shared_vpc_host_project" {
   default = null
 }
 
-variable "slurm_version" {
-  default = "19.05-latest"
-}
-
 variable "subnetwork_name" {
   description = "The name of the pre-defined VPC subnet you want the nodes to attach to based on Region."
   default     = null
@@ -284,10 +270,91 @@ variable "zone" {
   type = string
 }
 
-output "controller_network_ips" {
-  value = module.slurm_cluster_controller.instance_network_ips
+variable "create_filestore" {
+  type = bool
+  description = "Boolean for controlling filestore creation (useful for optional modules)"
+  default = false
 }
 
-output "login_network_ips" {
-  value = module.slurm_cluster_login.instance_network_ips
+variable "filestore" {
+  type = object({
+    name = string
+    zone = string
+    tier = string
+    capacity_gb = number
+    fs_name = string
+    network = string
+  })
+  default = {
+    name = "filestore"
+    zone = null
+    tier = "PREMIUM"
+    capacity_gb = 2048
+    fs_name = "nfs"
+    network = null
+  }
+}
+
+variable "create_lustre" {
+  type = bool
+  description = "Boolean for controlling lustre creation (useful for optional modules)"
+  default = false
+}
+variable "lustre" {
+  type = object({
+    image = string
+    project = string
+    zone = string
+    vpc_subnet = string
+    service_account = string
+    network_tags = list(string)
+    name = string
+    fs_name = string
+    mds_node_count = number
+    mds_machine_type = string
+    mds_boot_disk_type = string
+    mds_boot_disk_size_gb = number
+    mdt_disk_type = string
+    mdt_disk_size_gb = number
+    mdt_per_mds = number
+    oss_node_count = number
+    oss_machine_type = string
+    oss_boot_disk_type = string
+    oss_boot_disk_size_gb = number
+    ost_disk_type = string
+    ost_disk_size_gb = number 
+    ost_per_oss = number
+    hsm_node_count = number
+    hsm_machine_type = string
+    hsm_gcs_bucket = string
+    hsm_gcs_prefix = string
+  })
+  default = {
+    image = "projects/research-computing-cloud/global/images/family/lustre"
+    project = null
+    zone = null
+    vpc_subnet = null
+    service_account = null
+    network_tags = []
+    name = "lustre-gcp"
+    fs_name = "lustre"
+    mds_node_count = 1
+    mds_machine_type = "n2-standard-16"
+    mds_boot_disk_type = "pd-standard"
+    mds_boot_disk_size_gb = 100
+    mdt_disk_type = "pd-ssd"
+    mdt_disk_size_gb = 1024
+    mdt_per_mds = 1
+    oss_node_count = 2
+    oss_machine_type = "n2-standard-16" 
+    oss_boot_disk_type = "pd-standard"
+    oss_boot_disk_size_gb = 100
+    ost_disk_type = "local-ssd"
+    ost_disk_size_gb = 1500 
+    ost_per_oss = 1
+    hsm_node_count = 0
+    hsm_machine_type = "n2-standard-16"
+    hsm_gcs_bucket = null
+    hsm_gcs_prefix = null
+  }
 }

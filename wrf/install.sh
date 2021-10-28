@@ -75,7 +75,7 @@ cd \${WORK_PATH}
 cp ${INSTALL_ROOT}/share/conus-12km/* .
 ln -s \$(spack location -i wrf)/run/* .
 
-srun \$MPI_FLAGS ./wrf.exe
+srun \$SRUN_FLAGS ./wrf.exe
 EOL
 
 cat > ${INSTALL_ROOT}/share/wrf-conus12-gce.sh << EOL
