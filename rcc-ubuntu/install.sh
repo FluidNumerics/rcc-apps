@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 SYSTEM_COMPILER="gcc@9.3.0"
 spack_install() {
   # This function attempts to install from the cache. If this fails, 
@@ -15,17 +14,6 @@ spack_install() {
   else
      spack install --source "$1"
   fi
-}
-
-function system_deps(){
-
-    export DEBIAN_FRONTEND=noninteractive
-    sleep 30 # Wait for unattended-upgrades to stop 
-    dpkg  --configure -a
-    apt-get update -y 
-    apt-get install -y libnuma-dev python3-dev python3-pip build-essential zip unzip
-    pip3 install --upgrade google-cloud-storage google-api-python-client oauth2client google-cloud \
-    	               cython pyyaml parse docopt jsonschema dictdiffer
 }
 
 function rocm_setup(){
@@ -47,13 +35,12 @@ export HIP_PLATFORM=nvcc
 EOL
 }
 
-system_deps
-
 rocm_setup
 
 source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
 
-# Install "after-market" compilers
+spack_install "intel-oneapi-compilers@2021.3.0 target=${ARCH}"
+spack load intel-oneapi-compilers@2021.3.0
 spack compiler find --scope site
 tee -a ${INSTALL_ROOT}/spack/etc/spack/compilers.yaml << EOF
 - compiler: 
@@ -75,14 +62,15 @@ cat ${INSTALL_ROOT}/spack/etc/spack/compilers.yaml
 
 # Install OpenMPI with desired compilers
 COMPILERS=("gcc@9.3.0"
-	   "clang@13.0.0")
+	   "clang@13.0.0"
+	   "intel-oneapi-compilers@2021.3.0")
 for COMPILER in "${COMPILERS[@]}"; do
   if [[ "$COMPILER" == *"intel"* ]];then
     spack_install "openmpi@4.0.5 % intel target=${ARCH}"
     # Benchmarks
     spack_install "hpcc % intel target=${ARCH}"
     spack_install "hpcg % intel target=${ARCH}"
-    spack_install "osu-micro-benchmarks % intel"
+    spack_install "osu-micro-benchmarks % intel target=${ARCH}"
   else
     spack_install "openmpi@4.0.5 % ${COMPILER} target=${ARCH}"
     # Benchmarks
@@ -108,7 +96,7 @@ spack gc -y
 # Install lmod (for modules support)
 # ** Currently in testing ** #
 if [[ -f "/tmp/modules.yaml" ]]; then
-  spack install lmod % ${SYSTEM_COMPILER}
+  spack_install "lmod % ${SYSTEM_COMPILER} target=${ARCH}"
   spack gc -y
   source $(spack location -i lmod)/lmod/lmod/init/bash
   source ${INSTALL_ROOT}/spack/share/spack/setup-env.sh
@@ -122,6 +110,8 @@ if [[ -f "/tmp/modules.yaml" ]]; then
   # Add configurations to load lmod at login
   echo ". $(spack location -i lmod)/lmod/lmod/init/bash" >> /etc/profile.d/z10_spack_environment.sh
   echo ". \${SPACK_ROOT}/share/spack/setup-env.sh" >> /etc/profile.d/z10_spack_environment.sh
+  echo "module unuse /usr/share/lmod/lmod/modulefiles/Core" >> /etc/profile.d/z10_spack_environment.sh
+  echo "module use ${INSTALL_ROOT}/spack/share/spack/lmod/linux-debian10-x86_64/Core" >> /etc/profile.d/z10_spack_environment.sh
 
 fi
 
