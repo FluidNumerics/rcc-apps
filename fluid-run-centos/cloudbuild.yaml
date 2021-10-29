@@ -37,6 +37,6 @@ substitutions:
     _TARGET_ARCH: "x86_64"
     _ENV_FILE: "env/spack.yaml"
     _MACHINE_TYPE: "n1-standard-16"
-    _COMPILER: "gcc@4.8.5"
+    _COMPILER: "gcc@10.2.0"
 
 timeout : 28800s
