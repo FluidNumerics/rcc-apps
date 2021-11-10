@@ -26,17 +26,17 @@ steps:
 substitutions:
     _ZONE: 'us-central1-c'
     _SUBNETWORK: 'default'
-    _SOURCE_IMAGE_FAMILY: 'schedmd-slurm-20-11-4-centos-7'
+    _SOURCE_IMAGE_FAMILY: 'rcc-centos-foss-v300'
     _SOURCE_IMAGE_PROJECT: 'research-computing-cloud'
-    _IMAGE_NAME: 'fluid-run-centos-latest'
+    _IMAGE_NAME: 'fluid-run-centos-foss-latest'
     _IMAGE_FAMILY: 'fluid-run-centos-foss'
     _INSTALL_ROOT: '/opt'
     _SLURM_ROOT: '/usr/local'
-    _PKG_PATH: "fluid-run-centos"
+    _PKG_PATH: "fluid-run"
     _COMMON_PATH: "common"
     _TARGET_ARCH: "x86_64"
     _ENV_FILE: "env/spack.yaml"
     _MACHINE_TYPE: "n1-standard-16"
-    _COMPILER: "gcc@10.2.0"
+    _COMPILER: "gcc@11.2.0"
 
 timeout : 28800s

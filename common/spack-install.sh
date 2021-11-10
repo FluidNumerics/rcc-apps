@@ -108,7 +108,7 @@ fi
 
 if [[ -f "${INSTALL_ROOT}/spack-pkg-env/spack.yaml" ]]; then
   if [[ -n "$COMPILER" ]]; then
-     spack install ${COMPILER}
+     spack install ${COMPILER} target=${ARCH}
      spack load ${COMPILER}
      spack compiler find --scope site
   fi

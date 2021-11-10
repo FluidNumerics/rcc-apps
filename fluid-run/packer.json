@@ -1,18 +1,18 @@
 {
   "variables": {
     "project_id": "",
-    "compiler": "gcc@4.8.5",
+    "compiler": "gcc@10.2.0",
     "zone": "us-central1-a",
     "subnet": "default",
-    "source_image_family":"schedmd-slurm-20-11-4-centos-7",
+    "source_image_family":"rcc-centos-foss-v300",
     "source_image_project":"research-computing-cloud",
-    "image_name":"fluid-run-centos-latest",
+    "image_name":"fluid-run-latest",
     "image_family":"fluid-run-foss",
     "install_root":"/apps",
     "machine_type": "n1-standard-32",
     "slurm_root":"/usr/local",
-    "target_arch":"cascadelake",
-    "pkg_path": "wrf",
+    "target_arch":"x86_64",
+    "pkg_path": "fluid-run",
     "common_path": "common",
     "env_file": "env/spack.yaml"
   },

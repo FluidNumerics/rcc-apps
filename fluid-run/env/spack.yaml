@@ -50,6 +50,10 @@ spack:
       externals:
       - spec: libevent@2.0.21
         prefix: /usr
+    libtool: 
+      buildable: true
+      version: 
+      - 2.4.6
     m4: 
       buildable: true
       version: 
