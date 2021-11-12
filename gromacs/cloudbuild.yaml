@@ -17,6 +17,7 @@ steps:
         "-var","slurm_root=${_SLURM_ROOT}",
         "-var","target_arch=${_ARCH}",
         "-var","compiler=${_COMPILER}",
+        "-var","system_compiler=$_SYSTEM_COMPILER",
         "-var","pkg_path=${_PKG_PATH}",
         "-var","common_path=${_COMMON_PATH}",
         '${_PKG_PATH}/packer.json']
@@ -38,5 +39,6 @@ substitutions:
     _TARGET_ARCH: "broadwell"
     _ENV_FILE: "env/spack.yaml"
     _MACHINE_TYPE: "n1-standard-16"
+    _SYSTEM_COMPILER: "gcc@4.8.5"
 
 timeout : 28800s

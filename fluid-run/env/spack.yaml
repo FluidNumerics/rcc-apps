@@ -7,7 +7,7 @@ spack:
 
   specs:
   - openmpi
-  - singularity
+  - singularity ^libtool@2.4.2
    
   packages:
     all:
@@ -51,9 +51,10 @@ spack:
       - spec: libevent@2.0.21
         prefix: /usr
     libtool: 
-      buildable: true
-      version: 
-      - 2.4.6
+      buildable: false
+      externals:
+      - spec: libtool@2.4.2
+        prefix: /
     m4: 
       buildable: true
       version: 
