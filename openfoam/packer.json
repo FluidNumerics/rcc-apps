@@ -2,6 +2,7 @@
   "variables": {
     "project_id": "",
     "compiler": "gcc@9.2.0",
+    "system_compiler": "gcc@4.8.5",
     "zone": "us-central1-a",
     "subnet": "default",
     "source_image_family":"schedmd-slurm-20-11-4-centos-7",
@@ -62,6 +63,7 @@
 			  "SLURM_ROOT={{user `slurm_root`}}",
                           "IMAGE_NAME={{user `source_image_family`}}",
                           "ARCH={{user `target_arch`}}",
+			  "SYSTEM_COMPILER={{user `system_compiler`}}",
 			  "COMPILER={{user `compiler`}}"],
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
       "script": "{{user `common_path`}}/spack-install.sh"
@@ -73,6 +75,7 @@
 			  "SLURM_ROOT={{user `slurm_root`}}",
                           "IMAGE_NAME={{user `source_image_family`}}",
                           "ARCH={{user `target_arch`}}",
+			  "SYSTEM_COMPILER={{user `system_compiler`}}",
 			  "COMPILER={{user `compiler`}}"],
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
       "script": "{{user `pkg_path`}}/install.sh"
