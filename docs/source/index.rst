@@ -32,7 +32,8 @@ RCC Apps is a public git repository from Fluid Numerics that provides a good sta
    :name: referencetoc
    :titlesonly:
 
-   Reference/image_baking_workflow
+   Reference/architecture
+   Reference/base_images
 
 
 .. toctree::
