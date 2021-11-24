@@ -13,11 +13,13 @@ The `WRF Cloud Build pipeline <https://github.com/FluidNumerics/rcc-apps/blob/ma
 2. Clone the FluidNumerics/rcc-apps repository
 
 .. code-block:: shell
+
     git clone https://github.com/FluidNumerics/rcc-apps.git ~/rcc-apps
 
 3. Build the image using Google Cloud Build. You can check the status of your build process at the `Google Cloud Build dashboard <https://console.cloud.google.com/cloud-build/builds>`_
 
 .. code-block:: shell
+
     cd ~/rcc-apps
     gcloud builds submit . --config=wrf/cloudbuild.yaml --project=<YOUR_PROJECT> --async
 
