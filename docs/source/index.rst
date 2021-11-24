@@ -15,7 +15,7 @@ RCC Apps is a public git repository from Fluid Numerics that provides a good sta
    :name: quickstarttoc
    :titlesonly:
 
-   QuickStart/create_and_deploy_gromacs
+   QuickStart/build_and_deploy_wrf
 
 .. toctree::
    :caption: How To
