@@ -9,7 +9,7 @@ This example deploys a Slurm cluster in GCP with the Weather Research and Foreca
 * `WRF_ZONE` (default : `"us-west1-b"`) - The GCP Zone to deploy the cluster to
 * `WRF_MACHINE_TYPE` (default : `"c2-standard-8"`) - The GCE Instance type you want to use for compute nodes that will run WRF
 * `WRF_MAX_NODE` (default : 3) - The maximum number of GCE instances available in your slurm partition for running WRF.
-* `WRF_IMAGE` (default : `"projects/hpc-apps/global/images/wrf-gcp-slurm-gcp-centos7-latest"`) - The VM image to use to run WRF. 
+* `WRF_IMAGE` (default : `"projects/research-computing-cloud/global/images/family/wrf-intel-cascadelake"`) - The VM image to use to run WRF. 
 
 2.  Make the plan
 ```make plan```
