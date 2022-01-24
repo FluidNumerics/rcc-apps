@@ -8,21 +8,15 @@ Maintainers: @schoonovernumerics
 You can use this repository to get started with your on VM image bakery on Google Cloud. This will allow you to customize the WRF installation to meet your preferences. 
 
 
-Alternatively, you can use the `projects/hpc-apps/global/images/wrf-gcp-slurm-gcp-centos7-latest` VM image. This image is a free, use-at-your-own-risk image publicly offered by Fluid Numerics that is based on the latest `wrf-*` tag on this repository. The [slurm-gcp terraform deployment](./tf/slurm) will show you how to quickly get started with this VM image.
+Alternatively, you can use the `projects/research-computing-cloud/global/images/family/wrf-intel-cascadelake` VM image. This image is a free, use-at-your-own-risk image publicly offered by Fluid Numerics that is based on the latest `wrf-*` tag on this repository. The [slurm-gcp terraform deployment](./tf/slurm) will show you how to quickly get started with this VM image.
 
-Fluid Numerics also offers a supported and quality controlled VM image `projects/hpc-apps/global/images/wrf-gcp-v1`. You can deploy from the [Google Cloud Marketplace](https://console.cloud.google.com/marketplace/fluid-cluster-ops/wrf-gcp) or using one of the supported terraform solutions : 
-* [Supported slurm-gcp deployment](./tf/supported/slurm)
-* [Supported GCE cluster deployment](./tf/supported/gce-cluster)
+Fluid Numerics also offers a supported and quality controlled VM image that you can deploy from the [Google Cloud Marketplace](https://console.cloud.google.com/marketplace/fluid-cluster-ops/wrf-gcp) or using terraform with the following image `projects/fluid-cluster-ops/global/images/rcc-wrf-v300-42-d34b43d`
 
 
 ## How to use this image
-This image installs WRF via spack into the `/opt` directory by default. lmod modules are used to allow WRF to be called into your path. When using this image, we recommend the following workflow
+This image installs WRF via spack in a spack environment.
 
 ```
-# Load WRF into your path
-module load gcc
-module load openmpi
-module load hdf5 netcdf-c netcdf-fortran wrf
 
 # Create a WRF test case
 export CASE_DIR=${HOME}/benchmark
