@@ -26,6 +26,11 @@ spack:
       externals:
       - spec: autoconf@2.69
         prefix: /usr
+    bzip2:
+      buildable: false
+      externals:
+      - spec: bzip2@1.0.6
+        prefix: /usr
     automake:
       buildable: false
       externals:
