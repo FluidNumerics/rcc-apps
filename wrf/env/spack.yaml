@@ -19,7 +19,7 @@ spack:
           - openmpi
 
       target:
-      - x86_64
+      - @ARCH@
 
     autoconf:
       buildable: false
