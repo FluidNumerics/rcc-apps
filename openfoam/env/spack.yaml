@@ -54,6 +54,11 @@ spack:
       buildable: true
       version: 
       - 2.6.4
+    gettext:
+      buildable: false
+      externals:
+      - spec: gettext@0.19.8.1
+        prefix: /usr
     libevent:
       buildable: false
       externals:
