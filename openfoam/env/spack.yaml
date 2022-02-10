@@ -6,21 +6,46 @@ spack:
   concretization: separately
 
   specs:
-  - openfoam-org@8 +metis % @COMPILER@ ^findutils % @SYSTEM_COMPILER@ ^tar % @SYSTEM_COMPILER@ ^diffutils % @SYSTEM_COMPILER@
+  - > 
+    openfoam-org@8 +metis % @COMPILER@ arch=@ARCH@  
+    ^cmake % @SYSTEM_COMPILER@ arch=x86_64
+    ^ncurses % @SYSTEM_COMPILER@ arch=x86_64
+    ^pkgconf % @SYSTEM_COMPILER@ arch=x86_64
+    ^openssl % @SYSTEM_COMPILER@ arch=x86_64
+    ^perl % @SYSTEM_COMPILER@ arch=x86_64
+    ^berkeley-db % @SYSTEM_COMPILER@ arch=x86_64
+    ^bzip2 % @SYSTEM_COMPILER@~debug~pic+shared arch=x86_64
+    ^diffutils % @SYSTEM_COMPILER@ arch=x86_64
+    ^libiconv % @SYSTEM_COMPILER@ libs=shared,static arch=x86_64
+    ^gdbm % @SYSTEM_COMPILER@ arch=x86_64
+    ^readline % @SYSTEM_COMPILER@ arch=x86_64
+    ^zlib % @SYSTEM_COMPILER@ arch=x86_64
+    ^flex % @SYSTEM_COMPILER@ arch=x86_64
+    ^autoconf % @SYSTEM_COMPILER@ 
+    ^m4 % @SYSTEM_COMPILER@ arch=x86_64
+    ^libsigsegv % @SYSTEM_COMPILER@ arch=x86_64
+    ^automake % @SYSTEM_COMPILER@ arch=x86_64
+    ^bison % @SYSTEM_COMPILER@ arch=x86_64
+    ^findutils % @SYSTEM_COMPILER@ arch=x86_64
+    ^gettext % @SYSTEM_COMPILER@ arch=x86_64
+    ^libxml2 % @SYSTEM_COMPILER@ arch=x86_64
+    ^xz % @SYSTEM_COMPILER@  arch=x86_64
+    ^tar % @SYSTEM_COMPILER@ arch=x86_64
+    ^help2man % @SYSTEM_COMPILER@ arch=x86_64
+    ^libtool % @SYSTEM_COMPILER@ arch=x86_64
+    ^metis % @COMPILER@ arch=@ARCH@
+    ^openmpi % @COMPILER@ arch=x86_64
+    ^hwloc % @SYSTEM_COMPILER@ arch=x86_64
+    ^libpciaccess % @SYSTEM_COMPILER@ arch=x86_64
+    ^util-macros % @SYSTEM_COMPILER@ arch=x86_64
+    ^libevent % @SYSTEM_COMPILER@ arch=x86_64
+    ^numactl % @SYSTEM_COMPILER@ arch=x86_64
+    ^openssh % @SYSTEM_COMPILER@ arch=x86_64
+    ^libedit % @SYSTEM_COMPILER@ arch=x86_64
+    ^scotch % @COMPILER@ arch=@ARCH@
 
    
   packages:
-    all:
-      compiler:
-      - @COMPILER@
-        
-      providers:
-        mpi:
-          - openmpi
-
-      target:
-      - @ARCH@
-
     cuda:
       buildable: false
       externals:
