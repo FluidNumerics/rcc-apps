@@ -15,7 +15,6 @@ cp -r $FOAM_TUTORIALS/multiphase/interFoam/laminar/damBreak/damBreak/constant .
 
 rm log.*
 rm 0/alpha.water
-sed -i 's/@NRANKS@/${NRANKS}/g' ./system/decomposeParDict
 
 runApplication blockMesh
 runApplication setFields
