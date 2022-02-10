@@ -35,7 +35,7 @@ spack:
     ^libtool % @SYSTEM_COMPILER@ arch=x86_64
     ^metis % @COMPILER@ arch=@ARCH@
     ^openmpi % @COMPILER@ arch=x86_64
-    ^hwloc % @SYSTEM_COMPILER@ arch=x86_64
+    ^hwloc % @COMPILER@ arch=x86_64
     ^libpciaccess % @SYSTEM_COMPILER@ arch=x86_64
     ^util-macros % @SYSTEM_COMPILER@ arch=x86_64
     ^libevent % @SYSTEM_COMPILER@ arch=x86_64
