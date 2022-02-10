@@ -93,6 +93,7 @@ if [[ -f "${INSTALL_ROOT}/spack-pkg-env/spack.yaml" ]]; then
     sed -i 's/@COMPILER@/'"${COMPILER}"'/g' ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
   fi
 
+  sed -i 's/@SYSTEM_COMPILER@/'"${SYSTEM_COMPILER}"'/g' ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
   # Set the target architecture for all packages
   sed -i 's/@ARCH@/'"${ARCH}"'/g' ${INSTALL_ROOT}/spack-pkg-env/spack.yaml
 fi
