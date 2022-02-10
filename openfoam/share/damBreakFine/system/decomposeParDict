@@ -6,7 +6,7 @@ FoamFile
     object      decomposeParDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-numberOfSubdomains @NRANKS@;
+numberOfSubdomains ${SLURM_NTASKS};
 method          metis;
  
 metisCoeffs
