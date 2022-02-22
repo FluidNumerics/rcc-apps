@@ -14,6 +14,9 @@
        <Option name="SSH_USER" label="SSH Username" save="true">
          <String default=""/>
        </Option>
+       <Option name="SSH_PUBKEY" label="Public SSH Key" save="true">
+         <String default="${HOME}/.ssh/id_rsa.pub"/>
+       </Option>
        <Option name="LOGIN_IP" label="Login Node IP Address" save="true">
          <String default=""/>
        </Option>
@@ -45,6 +48,8 @@
          <Argument value="Paraview"/>
          <Argument value="-e"/>
          <Argument value="$SSH_EXE$"/>
+         <Argument value="-i"/>
+         <Argument value="$SSH_PUBKEY$"/>
          <Argument value="-t"/>
          <Argument value="-R"/>
          <Argument value="$PV_SERVER_PORT$:localhost:$PV_SERVER_PORT$"/>
