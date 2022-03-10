@@ -1,0 +1,61 @@
+steps:
+
+
+- id: &BUILD Build Image
+  name: 'hashicorp/packer:latest'
+  args: ["build",
+        "-force",
+        "-var","project_id=$PROJECT_ID",
+        "-var","zone=$_ZONE",
+        "-var","source_image_family=${_SOURCE_IMAGE_FAMILY}",
+        "-var","source_image_project=${_SOURCE_IMAGE_PROJECT}",
+        "-var","subnet=${_SUBNETWORK}",
+        "-var","image_name=${_IMAGE_NAME}",
+        "-var","image_family=${_IMAGE_FAMILY}",
+        "-var","install_root=${_INSTALL_ROOT}",
+        "-var","machine_type=${_MACHINE_TYPE}",
+        "-var","slurm_root=${_SLURM_ROOT}",
+        "-var","target_arch=${_TARGET_ARCH}",
+        "-var","compiler=${_COMPILER}",
+        "-var","system_compiler=$_SYSTEM_COMPILER",
+        "-var","pkg_path=${_PKG_PATH}",
+        "-var","common_path=${_COMMON_PATH}",
+        "-var","env_file=${_ENV_FILE}",
+        '${_PKG_PATH}/packer.json']
+  waitFor: ["-"]
+
+- id: Fluid Run
+  name: 'gcr.io/research-computing-cloud/fluid-run'
+  args: 
+  - '--build-id=${BUILD_ID}'
+  - '--git-sha=${COMMIT_SHA}'
+  - '--project=${PROJECT_ID}'
+  - '--zone=${_ZONE}'
+  - '--artifact-type=gce-vm-image'
+  - '--compiler="${_COMPILER}"'
+  - '--target-arch=${_TARGET_ARCH}'
+  - '--cluster-type=rcc-ephemeral'
+  - '--ci-file=${_PKG_PATH}/fluidci.yaml'
+  - '--gce-image=projects/${PROJECT_ID}/global/images/${_IMAGE_NAME}'
+  - '--rcc-tfvars=${_PKG_PATH}/test/rcc.auto.tfvars'
+  - '--save-results'
+
+substitutions:
+    _ZONE: 'us-central1-f'
+    _IMAGE_FAMILY: 'openfoam-gcp-foss'
+    _COMPILER: 'gcc@10.3.0'
+    _TARGET_ARCH: "x86_64"
+    _SUBNETWORK: 'default'
+    _SOURCE_IMAGE_FAMILY: 'schedmd-slurm-20-11-7-centos-7'
+    _SOURCE_IMAGE_PROJECT: 'research-computing-cloud'
+    _IMAGE_NAME: 'openfoam-gcp-foss-latest'
+    _IMAGE_FAMILY: 'openfoam-gcp-foss'
+    _INSTALL_ROOT: '/opt'
+    _SLURM_ROOT: '/usr/local'
+    _PKG_PATH: "openfoam"
+    _COMMON_PATH: "common"
+    _ENV_FILE: "env/spack.yaml"
+    _MACHINE_TYPE: "n1-standard-16"
+    _SYSTEM_COMPILER: "gcc@4.8.5"
+
+timeout : 86400s
