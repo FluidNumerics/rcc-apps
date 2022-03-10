@@ -1,0 +1,37 @@
+tests:
+
+- command_group: "OpenFOAM - Dam Break [2.7M] (core)"
+  execution_command: "openfoam/test/damBreakFine/setup.sh"
+  output_directory: "damBreak-c260-n120-core"
+  partition: "c2-standard-60"
+  batch_options: "-N1 --time=30:00"
+
+- command_group: "OpenFOAM - Dam Break [2.7M] (core)"
+  execution_command: "openfoam/test/damBreakFine/decompose.sh"
+  output_directory: "damBreak-c260-n120-core"
+  partition: "c2-standard-60-compact"
+  batch_options: "--ntasks=120 --cpus-per-task=2 --mem=50G --time=3:00:00 --exclusive"
+
+- command_group: "OpenFOAM - Dam Break [2.7M] (core)"
+  execution_command: "openfoam/test/damBreakFine/interFoam.scotch.core.sh"
+  output_directory: "damBreak-c260-n120-core"
+  partition: "c2-standard-60-compact"
+  batch_options: "--ntasks=120 --cpus-per-task=2 --mem=50G --time=3:00:00 --exclusive"
+
+- command_group: "OpenFOAM - Dam Break [2.7M] (hwthread)"
+  execution_command: "openfoam/test/damBreakFine/setup.sh"
+  output_directory: "damBreak-c2d112-n112-hwthread"
+  partition: "c2d-standard-112"
+  batch_options: "-N1 --time=30:00"
+
+- command_group: "OpenFOAM - Dam Break [2.7M] (hwthread)"
+  execution_command: "openfoam/test/damBreakFine/decompose.sh"
+  output_directory: "damBreak-c2d112-n112-hwthread"
+  partition: "c2d-standard-112-compact"
+  batch_options: "--ntasks=112 --cpus-per-task=1 --mem=50G --time=3:00:00 --exclusive"
+
+- command_group: "OpenFOAM - Dam Break [2.7M] (hwthread)"
+  execution_command: "openfoam/test/damBreakFine/interFoam.scotch.hwthread.sh"
+  output_directory: "damBreak-c2d112-n112-hwthread"
+  partition: "c2d-standard-112-compact"
+  batch_options: "--ntasks=112 --cpus-per-task=1 --mem=50G --time=3:00:00 --exclusive"
