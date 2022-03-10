@@ -15,11 +15,12 @@ steps:
         "-var","install_root=${_INSTALL_ROOT}",
         "-var","machine_type=${_MACHINE_TYPE}",
         "-var","slurm_root=${_SLURM_ROOT}",
-        "-var","target_arch=${_ARCH}",
+        "-var","target_arch=${_TARGET_ARCH}",
         "-var","compiler=${_COMPILER}",
         "-var","system_compiler=$_SYSTEM_COMPILER",
         "-var","pkg_path=${_PKG_PATH}",
         "-var","common_path=${_COMMON_PATH}",
+        "-var","env_file=${_ENV_FILE}",
         '${_PKG_PATH}/packer.json']
   waitFor: ["-"]
 
@@ -27,7 +28,7 @@ steps:
 substitutions:
     _ZONE: 'us-central1-c'
     _SUBNETWORK: 'default'
-    _SOURCE_IMAGE_FAMILY: 'rcc-centos-foss-v300'
+    _SOURCE_IMAGE_FAMILY: 'schedmd-slurm-20-11-7-centos-7'
     _SOURCE_IMAGE_PROJECT: 'research-computing-cloud'
     _IMAGE_NAME: 'gromacs-gcp-foss-latest'
     _IMAGE_FAMILY: 'gromacs-gcp-foss'
