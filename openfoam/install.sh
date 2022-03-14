@@ -1,13 +1,28 @@
 #!/bin/bash
 #
 
+# Install paraview
+wget --output-document /tmp/paraview.tar.gz "https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v5.10&type=binary&os=Linux&downloadFile=ParaView-5.10.0-egl-MPI-Linux-Python3.9-x86_64.tar.gz"
+
+mkdir /opt/paraview
+tar -xvzf /tmp/paraview.tar.gz --directory /opt/paraview --strip-components 1
+
+cat > /etc/profile.d/z11_paraview.sh <<EOL
+#!/bin/bash
+
+export PATH=\${PATH}:/opt/paraview/bin
+export LD_LIBRARY_PATH=\${LD_LIBRARY_PATH}:/opt/paraview/lib
+
+EOL
+
+
 # Enable GatewayPorts for Paraview reverse connections
 sed -i 's/\#GatewayPorts no/GatewayPorts yes/g' /etc/ssh/sshd_config
 
 # Update MOTD
 cat > /etc/motd << EOL
 =======================================================================  
-  OpenFOAM-GCP VM Image
+  CFD-GCP VM Image
   Copyright 2021 Fluid Numerics LLC
 
 =======================================================================  
