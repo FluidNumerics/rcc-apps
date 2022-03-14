@@ -1,6 +1,6 @@
 #!/bin/bash
  
-echo "Usage : Port, Slurm Account, Slurm Partition, Num-MPI-procs, Memory-per-rank, Hours needed"
+echo "Usage : Port, Slurm Partition, Num-MPI-procs, Memory-per-rank, Hours needed"
  
 LOGIN=$(hostname -s)
 JOB=$RANDOM
@@ -10,17 +10,16 @@ echo "Temporary job file: $TEMP_FILE" # show file name
 
 cat >$TEMP_FILE << EOL
 #!/bin/bash                                           
-#SBATCH --account=$2                                           
-#SBATCH --partition=$3                                           
-#SBATCH --ntasks=$4                                            
+#SBATCH --partition=$2                                           
+#SBATCH --ntasks=$3                                         
 #SBATCH --cpus-per-task=1                                      
-#SBATCH --mem-per-cpu=$5g                                      
-#SBATCH --time=$6:00:00                                        
+#SBATCH --mem-per-cpu=$4g                                      
+#SBATCH --time=$5:00:00                                        
 #SBATCH --job-name=paraview-$JOB                               
 #SBATCH -o paraview-$JOB.log                               
 #SBATCH -e paraview-$JOB.log                               
                                                                
-mpirun -np \${SLURM_NTASKS} /opt/paraview/bin/pvserver -rc -ch=$LOGIN --server-port=$1 --force-offscreen-rendering 
+mpirun -np \${SLURM_NTASKS} /opt/paraview/bin/pvserver --reverse-connection --client-host=$LOGIN --server-port=$1 --force-offscreen-rendering 
 EOL
  
 # display the job submission
