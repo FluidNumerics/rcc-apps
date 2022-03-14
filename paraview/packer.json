@@ -47,32 +47,14 @@
     },
     {
       "type": "file",
-      "source": "{{user `pkg_path`}}/{{user `env_file`}}",
-      "destination": "/tmp/"
-    },
-    {
-      "type": "file",
       "source": "{{user `pkg_path`}}/share",
       "destination": "/tmp/"
     },
     {
       "type": "shell",
       "inline":[ "sudo mkdir {{user `install_root`}}/spack-pkg-env",
-                 "sudo mv /tmp/spack.yaml {{user `install_root`}}/spack-pkg-env/spack.yaml",
                  "sudo mv /tmp/share {{user `install_root`}}/"
                ]
-    },
-    {
-      "type": "shell",
-      "environment_vars":["PROJECT_ID={{user `project_id`}}",
-	                  "INSTALL_ROOT={{user `install_root`}}",
-			  "SLURM_ROOT={{user `slurm_root`}}",
-                          "IMAGE_NAME={{user `source_image_family`}}",
-                          "ARCH={{user `target_arch`}}",
-			  "SYSTEM_COMPILER={{user `system_compiler`}}",
-			  "COMPILER={{user `compiler`}}"],
-      "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
-      "script": "{{user `common_path`}}/spack-install.sh"
     },
     {
       "type": "shell",

@@ -14,20 +14,20 @@
        <Option name="SSH_USER" label="SSH Username" save="true">
          <String default=""/>
        </Option>
+       <Option name="SSH_PUBKEY" label="Public SSH Key" save="true">
+         <String default="${HOME}/.ssh/id_rsa.pub"/>
+       </Option>
        <Option name="LOGIN_IP" label="Login Node IP Address" save="true">
          <String default=""/>
        </Option>
        <Option name="REMOTESCRIPT" label="The remote script that generates the job submission">
-         <String default="/apps/share/submit-paraview.sh"/>
+         <String default="/opt/share/submit-paraview.sh"/>
        </Option>
        <Option name="PV_SERVER_PORT" label="Server Port: ">
          <Range type="int" min="1" max="65535" step="1" default="11000"/>
        </Option>
-       <Option name="SLURM_ACCOUNT" label="Slurm Account" save="true">
-         <String default=""/>
-       </Option>
        <Option name="SLURM_PARTITION" label="Slurm Partition" save="true">
-         <String default=""/>
+         <String default="paraview"/>
        </Option>
        <Option name="NUMPROC" label="Number Of Processes" save="true">
          <Range type="int" min="1" max="256" step="4" default="32"/>
@@ -45,6 +45,8 @@
          <Argument value="Paraview"/>
          <Argument value="-e"/>
          <Argument value="$SSH_EXE$"/>
+         <Argument value="-i"/>
+         <Argument value="$SSH_PUBKEY$"/>
          <Argument value="-t"/>
          <Argument value="-R"/>
          <Argument value="$PV_SERVER_PORT$:localhost:$PV_SERVER_PORT$"/>
