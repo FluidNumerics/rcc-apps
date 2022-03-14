@@ -20,7 +20,7 @@ cat >$TEMP_FILE << EOL
 #SBATCH -o paraview-$JOB.log                               
 #SBATCH -e paraview-$JOB.log                               
                                                                
-mpirun -np \${SLURM_NTASKS} pvserver -rc -ch=$LOGIN --server-port=$1 --force-offscreen-rendering 
+mpirun -np \${SLURM_NTASKS} /opt/paraview/bin/pvserver -rc -ch=$LOGIN --server-port=$1 --force-offscreen-rendering 
 EOL
  
 # display the job submission
