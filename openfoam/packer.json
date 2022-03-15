@@ -87,7 +87,11 @@
     },
     {
       "type": "shell",
-      "inline":[ "sudo mv /tmp/share {{user `install_root`}}/"]
+      "inline":[ "sudo mv /tmp/share {{user `install_root`}}"]
+    },
+    {
+      "type": "shell",
+      "inline":[ "sudo chmod 755 {{user `install_root`}}/share/submit-paraview.sh"]
     }
   ]  
 }
