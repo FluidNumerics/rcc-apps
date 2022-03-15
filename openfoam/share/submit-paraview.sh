@@ -19,7 +19,7 @@ cat >$TEMP_FILE << EOL
 #SBATCH -o paraview-$JOB.log                               
 #SBATCH -e paraview-$JOB.log                               
                                                                
-mpirun -np \${SLURM_NTASKS} /opt/paraview/bin/pvserver --reverse-connection --client-host=$LOGIN --server-port=$1 --force-offscreen-rendering 
+/opt/paraview/bin/mpiexec -np \${SLURM_NTASKS} /opt/paraview/bin/pvserver --reverse-connection --client-host=$LOGIN --server-port=$1 --force-offscreen-rendering 
 EOL
  
 # display the job submission

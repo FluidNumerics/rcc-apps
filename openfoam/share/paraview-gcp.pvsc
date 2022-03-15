@@ -15,15 +15,15 @@
          <String default=""/>
        </Option>
        <Option name="SSH_PUBKEY" label="Public SSH Key" save="true">
-         <String default="${HOME}/.ssh/id_rsa.pub"/>
+         <String default="~/.ssh/id_rsa.pub"/>
        </Option>
        <Option name="LOGIN_IP" label="Login Node IP Address" save="true">
          <String default=""/>
        </Option>
-       <Option name="REMOTESCRIPT" label="The remote script that generates the job submission">
+       <Option name="REMOTESCRIPT" label="Remote Script">
          <String default="/opt/share/submit-paraview.sh"/>
        </Option>
-       <Option name="PV_SERVER_PORT" label="Server Port: ">
+       <Option name="PV_SERVER_PORT" label="Server Port">
          <Range type="int" min="1" max="65535" step="1" default="11000"/>
        </Option>
        <Option name="SLURM_PARTITION" label="Slurm Partition" save="true">
@@ -54,7 +54,6 @@
          <Argument value="env -i"/>
          <Argument value="$REMOTESCRIPT$"/>
          <Argument value="$PV_SERVER_PORT$"/>
-         <Argument value="$SLURM_ACCOUNT$"/>
          <Argument value="$SLURM_PARTITION$"/>
          <Argument value="$NUMPROC$"/>
          <Argument value="$MEMORY$"/>
