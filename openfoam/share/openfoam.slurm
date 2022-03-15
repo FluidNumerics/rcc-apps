@@ -1,13 +1,5 @@
 #!/bin/sh
 #
-#SBATCH --account=cfd
-#
-#SBATCH --partition=openfoam
-#
-#SBATCH --ntasks=8
-#
-#SBATCH --ntasks-per-node=8
-#
 #SBATCH -o openfoam-%j.log
 #
 #SBATCH -e openfoam-%j.log
