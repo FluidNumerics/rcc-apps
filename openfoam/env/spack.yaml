@@ -1,5 +1,11 @@
 spack:
-  view: @INSTALL_ROOT@/view
+  view: 
+    root: @INSTALL_ROOT@/view
+    projections:
+      all: {name}/{version}-{compiler.name}
+    link: run
+    link_type: symlink
+
   config:
     install_tree: @INSTALL_ROOT@/software
 
@@ -8,13 +14,41 @@ spack:
   specs:
   - > 
     openfoam-org@8 +metis % @COMPILER@ arch=@ARCH@  
-    ^cmake % @SYSTEM_COMPILER@ arch=x86_64
-    ^ncurses % @SYSTEM_COMPILER@ arch=x86_64
-    ^pkgconf % @SYSTEM_COMPILER@ arch=x86_64
-    ^openssl % @SYSTEM_COMPILER@ arch=x86_64
-    ^perl % @SYSTEM_COMPILER@ arch=x86_64
-    ^berkeley-db % @SYSTEM_COMPILER@ arch=x86_64
-    ^bzip2 % @SYSTEM_COMPILER@~debug~pic+shared arch=x86_64
+
+
+   
+  packages:
+    cmake:
+      buildable: true
+      target: [x86_64]
+      compiler: [@SYSTEM_COMPILER@]
+    ncurses:
+      buildable: true
+      target: [x86_64]
+      compiler: [@SYSTEM_COMPILER@]
+    pkgconf:
+      buildable: true
+      target: [x86_64]
+      compiler: [@SYSTEM_COMPILER@]
+    openssl:
+      buildable: true
+      target: [x86_64]
+      compiler: [@SYSTEM_COMPILER@]
+    perl:
+      buildable: true
+      target: [x86_64]
+      compiler: [@SYSTEM_COMPILER@]
+    berkeley-db:
+      buildable: true
+      target: [x86_64]
+      compiler: [@SYSTEM_COMPILER@]
+    bzip2:
+      buildable: true
+      target: [x86_64]
+      compiler: [@SYSTEM_COMPILER@]
+      variants: ~debug~pic+shared
+
+
     ^diffutils % @SYSTEM_COMPILER@ arch=x86_64
     ^libiconv % @SYSTEM_COMPILER@ libs=shared,static arch=x86_64
     ^gdbm % @SYSTEM_COMPILER@ arch=x86_64
@@ -43,9 +77,6 @@ spack:
     ^openssh % @SYSTEM_COMPILER@ arch=x86_64
     ^libedit % @SYSTEM_COMPILER@ arch=x86_64
     ^scotch % @COMPILER@ arch=@ARCH@
-
-   
-  packages:
     cuda:
       buildable: false
       externals:
