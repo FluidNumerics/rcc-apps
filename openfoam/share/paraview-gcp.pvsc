@@ -1,5 +1,5 @@
 <Servers> 
-  <Server name="Fluid-Slurm-GCP" resource="csrc://localhost:port">
+  <Server name="RCC" resource="csrc://localhost:port">
    <CommandStartup>
      <Options>
        <Option name="TERM" label="Terminal Client" save="true">
