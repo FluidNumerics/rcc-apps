@@ -6,7 +6,10 @@
 #
 # ////////////////////////////////////////// #
 
-gcc --version
+# Refresh the spack environment
+# This is needed for mixing rcc-cfd image flavors
+spack env deactivate
+spack env activate -d /opt/spack-pkg-env
 
 # Copy the compressible flow over NACA0012 aerofoil demo
 cp -r ${FOAM_TUTORIALS}/compressible/rhoSimpleFoam/aerofoilNACA0012 ./
