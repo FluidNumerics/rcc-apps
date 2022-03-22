@@ -27,10 +27,10 @@ steps:
 substitutions:
     _ZONE: 'us-central1-c'
     _SUBNETWORK: 'default'
-    _SOURCE_IMAGE_FAMILY: 'rcc-centos-foss-v300'
+    _SOURCE_IMAGE_FAMILY: 'schedmd-slurm-20-11-7-debian-10'
     _SOURCE_IMAGE_PROJECT: 'research-computing-cloud'
-    _IMAGE_NAME: 'fluid-run-centos-foss-latest'
-    _IMAGE_FAMILY: 'fluid-run-centos-foss'
+    _IMAGE_NAME: 'fluid-run-foss-latest'
+    _IMAGE_FAMILY: 'fluid-run-foss'
     _INSTALL_ROOT: '/opt'
     _SLURM_ROOT: '/usr/local'
     _PKG_PATH: "fluid-run"

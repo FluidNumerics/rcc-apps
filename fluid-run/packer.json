@@ -69,8 +69,7 @@
 			  "SLURM_ROOT={{user `slurm_root`}}",
                           "IMAGE_NAME={{user `source_image_family`}}",
                           "ARCH={{user `target_arch`}}",
-			  "SYSTEM_COMPILER={{user `system_compiler`}}",
-			  "COMPILER={{user `compiler`}}"],
+			  "SYSTEM_COMPILER={{user `system_compiler`}}"],
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
       "script": "{{user `common_path`}}/spack-install.sh"
     },
